@@ -1,0 +1,376 @@
+var app = angular.module('arevea');
+app.controller('productsCtrl', function($scope, request, ctrlComm, $filter, fileUpload, $interval, $http, $location, $state) {
+    console.log("in productsCtrl");
+    $scope.loader(true);
+    $scope.product = {};
+    $scope.tax = {};
+    $scope.block1 = [{}];
+    $scope.block2 = [{}];
+    $scope.imgList = [];
+    $scope.page = {};
+    $scope.err = {};
+
+    $scope.block1[0].cost = $filter('currency')($scope.block1[0].cost, "USD$");
+
+    $scope.incrementBlock1 = function() {
+        $scope.block1.push({})
+    }
+
+    $scope.decrementBlock1 = function(index) {
+        $scope.block1.splice(index, 1)
+    }
+    $scope.incrementBlock2 = function() {
+        $scope.block2.push({})
+    }
+
+    $scope.decrementBlock2 = function(index) {
+        $scope.block2.splice(index, 1)
+    }
+
+    request.service('vendorGetLocations', 'post', { 'vendor_id': $scope.admin.vendorid }, function(response) {
+        console.log(response)
+        $scope.locationsList = response;
+    })
+    request.service('vendorCategories', 'post', { 'vendor_id': $scope.admin.vendorid }, function(response) {
+        $scope.loader(false);
+        $scope.categoriesList = response;
+    })
+
+    request.service('productStatus', 'get', {}, function(response) {
+
+        $scope.productStatusList = response;
+        console.log("productStatusList", response)
+        $scope.currentPage = 1;
+        $scope.entryLimit = "10";
+        $scope.maxSize = 5;
+    })
+    
+    request.service('taxsList', 'get', {}, function(response) {
+
+        $scope.taxsList = response;
+        console.log("taxid", response)
+    })
+
+    function getTaxList() {
+        request.service('taxsList', 'get', {}, function(response) {
+
+            $scope.taxsList = response;
+            console.log("taxid", response)
+        })
+    }
+
+    if ($location.path() == '/product_service_catalog/Products') {
+       
+    } else if ($location.path() == "/product_service_catalog/addProduct") {
+        
+        $scope.page.type = 'post'
+        $scope.product.status_id = '5';
+    } else if ($location.path() == "/product_service_catalog/updateProduct") {
+        
+        $scope.page.type = 'put';
+        prePoppulateValues(ctrlComm.get('userObj'));
+    }
+    var editProductCatalog = function(obj) {
+        ctrlComm.put('userObj', obj);
+        $location.path("/product_service_catalog/updateProduct");
+    }
+
+    function prePoppulateValues(obj) {
+        if (obj) {
+            console.log("*******************", obj)
+            getAttributes(obj.id)
+            var params = {};
+            params.product_id = obj.id;
+
+            request.service('getProduct', 'post', params, function(response) {
+                console.log("^^^^^^^^^^^^^^^", response);
+                $scope.product = response;
+                // $scope.attributesList=response.attributes;
+
+                $scope.block1 = response.locations;
+                angular.forEach($scope.block1, function(obj) {
+                    obj.location_id = obj.location_id.toString();
+                    obj.tax_class_id = obj.tax_class_id.toString();
+                })
+                $scope.block2 = response.attributes;
+                angular.forEach($scope.block2, function(obj) {
+                    obj.id = obj.id.toString();
+                    obj.attribute_value = obj.attribute_value.toString();
+                })
+
+            })
+
+        } else {
+            $location.path('/product_service_catalog/Products')
+        }
+    }
+
+    function getAttributes(category_id) {
+        var params = {};
+        params.category_id = category_id;
+        console.log(params)
+        request.service('attributesByCategory', 'post', params, function(response) {
+            $scope.attributesList = response;
+            console.log($scope.attributesList)
+        })
+    }
+
+    $scope.getAttributes = function(category_id) {
+            var params = {};
+            params.category_id = category_id;
+            request.service('attributesByCategory', 'post', params, function(response) {
+                $scope.attributesList = response;
+            })
+        }
+        /* if ($location.path() == "/product_service_catalog/updateProduct") {
+             prePoppulateValues(ctrlComm.get('userObj'));
+         }*/
+    $scope.addProduct = function(product, block1, block2) {
+        console.log("in add product")
+        validateProductCatalog(function() {
+            console.log("after validation")
+            product.tax = block1;
+            product.product_attr = block2;
+            product.vendor_id = $scope.admin.vendorid
+            var media = {};
+            media.image = [];
+            media.video = [];
+            console.log($scope.imgList)
+            var fd = new FormData();
+            angular.forEach($scope.imgList, function(obj) {
+                var temp = {};
+                temp.name = obj.name;
+                media.image.push(temp)
+                fd.append('photo', obj);
+            })
+            angular.forEach($scope.videoList, function(obj) {
+                media.video.push(obj)
+            })
+            console.log(media)
+            product.media = media;
+            console.log(angular.toJson(product))
+                //var fd = new FormData();
+                //fd.append('photos',$scope.imgList)
+            fd.append('jsondata', JSON.stringify(product))
+            console.log(angular.toJson(product));
+
+            $http.post("http://192.168.2.185:8000/arevea/addProductCatalog", fd, {
+                    // $http.post("http://qa.arevea.com/arevea/arevea/vendorBusiness", fd, {
+
+                    //$http.post("http://192.168.2.185:8000/arevea/addProductCatalog", fd, {
+
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                .success(function(response) {
+                    $scope.notification(response.message);
+                    $location.path('/product_service_catalog/Products')
+
+                })
+                .error(function(response) {
+                    $scope.notification(response.message);
+                });
+        })
+    }
+
+var getProductList = function() {
+        $scope.loader(true);
+        request.service('productsList', 'post', { 'vendor_id': $scope.admin.vendorid }, function(response) {
+            $scope.loader(false);
+            $scope.productsList = response;
+            console.log("productlist", response)
+        })
+    }
+    var deleteProduct = function(product) {
+        console.log("product.id;", product.id)
+        var params = {};
+        params.product_id = product.id;
+        console.log('params....', params)
+        request.service('deleteProduct', 'post', params, function(response) {
+            $scope.loader(false);
+            if (typeof response == 'string') {
+                response = JSON.parse(response)
+            }
+            if (response.status == '0') {
+                getProductList(function(){
+                    $scope.notification("Product deleted successfully");
+                    $state.go('product_service_catalog.Products');
+                });
+            }
+        })
+    }
+    $scope.deleteProductConfirm = function(product) {
+        var data = {
+            text: 'Are you sure you want to delete',
+            name: 'product'
+
+        }
+        $scope.askConfrimation(data, function() {
+            deleteProduct(product);
+
+        });
+    }
+
+
+ request.service('productsList', 'post', { 'vendor_id': $scope.admin.vendorid }, function(response) {
+         
+            $scope.productsList = response;
+            console.log("productlist", response)
+        })
+
+    $scope.getFileDetails = function(e) {
+        $scope.$apply(function() {
+            $scope.imgList.push($('#image')[0].files[0])
+        })
+    }
+
+    $scope.goToList = function() {
+        $location.path('/product_service_catalog/Products');
+    }
+
+
+
+
+    $scope.removeImage = function(index) {
+        $scope.imgList.splice(index, 1)
+    }
+
+    $scope.removeVideo = function(index) {
+        $scope.videoList.splice(index, 1)
+    }
+
+
+    $scope.attributesValuesList = []
+    $scope.getAttributeValue = function(attribute_id) {
+        var params = {};
+        params.attribute_id = attribute_id;
+        request.service('attrValuesByAttribute', 'post', params, function(response) {
+
+            //if($scope.block2.length == 1){
+            $scope.attributesValuesList[$scope.block2.length] = response;
+            //}
+
+        })
+    }
+    $scope.videoList = [];
+    $scope.addVideo = function() {
+        $scope.videoList.push({ 'url': '' })
+    }
+
+
+    var validateProductCatalog = function(cb) {
+        if (!$scope.product.category_id) { $scope.err.category_id = true; } else { delete $scope.err.category_id; }
+        if (!$scope.product.product_name) { $scope.err.product_name = true; } else { delete $scope.err.product_name; }
+        if (!$scope.product.status) { $scope.err.status = true; } else { delete $scope.err.status; }
+        if (!$scope.product.short_description) { $scope.err.short_description = true; } else { delete $scope.err.short_description; }
+        if (!$scope.product.long_description) { $scope.err.long_description = true; } else { delete $scope.err.long_description; }
+        if (!$scope.block1[0].productLocation) { $scope.err.productLocation = true; } else { delete $scope.err.productLocation; }
+        if (!$scope.block1[0].product_tax_class) { $scope.err.product_tax_class = true; } else { delete $scope.err.product_tax_class; }
+        if (!$scope.block1[0].cost) { $scope.err.cost = true; } else { delete $scope.err.cost; }
+        if (!$scope.block2[0].id) { $scope.err.id = true; } else { delete $scope.err.id; }
+        if (!$scope.block2[0].value) { $scope.err.value = true; } else { delete $scope.err.value; }
+
+        console.log("lengthy::", Object.keys($scope.err).length);
+        console.log("err", $scope.err);
+        if (Object.keys($scope.err).length == 0) {
+
+            if (cb) cb();
+
+        }
+    }
+
+    var cost = '';
+    $scope.$watch('block1[0].cost', function(val) {
+
+        if (val) {
+            if (!val.toString().match(/^[0-9.,]+$/)) {
+                if (val.toString().length != 1) {
+                    $scope.block1[0].cost = cost;
+                } else {
+                    $scope.block1[0].cost = '';
+                }
+            } else {
+                cost = val;
+            }
+        }
+    });
+    var product_upc_ean_code = '';
+    $scope.$watch('product.product_upc_ean_code', function(val) {
+
+        if (val) {
+            if (!val.toString().match(/^[0-9]+$/)) {
+                if (val.toString().length != 1) {
+                    $scope.product.product_upc_ean_code = product_upc_ean_code;
+                } else {
+                    $scope.product.product_upc_ean_code = '';
+                }
+            } else {
+                product_upc_ean_code = val;
+            }
+        }
+    });
+
+    $scope.editProductCatalog = editProductCatalog;
+    $scope.getProductList = getProductList;
+
+});
+
+
+// app.directive('currencyInput', function() {
+//     return {
+//         restrict: 'A',
+//         require: 'ngModel',
+//         link: function(scope, element, attrs, ctrl) {
+
+//             return ctrl.$parsers.push(function(inputValue) {
+//                 var inputVal = element.val();
+
+//                 //clearing left side zeros
+//                 while (inputVal.charAt(0) == '0') {
+//                     inputVal = inputVal.substr(1);
+//                 }
+
+//                 inputVal = inputVal.replace(/[^\d.\',']/g, '');
+
+//                 var point = inputVal.indexOf(".");
+//                 if (point >= 0) {
+//                     inputVal = inputVal.slice(0, point + 3);
+//                 }
+
+//                 var decimalSplit = inputVal.split(".");
+//                 var intPart = decimalSplit[0];
+//                 var decPart = decimalSplit[1];
+
+//                 intPart = intPart.replace(/[^\d]/g, '');
+//                 if (intPart.length > 3) {
+//                     var intDiv = Math.floor(intPart.length / 3);
+//                     while (intDiv > 0) {
+//                         var lastComma = intPart.indexOf(",");
+//                         if (lastComma < 0) {
+//                             lastComma = intPart.length;
+//                         }
+
+//                         if (lastComma - 3 > 0) {
+//                             intPart = intPart.slice(0, lastComma - 3) + "," + intPart.slice(lastComma - 3);
+//                         }
+//                         intDiv--;
+//                     }
+//                 }
+
+//                 if (decPart === undefined) {
+//                     decPart = "";
+//                 } else {
+//                     decPart = "." + decPart;
+//                 }
+//                 var res = intPart + decPart;
+
+//                 if (res != inputValue) {
+//                     ctrl.$setViewValue(res);
+//                     ctrl.$render();
+//                 }
+
+//             });
+
+//         }
+//     };
+// });

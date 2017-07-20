@@ -1,0 +1,127 @@
+<style type="text/css">
+    /*    .calendar-availability-wrapper{
+            background: #FFFFFF;
+            margin-top: 39px;
+        }
+        .calendar-availability-sides{
+            padding: 0 10px;
+        }
+        .calendar-margin{
+            margin: 20px
+        }
+        .col-sm5-padd-left{
+            padding-left: 0px;
+        }
+        .calendar-clear-input {
+            font-size: 20px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 35px;
+            margin: auto;
+            width: 0px;
+            text-align: left;
+            height: 18px;
+            color: #b5b5b5;
+            cursor: pointer;
+        }*/
+</style>
+<div class="spinner" ng-show="loading">
+    <img ng-src="{{loadderUrl}}" alt="loading"/>
+</div>
+<div class="calendar-availability-wrapper clearfix formContainerBg" ng-hide="loading">
+    <div class="calendar-margin">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xs-12 bgWhite pad10-lr">
+            <div class="calendar-availability-sides">
+                <div class="col-xs-12 noPad">
+                    <div class="col-sm-6 pad10 custom-ui-select">
+                        <label class="labelName">Category</label>
+                        <ui-select ng-disabled="$state.current.name == 'calendar.update_available_time'" ng-model="calendar.category" ng-change="end_time(calendar, $index); getProductDetails();" theme="bootstrap" required>
+                            <ui-select-match placeholder="Select category">{{$select.selected.category_name}}</ui-select-match>
+                            <ui-select-choices repeat="category in vendorCategory | filter: $select.search">
+                                <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="text-danger" id="selectCategoryMsg" ng-hide="calendar.category" ng-if="categoryErrorMsg">
+                            {{categoryErrorMsg}}
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pad10 custom-ui-select">
+                        <label class="labelName">Location</label>
+                        <ui-select ng-disabled="$state.current.name == 'calendar.update_available_time'" ng-model="calendar.location" ng-change="end_time(calendar, $index); getProductDetails();" theme="bootstrap" required>
+                            <ui-select-match placeholder="Select location">{{$select.selected.location_name}}</ui-select-match>
+                            <ui-select-choices repeat="location in vendorLocation | filter: $select.search">
+                                <div ng-bind-html="location.location_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="text-danger" id="selectLocationMsg" ng-hide="calendar.location" ng-if="locationErrorMsg">
+                            {{locationErrorMsg}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 pad10" ng-if="$state.current.name == 'calendar.availability'">
+                        <label class="labelName">
+                            Product
+                            <!--- {{showMultipleProduts| json}} / {{vendorProducts| json}}-->
+                        </label>
+                        <select placeholder="Select Product" multiple class="form-control" ng-model="calendar.product" ng-change="end_time(calendar, $index)" ng-if="showMultipleProduts" ng-change="getProductItem(calendar.product)">
+                            <option ng-if="vendorProducts.length < 1" value="" disabled selected>No products available in this location</option>
+                            <option value="all" ng-if="vendorProducts.length >= 2">All</option>
+                            <option value="{{product.id}}" ng-repeat="product in vendorProducts">{{product.product_name}}</option>
+                        </select>
+                        <select placeholder="Select Product" class="form-control" ng-model="calendar.product" ng-change="end_time(calendar, $index)"  ng-if="!showMultipleProduts" ng-change="getProductItemList(calendar.product)">
+                            <option ng-if="vendorProducts.length < 1" value="" disabled selected>No products available in this location</option>
+                            <option value="all" ng-if="vendorProducts.length >= 2">All</option>
+                            <option value="{{product.id}}" ng-repeat="product in vendorProducts">{{product.product_name}}</option>
+                        </select>
+                        <div class="text-danger" id="selectProductMsg" ng-hide="calendar.product" ng-if="productErrorMsg">
+                            {{productErrorMsg}}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 pad10" ng-hide="hideProduct"  ng-if="$state.current.name == 'calendar.update_available_time'">
+                        <label class="labelName">
+                            Product
+                            <!--- {{showMultipleProduts| json}} / {{vendorProducts| json}}-->
+                        </label>
+                        <select ng-if="$state.current.name == 'calendar.update_available_time'" ng-change="end_time(calendar, $index)" class="form-control" ng-model="calendar.product" ng-options="product.id as product.product_name for product in vendorProducts" required>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--            <div class="calendar-availability-sides">
+                            <div class="row">
+                                <div class="col-sm-3 text-left">
+                                    <p class="labelName" style="margin: 0 0 5px !important">Weekday</p>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <p class="labelName" style="margin: 0 0 5px !important">Start Time</p>
+                                </div>
+                                <div class="col-sm-3 text-left">
+                                    <p class="labelName" style="margin: 0 0 5px !important">End Time</p>
+                                </div>
+                            </div>
+                        </div>-->
+            <div class="col-xs-12 noPad calendar-availability-sides calendar-availability-sides"  ng-repeat="scheduled in calendar.scheduled" calendar-availability-days></div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 noPad">
+            <div class="col-sm-6 col-xs-12 pad10">
+                <a href="#/calendar/available_time_list"
+                   ng-disabled="add_status == '1' || isResponse" 
+                   class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
+                   ng-click="saveCalenderAvailability($event)" 
+                   ng-if="$state.current.name == 'calendar.availability'">Add</a>
+                <a href="#/calendar/available_time_list"
+                   class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
+                   style="height: 50px;" ng-click="updateCalenderAvailability($event)" 
+                   ng-disabled="add_status == '1' || isResponse"
+                   ng-if="$state.current.name == 'calendar.update_available_time'" >
+                    Update</a>
+            </div>
+            <div class="col-sm-6 col-xs-12 pad10">
+                <!--ui-sref="calendar.available_time_list"-->
+                <a href='#/calendar/available_time_list' class="col-xs-12 mar20-top pad10 btn btn-info buttonBg-white anchorButton height50 anchorButton">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

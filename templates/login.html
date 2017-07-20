@@ -1,0 +1,58 @@
+<div id="login-container" class="animation-fadeIn">
+    <!-- Login Title -->
+    <div class="login-title text-center">
+        <h1><strong>Arevea Vendor Portal</strong></h1>
+    </div>
+    <!-- END Login Title -->
+
+    <!-- Login Block -->
+    <div class="block push-bit">
+        <!-- Login Form -->
+        <form  id="form-login" class="form-horizontal form-bordered form-control-borderless">
+         
+            <div class="form-group" ng-class="(err.email == true) || (err.valid_email == true) ? 'has-error' : 'has-primary' ">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                        <input type="text" ng-model="login.email" id="login-email" name="login-email" class="form-control input-lg" ng-keyup="evaluateKey(login.email)" placeholder="Email" ng-focus="err.email=false;err.valid_email=false">
+                    </div>                    
+                </div>
+                <div class="col-xs-12">
+                    <span class="text-danger" ng-show="err.email">Please enter email address</span>
+                    <span class="text-danger" ng-show="err.valid_email">Please enter valid email</span>
+                </div>
+            </div>
+            <!-- ng-init="pswStatus = 'password'" -->
+            <div class="form-group"  ng-class="(err.password == true) ? 'has-error' : 'has-primary' ">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                        <input type="password" ng-model="login.password" id="login-password" name="login-password" class="form-control input-lg" placeholder="Password" ng-focus="err.password=false;">
+                    </div>
+                </div>
+                 <div class="col-xs-12">
+                    <span class="text-danger" ng-show="err.password">Please enter password</span>
+                </div>
+            </div>
+            <div class="form-group form-actions">
+                <!-- <div class="col-xs-4">
+                    <label class="switch switch-primary">
+                        <input type="checkbox" id="login-remember-me" name="login-remember-me" checked ng-model="showPsw" ng-change="(showPsw) ? pswStatus = 'text' : pswStatus = 'password' ">
+                        <span></span>
+                    </label>
+                </div> -->
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn btn-sm btn-info" ng-click="adminLogin();"><i class="fa fa-angle-right"></i> Sign in</button>
+                </div>
+            </div>
+<!--             <div class="form-group">
+                <div class="col-xs-12 text-center">
+                    <a href="javascript:void(0)" id="link-reminder-login"><small>Forgot password?</small></a>
+                </div>
+            </div> -->
+        </form>
+        <!-- END Login Form -->
+
+    </div>
+    <!-- END Login Block -->
+</div>

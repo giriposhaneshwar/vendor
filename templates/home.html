@@ -1,0 +1,176 @@
+<!-- Mini Top Stats Row -->
+<div class="row" ng-show="admin.statusCode != '302' && admin.userType != 'user'" >
+   <!--  <div class="col-sm-6 col-lg-4">
+        <a href="#/Users" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.totalUser}}<strong> </h1>
+                    <p class="text-center">Total Users</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/Users" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.totalNewUsers}}<strong> </h1>
+                    <p class="text-center">Today New Users</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/Users" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.androidUsers}}<strong> </h1>
+                    <p class="text-center">Android Users</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/Users" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.iosUsers}}<strong> </h1>
+                    <p class="text-center">iOS Users</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/MessageLog" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.messageLogs}}<strong> </h1>
+                    <p class="text-center">Message Log</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/ErrorLog" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.errorLogs}}<strong> </h1>
+                    <p class="text-center">Error Log</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/Users" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.activeUsers}}<strong> </h1>
+                    <p class="text-center">Active Users</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="#/API-Log" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.apiRequest}}<strong> </h1>
+                    <p class="text-center">API Requests</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <a href="javascript:void(0)" class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{dObj.diskSpace}}<strong></h1>
+                    <p class="text-center">Disk Space</p>
+                </div>
+            </div>
+        </a>
+    </div> -->
+</div>
+<div ng-show="admin.userType == 'user'">
+    <div class="col-sm-6 col-lg-4" ng-repeat="app in usersAppList">
+        <a target='_blank' href={{app.href}} class="widget widget-hover-effect1">
+            <div class="widget-simple">
+                <div class="widget-content animation-pullDown">
+                    <h1 class="text-center"> <strong>{{app.app_name}}<strong> </h1>
+                    <p class="text-center">{{app.createDateTime}}</p>
+                    <p>Dashboard</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<!-- END Mini Top Stats Row -->
+<!-- 
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-extra themed-background-dark">
+                <h3 class="widget-content-light" style="margin:10px;">
+                     Last <strong>Activity</strong>
+                 </h3>
+            </div>
+            <div class="widget-extra">
+
+                <div class="timeline">
+
+
+                    <ul class="timeline-list">
+                        <li class="active" ng-repeat="activity in dashboard.lastActivities">
+                            <div class="timeline-icon "><i class="fa fa-clock-o"></i></div>
+                            <div class="timeline-time"><small>{{activity.time}}</small></div>
+                            <div class="timeline-content">
+                                <p class="push-bit"><a href><strong>{{activity.name}}</strong></a></p>
+                                <p class="push-bit">{{activity.desc}}</p>
+                            </div>
+                        </li>
+                    </ul>
+
+
+ 
+                    <ul class="timeline-list">
+                        <li class="active">
+                            <div class="timeline-icon themed-background-fire themed-border-fire"><i class="fa fa-clock-o"></i></div>
+                            <div class="timeline-time"><small>just now</small></div>
+                            <div class="timeline-content">
+                                <p class="push-bit"><a href="page_ready_user_profile.html"><strong>Jordan Carter</strong></a></p>
+                                <p class="push-bit">The trip was an amazing and a life changing experience!!</p>
+                            </div>
+                        </li>
+                        <li class="active">
+                            <div class="timeline-icon"><i class="fa fa-clock-o"></i></div>
+                            <div class="timeline-time"><small>5 min ago</small></div>
+                            <div class="timeline-content">
+                                <p class="push-bit"><a href="page_ready_user_profile.html"><strong>Administrator</strong></a></p>
+                                <strong>Free courses</strong> for all our customers at A1 Conference Room - 9:00 <strong>am</strong> tomorrow!
+                            </div>
+                        </li>
+                        <li class="active">
+                            <div class="timeline-icon"><i class="fa fa-clock-o"></i></div>
+                            <div class="timeline-time"><small>15 min ago</small></div>
+                            <div class="timeline-content">
+                                <p class="push-bit"><a href="page_ready_user_profile.html"><strong>Jordan Carter</strong></a></p>
+                                <p class="push-bit">The trip was an amazing and a life changing experience!!</p>
+                            </div>
+                        </li>
+                        <li class="active">
+                            <div class="timeline-icon"><i class="fa fa-clock-o"></i></div>
+                            <div class="timeline-time"><small>25 min ago</small></div>
+                            <div class="timeline-content">
+                                <p class="push-bit"><a href="page_ready_user_profile.html"><strong>Administrator</strong></a></p>
+                                <strong>Free courses</strong> for all our customers at A1 Conference Room - 9:00 <strong>am</strong> tomorrow!
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+ -->

@@ -1,0 +1,308 @@
+<style type="text/css">
+    .vendor-profile-wrapper{
+        margin-top: 58px;
+        background: #FFFFFF;
+    }
+    .vendor-profile-margin{
+        margin:20px;
+    }
+    .vendor-profile-padd{
+        padding: 10px;
+    }
+    .vendor-profile-topPadd{
+        padding-top: 10px;
+    }
+    .theme-btn:hover,.theme-btn:active,.theme-btn:visited,.theme-btn:focus{
+        color: white;
+    }
+    .warning-cancel-btn{
+        background-color: #f1f1f1;
+        border-color: #f1f1f1;
+        border-radius: 0;
+        padding: 10px 20px 10px 20px;
+        font-size: 12px
+    }
+    .pricing-bubble hr{
+        border-top: 1px solid #ddd !important;
+        width: 100px;
+    }
+</style>
+<div class="vendor-profile-wrapper">
+    <div class="vendor-profile-margin">
+        <div class="block-title">
+            <h2><strong>Subscription Plans</strong></h2>
+        </div>
+        <div class="row" ng-show="subscribe.subscriptionPlans">
+            <div class="col-sm-offset-1">
+                <div class="membership-pricing-table">
+                    <table class="table-responsive">
+                        <tbody>
+                            <tr>
+                                <th class="plan-header plan-header-free">
+                                    <div class="pricing-plan-name">BASIC</div>
+                                    <div class="pricing-plan-price">
+                                        <sup>Free</span>
+                                    </div>
+
+                                </th>
+                                <th class="plan-header plan-header-blue">
+                                    <div class="pricing-plan-name">{{premium.subscription_name| uppercase}}</div>
+                                    <div class="pricing-plan-price">
+                                        <sup>$</sup>{{premium.monthly}}<span>.00</span>
+                                    </div>
+                                    <div class="pricing-plan-month">month</div>
+                                </th>
+                                <th class="plan-header plan-header-green">
+                                    <div class="pricing-plan-name">{{prestige.subscription_name| uppercase}}</div>
+                                    <div class="pricing-plan-price">
+                                        <sup>$</sup>{{prestige.monthly}}<span>.00</span>
+                                    </div>
+                                    <div class="pricing-plan-month">month</div>
+                                </th>
+
+                            </tr>
+                            <tr>
+                                <td class="action-header">
+                                    Low
+                                </td>
+                                <td class="action-header">
+                                    High
+                                </td>
+                                <td class="action-header">
+                                    Highest
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>10 photos</td>
+                                <td>50 photos, High Resolution</td>
+                                <td>100 photos, High Resolution</td>
+                            </tr>
+                            <tr>
+                                <td>Audio files allowed</td>
+                                <td>Audio files allowed</td>
+                                <td>Audio files allowed</td>
+                            </tr>
+                            <tr>
+                                <td>Youtube and Vimeo videos allowed</td>
+                                <td>Youtube and Vimeo videos allowed</td>
+                                <td>Youtube and Vimeo videos allowed</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Promoted Listing</td>
+                                <td>Promoted Listing</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Priority Customer Support</td>
+                                <td>Priority Customer Support</td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Marketing ads for multiple categories</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-4 pricing-wrapper">
+                        <div class="pricing-bubble">
+                            <div class="bubble-price free-wrapper">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.subscription_name == 'Free'" ng-model="subscribe.free" ng-change="checkSubscription('free', '4')" name="subscribe" value="4"/></span>
+                                Free
+                                <span class="selected-plan-img" ng-if="currentSubscription.subscription_name == 'Free'"><img src="img/selected.png" alt="Selected Plan"/></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 pricing-wrapper">
+                        <div class="pricing-bubble">
+                            <p class="bubble-price pad-0 mar-0">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.total_amount_per_plan == premium.monthly" ng-model="subscribe.premium" ng-change="checkSubscription('premium', '1')" name="subscribe" value="1"/>
+                                </span>${{premium.monthly| number:2}}<span class="price-span">/ MONTH</span>
+                                <span class="selected-plan-img" ng-if="currentSubscription.total_amount_per_plan == premium.monthly"><img src="img/selected.png" alt="Selected Plan"/></span>
+                            </p>
+                            <hr>
+                            <p class="bubble-price pad-0 mar-0">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.total_amount_per_plan == premium.haly_yearly_total_amount" ng-model="subscribe.premium" ng-change="checkSubscription('premium', '3')" name="subscribe" value="3"/></span>
+                                ${{premium.haly_yearly_total_amount| number:2}} <span class="price-span">/6 MONTHS</span>
+                                <span class="selected-plan-img" ng-if="currentSubscription.total_amount_per_plan == premium.haly_yearly_total_amount"><img src="img/selected.png" alt="Selected Plan"/></span>
+                            </p>
+                            <p class="price-span txt-green pad-0 mar-0">Save ${{premium.half_yearly_save| number:2}}</p>
+                            <hr>
+                            <p class="bubble-price pad-0 mar-0">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.total_amount_per_plan == premium.yearly_plan_total_amount" ng-model="subscribe.premium" ng-change="checkSubscription('premium', '4')" name="subscribe" value="4"/></span>
+                                ${{premium.yearly_plan_total_amount| number:2}} <span class="price-span">/12 MONTHS</span>
+                                <span class="selected-plan-img" ng-if="currentSubscription.total_amount_per_plan == premium.yearly_plan_total_amount"><img src="img/selected.png" alt="Selected Plan"/></span>
+                            </p>
+                            <p class="price-span txt-green pad-0 mar-0">Save ${{premium.yearly_save| number:2}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 pricing-wrapper">
+                        <div class="pricing-bubble">
+                            <p class="bubble-price pad-0 mar-0">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.total_amount_per_plan == prestige.monthly" ng-model="subscribe.prestige" ng-change="checkSubscription('prestige', '1')" name="subscribe" value="1"/></span>
+                                ${{prestige.monthly| number:2}} <span class="price-span">/ MONTH</span>
+                                <span class="selected-plan-img" ng-if="currentSubscription.total_amount_per_plan == prestige.monthly"><img src="img/selected.png" alt="Selected Plan"/></span>
+                            </p>
+                            <hr>
+                            <p class="bubble-price pad-0 mar-0">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.total_amount_per_plan == prestige.haly_yearly_total_amount" ng-model="subscribe.prestige" ng-change="checkSubscription('prestige', '3')" name="subscribe" value="3"/></span>
+                                ${{prestige.haly_yearly_total_amount| number:2}} <span class="price-span">/6 MONTHS</span>
+                                <span class="selected-plan-img" ng-if="currentSubscription.total_amount_per_plan == prestige.haly_yearly_total_amount"><img src="img/selected.png" alt="Selected Plan"/></span>
+                            </p>
+                            <p class="price-span txt-pink pad-0 mar-0">Save ${{prestige.half_yearly_save| number:2}}</p>
+                            <hr>
+                            <p class="bubble-price pad-0 mar-0">
+                                <span class="pull-left"><input type="radio" ng-disabled="currentSubscription.total_amount_per_plan == prestige.yearly_plan_total_amount" ng-model="subscribe.prestige" ng-change="checkSubscription('prestige', '4')" name="subscribe" value="4"/></span>
+                                ${{prestige.yearly_plan_total_amount | number: 2}} <span class="price-span">/12 MONTHS</span>
+                                <span class="selected-plan-img" ng-if="currentSubscription.total_amount_per_plan == prestige.yearly_plan_total_amount"><img src="img/selected.png" alt="Selected Plan"/></span>
+                            </p>
+                            <p class="price-span txt-pink pad-0 mar-0">Save ${{prestige.yearly_save| number:2}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-center mar-btm-20">
+                        <button class="btn btn-default custom-blue-btn" ng-click="subscribePlan('free', '1')" ng-if="subscribe.free !== ''">Subscribe Free</button>
+                        <button class="btn btn-default custom-green-btn" ng-click="subscribePlan('premium', '2')" ng-if="subscribe.premium !== ''">Subscribe Premium</button>
+                        <button class="btn btn-default custom-pink-btn" ng-click="subscribePlan('prestige', '3')" ng-if="subscribe.prestige !== ''">Subscribe Prestige</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="subscribe.subscriptionDetails">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="panel panel-primary" ng-class="{backPinkBorder: currentSubscription.subscription_name == 'Prestige', backGreenBorder: currentSubscription.subscription_name == 'Premium' , backBlueBorder: currentSubscription.subscription_name == 'Free'}">
+                        <div class="panel-heading" ng-class="{backPink: currentSubscription.subscription_name == 'Prestige', backGreen: currentSubscription.subscription_name == 'Premium', backBlue: currentSubscription.subscription_name == 'Free'}">Current Plan</div>
+                        <div class="panel-body panel-body-pad">
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Plan :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{currentSubscription.subscription_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Plan Months :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{currentSubscription.mode_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Payment Status :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{currentSubscription.payment_status}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Valid Upto :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{currentSubscription.end_date|  date:'dd - MMMM - yyyy'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-if="userSelectedPlan !== 'free'">
+                    <div class="panel panel-primary" ng-class="{backGreenBorder: subscribeData.subscription_name == 'Premium', backPinkBorder: subscribeData.subscription_name == 'Prestige',backBlueBorder: subscribeData.subscription_name == 'Free'}">
+                        <div class="panel-heading" ng-class="{backGreen: subscribeData.subscription_name == 'Premium', backPink: subscribeData.subscription_name == 'Prestige', backBlue: subscribeData.subscription_name == 'Free'}">Selected Plan</div>
+                        <div class="panel-body panel-body-pad">
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Plan :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{subscribeData.subscription_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Plan Months :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{subscribeData.mode_name}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Payment Status :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details">{{subscribeData.payment_status}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-5">
+                                    <p class="sub-name">Due Amount :</p>
+                                </div>										
+                                <div class="col-sm-7">
+                                    <p class="sub-details"><strong>{{subscribeData.total_amount_per_plan| number:2}}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="userSelectedPlan !== 'free'">
+                <div class="col-sm-12">
+                    <label>Payment</label>
+                </div>
+                <div class="col-sm-8">
+                    <form name="BTCCForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="ccNumber" id="ccNumber" placeholder="Credit Card Number" my-length="16" ng-pattern="/[0-9]{13,16}/" autocomplete="off" ng-model="subscribe.cardNumber" ng-keydown="checkEmpty('ccNumber')" />
+                                <div class="checkout-error red" id="ccNumberError"></div>
+                            </div>
+                        </div>
+                        <div class="row vendor-profile-topPadd">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-5" style="padding-right: 0px">
+                                                <input type="text" ng-model="subscribe.cardMonth" ng-blur="formatMonth();"  id="ccMonth" class="form-control" name="ccMonth" placeholder="MM" min="1" max="12" my-length="2" ng-change="checkEmpty('ccMonth')" />
+                                                <div class="checkout-error red" id="ccMonthError"></div>
+                                            </div>
+                                            <div class="col-sm-2" style="padding-top: 7px">
+                                                <span style="font-size: 27px">/</span></div>
+                                            <div class="col-sm-5" style="padding-left: 0px">
+                                                <input type="text" ng-model="subscribe.cardYear" ng-blur="formatYear();" name="ccYear" id="ccYear" class="form-control" placeholder="YYYY" my-length="4" ng-change="checkEmpty('ccYear')"/>
+                                                <div class="checkout-error red" id="ccYearError"></div>
+                                            </div>
+                                        </div>	
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" placeholder="CVV" ng-model="subscribe.cardCVV" name="ccCvv" id="ccCvv" my-length="4" ng-change="checkEmpty('ccCvv')" />
+                                        <div class="checkout-error red" id="ccCvvError"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="vendor-profile-topPadd mar-btm-20">
+                        <button class="btn theme-btn" ng-click="makePayment()">Make Payment</button>
+                        <button id="showPswdPlan" class="btn warning-cancel-btn" ng-click="changeCurrentPlan();">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 text-center" ng-if="userSelectedPlan == 'free'">
+                <div class="vendor-profile-topPadd mar-btm-20">
+                    <button class="btn theme-btn" ng-click="changeCurrentPlan()">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

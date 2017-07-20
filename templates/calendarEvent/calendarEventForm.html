@@ -1,0 +1,166 @@
+<style>
+    .form-control-custom {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 1px 0px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background: none;
+        margin-bottom: 5px;
+        background-image: none;
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+    }
+</style>
+<div class="spinner" ng-show="loading">
+    <img ng-src="{{loadderUrl}}" alt="loading"/>
+</div>
+<div class="col-xs-12 col-md-12 noPad formContainerBg" ng-hide="loading">
+    <div class="col-sm-8 col-md-8 col-lg-8 col-xs-12 bgWhite pad10-lr">
+        <div class="col-md-12 col-xs-12 text-left noPad">
+            <div class="clearfix">
+                <div class="col-md-6 pad10 col-sm-6 col-xs-12 custom-ui-select">
+                    <label class="labelName">Category</label>
+                    <ui-select ng-model="calendarEvent.category" ng-change="end_time(calendarEvent); getProductDetails();" theme="bootstrap">
+                        <ui-select-match placeholder="Select category">{{$select.selected.category_name}}</ui-select-match>
+                        <ui-select-choices repeat="category in calendarEventCategory | filter: $select.search">
+                            <div ng-bind-html="category.category_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div class="text-danger" id="selectCategoryMsg" ng-hide="calendarEvent.category" ng-if="categoryErrorMsg">
+                        {{categoryErrorMsg}}
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 custom-ui-select pad10">
+                    <label class="labelName">Location</label>
+                    <ui-select ng-model="calendarEvent.location" ng-change="end_time(calendarEvent); getProductDetails();" theme="bootstrap">
+                        <ui-select-match placeholder="Select location">{{$select.selected.location_name}}</ui-select-match>
+                        <ui-select-choices repeat="location in calendarEventLocation | filter: $select.search">
+                            <div ng-bind-html="location.location_name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div class="text-danger" id="selectLocationMsg" ng-hide="calendarEvent.location" ng-if="LocationErrorMsg">
+                        {{LocationErrorMsg}}
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 pad10" ng-if="$state.current.name == 'calendar.addcalendarEvent'" >
+                    <label class="labelName">Product</label>
+                    <!--ng-if="$state.current.name == 'calendar.addcalendarEvent' || $state.current.name == 'calendar.updatecalendarEvent"-->
+                    <select multiple class="form-control" ng-change="end_time(calendarEvent)" ng-model="calendarEvent.product" ng-change="getProductItem(calendarEvent.product)" ng-if="showMultipleProduts">
+                        <option value="all" ng-if="calendarEventProducts.length >= 2">All</option>
+                        <option value="{{product.id}}" ng-repeat="product in calendarEventProducts">{{product.product_name}}</option>
+                    </select>
+                    <select class="form-control" ng-change="end_time(calendarEvent)" ng-model="calendarEvent.product" ng-change="getProductItemList(calendarEvent.product)" ng-if="!showMultipleProduts">
+                        <option value="all" ng-if="calendarEventProducts.length >= 2">All</option>
+                        <option value="{{product.id}}" ng-repeat="product in calendarEventProducts">{{product.product_name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 pad10" ng-show="calendarProduct">
+                    <label class="labelName" ng-if="$state.current.name == 'calendar.updatecalendarEvent'">Product</label>
+                    <select ng-if="$state.current.name == 'calendar.updatecalendarEvent'" ng-change="end_time(calendarEvent)" class="form-control" ng-model="calendarEvent.product" ng-options="product.id as product.product_name for product in calendarEventProducts">
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="col-md-12 col-sm-12 pad10">
+                    <label class="labelName" for="name">Event Name</label>
+                    <input type="text" class="form-control" name="product_name" ng-model="calendarEvent.eventName" placeholder="Enter event name"  required> <!--ng-focus="err.event_name = false;"-->
+                    <div class="text-danger" id="EventNameMsg" ng-hide="calendarEvent.eventName" ng-if="NameErrorMsg">
+                        {{NameErrorMsg}}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="col-md-12 col-sm-12 pad10">
+                    <label class="labelName" for="name">Event Description</label>
+                    <textarea cols="4" rows="5" class="form-control" ng-model="calendarEvent.eventDescription" placeholder="Enter description" style="resize: none;"></textarea>
+                    <div class="text-danger" id="EventDescriptionMsg" ng-hide="calendarEvent.eventDescription" ng-if="DescriptionErrorMsg">
+                        {{DescriptionErrorMsg}}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix" ng-repeat="scheduledEvent in calendarEvent.scheduledEvent">
+                <div class="col-md-5 col-sm-5 col-xs-5 pad10">
+                    <label class="labelName">
+                        Booking Start Date &amp; Time
+                        <!--{{calendarEvent.scheduledEvent[$index].fromDate| json}}-->
+                    </label>
+                    <span class="dateTimePickerHolder startFrom">
+                        <!--                        <input type="text"
+                                                       class="form-control form-margin datePickerEle from startFromResult"
+                                                       ng-model="calendarEvent.scheduledEvent[$index].fromDate" />-->
+                        <!--                        <input ng-flatpickr 
+                                                       fp-opts="dateOptsStart" 
+                                                       fp-on-setup="getEventStart(fpItem, $index, 'from')" 
+                                                       ng-model="calendarEvent.scheduledEvent[$index].startFromDate" 
+                                                       data-eleIndex ='{{$index}}'
+                                                       data-eleType ='from'
+                                                       class="form-control form-margin datePickerEle ele{{$index}} from">-->
+                        <input ng-flatpickr 
+                               fp-opts="dateOptsStart" 
+                               fp-on-setup="getEventStart(fpItem, $index, 'from')" 
+                               ng-model="calendarEvent.scheduledEvent[$index].fromDate" 
+                               data-eleIndex ='{{$index}}'
+                               data-eleType ='from'
+                               class="form-control form-margin datePickerEle ele{{$index}} from">
+                        <input type="text" 
+                               class="form-control form-margin datePickerEle ele{{$index}} startFromTime"
+                               ng-model="calendarEvent.scheduledEvent[$index].fromTime">
+                    </span>
+                    {{calendarEvent.scheduledEvent[$index].startFromDate| json}}
+                    <div class="text-danger" id="EventFromDateMsg" ng-hide="calendarEvent.scheduledEvent[$index].fromDate" ng-if="calendarEvent.scheduledEvent[$index].fromDateErrorMsg">
+                        {{calendarEvent.scheduledEvent[$index].fromDateErrorMsg}}
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5 pad10" >
+                    <label class="labelName">
+                        Booking End Date &amp; Time
+                        <!--{{calendarEvent.scheduledEvent[$index].toDate| json}}-->
+                    </label>
+                    <span class="dateTimePickerHolder endTo">
+                        {{calendarEvent.scheduledEvent[$index].toDate| json}}
+                        <!--                        <input type="text" 
+                                                       class="form-control form-margin datePickerEle to endToResult"
+                                                       ng-model="calendarEvent.scheduledEvent[$index].toDate" />-->
+                        <!--                        <input ng-flatpickr 
+                                                       fp-opts="dateOptsEnd" 
+                                                       fp-on-setup="getEventEnd(fpItem, $index, 'to')"  
+                                                       ng-model="calendarEvent.scheduledEvent[$index].endToDate" 
+                                                       data-eleIndex ='{{$index}}'
+                                                       data-eleType ='to'
+                                                       class="form-control form-margin datePickerEle ele{{$index}} to">-->
+                        <input ng-flatpickr 
+                               fp-opts="dateOptsEnd" 
+                               fp-on-setup="getEventEnd(fpItem, $index, 'to')"  
+                               ng-model="calendarEvent.scheduledEvent[$index].toDate" 
+                               data-eleIndex ='{{$index}}'
+                               data-eleType ='to'
+                               class="form-control form-margin datePickerEle ele{{$index}} to">
+                        <input type="text" 
+                               class="form-control form-margin datePickerEle ele{{$index}} endToTime"
+                               ng-model="calendarEvent.scheduledEvent[$index].toTime">
+                    </span>
+                    <div class="text-danger" id="EventToDateMsg" ng-hide="calendarEvent.scheduledEvent[$index].toDate" ng-if="calendarEvent.scheduledEvent[$index].toDateErrorMsg">
+                        {{calendarEvent.scheduledEvent[$index].toDateErrorMsg}}
+                    </div>
+                </div>
+                <div ng-show="add_status == '0'" ng-if="$state.current.name == 'calendar.addcalendarEvent'" class="col-md-2 col-sm-2 col-xs-2 pad10" style="margin-top:32px">
+                    <button type="button" class="btn btn-default buttonBg btn-circle" ng-click="add()" style="border-radius: 22px;position:relative;"><i class="glyphicon glyphicon-plus" style="font-size: 12px;left: 1px;"></i></button>
+                    <button type="button" class="btn btn-default deleteButton btn-circle" ng-if="!$first" ng-click="delete($index)" style="border-radius: 22px; position: relative;"><i class="glyphicon glyphicon-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 noPad">
+        <div class="col-sm-6 col-xs-12 pad10-lr">
+            <button ng-disabled="add_status == '1' || isResponse" ng-if="$state.current.name == 'calendar.addcalendarEvent'" class="btn btn-primary pad10 col-xs-12 buttonBg anchorButton loginButton height50 mar20-top" style="height: 50px;" type="button" ng-click="saveCalendarEvent()">Add</button>
+            <button ng-disabled="add_status == '1' || isResponse" ng-if="$state.current.name == 'calendar.updatecalendarEvent'" class="btn btn-primary pad10 col-xs-12 buttonBg anchorButton loginButton height50 mar20-top" style="height: 50px;" type="button" ng-click="updateCalendarEvent()"> Update</button>
+        </div>
+        <div class="col-sm-6 col-xs-12 pad10-lr">
+            <button class="btn btn-info col-xs-12 pad10 buttonBg-white loginButton height50 mar20-top" ui-sref="calendar.calendarEventList"> Cancel</button>
+        </div>
+    </div>
+</div>

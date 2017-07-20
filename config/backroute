@@ -1,0 +1,147 @@
+/*(function() {*/
+var app = angular.module('arevea', ["ui.router", "ui.bootstrap", "ngAnimate", "ngSanitize", "mgcrea.ngStrap"]);
+app.config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/Home');
+
+    $stateProvider
+            .state('login', {
+                url: '/login',
+                templateUrl: 'templates/login.html',
+                controller: 'loginCtrl'
+            })
+            
+            
+            
+            .state('Home', {
+                url: '/Home',
+                templateUrl: 'templates/home.html',
+                controller: 'homeCtrl'
+            })
+            .state('My-Account', {
+                url: '/My-Account',
+                templateUrl: 'templates/myAccount.html',
+                controller: 'myAccountCtrl'
+            })
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: 'templates/dashboard.html'
+            })
+            .state('myBooking', {
+                url: '/mybooking',
+                templateUrl: 'templates/myBooking.html'
+            })
+            .state('customRequests', {
+                url: '/customRequests',
+                templateUrl: 'templates/customRequests.html'
+            })
+            .state('/Verification', {
+                url: '/Verification',
+                templateUrl: 'templates/Verification.html',
+                controller: 'verificationCtrl'
+            })
+            .state('product_service_catalog', {
+                url: '/product_service_catalog',
+                templateUrl: 'templates/product/product_service_catalog.html'            
+            })
+            .state('product_service_catalog.Products', {
+                url: '/Products',
+                templateUrl: 'templates/product/Products.html',
+                controller: 'productsCtrl'
+            })
+            .state('product_service_catalog.addProduct', {
+                url: '/addProduct',
+                templateUrl: 'templates/product/productForm.html',
+                controller: 'productsCtrl'
+            })
+            .state('product_service_catalog.updateProduct',{
+                url: '/updateProduct',
+                templateUrl: 'templates/product/productForm.html',
+                controller: 'productsCtrl'
+            })
+            .state('Products.paragraph',{
+                url: '/addProduct',
+                templateUrl: 'templates/test2.html',
+                controller: 'productsCtrl'
+            })
+            .state('Sample', {
+                url: '/Sample',
+                templateUrl: 'templates/sampleTest.html',
+                controller: 'homeCtrl'
+            })
+
+            .state('vendorSettings', {
+                url: '/vendorSettings',
+                templateUrl: 'templates/vendorSettings.html',
+                controller: 'vendorSettingCtrl'
+            })
+            .state('vendorSettings.My-Account', {
+                url: '/My-Account',
+                templateUrl: 'templates/myAccount.html',
+                controller: 'myAccountCtrl'
+            })
+            .state('vendorSettings.My-Account.tab2', {
+                url: '/My-Account',
+                templateUrl: 'templates/myAccount.html',
+                controller: 'myAccountCtrl'
+            })
+            .state('vendorSettings.Location', {
+                url: '/Location',
+                templateUrl: 'templates/Location.html',
+                controller: 'locationCtrl'
+            })
+            .state('vendorSettings.addLocation',{
+                url: '/addLocation',
+                templateUrl: 'templates/addLocation.html',
+                controller: 'locationCtrl'
+            })
+           .state('calender', {
+                url: '/calender',
+                templateUrl: 'templates/calendarBusinessTime/calender.html',
+                controller: 'businessTimeCtrl'
+            })
+            .state('calender.availability', {
+                    url: '/AvailabilityTiming',
+                    templateUrl: 'templates/calendarBusinessTime/calender_availability.html',
+                    controller: 'businessTimeCtrl'
+            })
+            .state('calender.available_time_list', {
+                url: '/available_time_list',
+                templateUrl: 'templates/calendarBusinessTime/calendarAvlbTimeList.html',
+                controller: 'businessTimeCtrl'
+            })
+            .state('calender.update_available_time', {
+                url: '/update_available_time',
+                templateUrl: 'templates/calendarBusinessTime/calender_availability.html',
+                controller: 'businessTimeCtrl'
+            })
+            .state('calender.addCalenderEvent', {
+                    url: '/addCalenderEvent',
+                    templateUrl: 'templates/calenderEvent/calenderEventForm.html',
+                    controller: 'calenderEventCtrl'
+            })
+             .state('calender.updateCalenderEvent', {
+                    url: '/updateCalenderEvent',
+                    templateUrl: 'templates/calenderEvent/calenderEventForm.html',
+                    controller: 'calenderEventCtrl'
+            })
+
+            .state('calender.calendarEventList', {
+                url: '/calendarEventList',
+                templateUrl: 'templates/calenderEvent/calendarEventList.html',
+                controller: 'calenderEventCtrl'
+            })
+
+
+
+});
+
+app.config(function ($provide) {
+    $provide.decorator('$uiViewScroll', function ($delegate) {
+        return function (uiViewElement) {
+            // var top = uiViewElement.getBoundingClientRect().top;
+            // window.scrollTo(0, (top - 30));
+            // Or some other custom behaviour...
+        };
+    });
+});
+

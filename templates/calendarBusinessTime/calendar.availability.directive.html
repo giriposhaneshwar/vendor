@@ -1,0 +1,60 @@
+<div class="calendar-availability-sides">
+    <div class="col-sm-3 pad10 custom-ui-select">
+        <p class="labelName" style="margin: 0 0 5px !important">Weekday</p>
+        <ui-select ng-model="calendar.scheduled[$index].weekDay" ng-change="end_time(calendar, $index)" theme="bootstrap" required>
+            <ui-select-match placeholder="Select weekday">{{$select.selected.name}}</ui-select-match>
+            <ui-select-choices repeat="day in weekdays | filter: $select.search">
+                <div ng-bind-html="day.name | highlight: $select.search"></div>
+            </ui-select-choices>
+        </ui-select>
+        <div class="text-danger" id="selectWeekDayMsg" ng-hide="calendar.scheduled[$index].weekDay" ng-if="calendar.scheduled[$index].WeekDayErrorMsg">
+            {{calendar.scheduled[$index].WeekDayErrorMsg}}
+        </div>
+    </div>
+    <div class="col-sm-3 pad10">
+        <p class="labelName" style="margin: 0 0 5px !important">Start Time</p>
+        <!--<div class="col-sm-3"></div>-->
+        <div class="col-sm-12 noPad">
+            <input type="text" 
+                   name="startDate" 
+                   placeholder="Select start time" 
+                   ng-change="end_time(calendar, $index)" 
+                   class="form-control pad-8" 
+                   ng-model="calendar.scheduled[$index].startTime" 
+                   ng-click="showStartTime($index)" 
+                   id="startTime{{$index}}" 
+                   required 
+                   readonly="true">
+            <!--<span ng-if="calendar.scheduled[$index].startTime !== ''" class="calendar-clear-input clearInputField" ng-click="clearTime($index, 'start');">&times;</span>-->
+            <div class="text-danger" id="selectstartTimeMsg" ng-hide="calendar.scheduled[$index].startTime" ng-if="calendar.scheduled[$index].startTimeErrorMsg">
+                {{calendar.scheduled[$index].startTimeErrorMsg}}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 pad10">
+        <p class="labelName" style="margin: 0 0 5px !important">End Time</p>
+        <!--<div class="col-sm-3"></div>-->
+        <div class="col-sm-12 noPad">
+            <input ng-change="end_time(calendar, $index)" 
+                   type="text"
+                   name=""
+                   placeholder="Select end time"
+                   class="form-control pad-8" 
+                   id="endTime{{$index}}" 
+                   ng-model="calendar.scheduled[$index].endTime" 
+                   ng-click="showEndTime($index)" 
+                   ng-disabled="calendar.scheduled[$index].startTime == ''" 
+                   required  
+                   readonly="true">
+            <!--<span ng-if="calendar.scheduled[$index].endTime !== ''" class="calendar-clear-input clearInputField" ng-click="clearTime($index, 'end');">&times;</span>-->
+            <div class="text-danger" id="selectendTimeMsg" ng-hide="calendar.scheduled[$index].endTime" ng-if="calendar.scheduled[$index].endTimeErrorMsg">
+                {{calendar.scheduled[$index].endTimeErrorMsg}}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-2 rowButtonAddRemove" ng-if="$state.current.name == 'calendar.availability'" ng-show="add_status == '0'">
+        <button type="button" class="btn btn-default buttonBg btn-circle" ng-click="add()" style="border-radius: 22px;position:relative;"><i class="glyphicon glyphicon-plus" style="font-size: 12px;left: 1px;"></i></button>
+        <button type="button" class="btn btn-default deleteButton btn-circle" ng-if="!$first" ng-click="delete($index)" style="border-radius: 22px; position: relative;"><i class="glyphicon glyphicon-trash"></i></button>
+    </div>
+</div>

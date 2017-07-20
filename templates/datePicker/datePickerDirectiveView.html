@@ -1,0 +1,68 @@
+<style>
+    .datePickerHolder{
+        display: inherit;
+        position: relative;
+        height: 50px;
+    }
+    .datePickerHolder>div.form-group>label{
+        display: block;
+        position: absolute;
+        width: 100%;
+        left: 0px;
+        top: 0px;
+        z-index: 10;
+    }
+    #customDatePickerStart, 
+    #customDatePickerEnd, 
+    #customTimePickerStart,
+    #customTimePickerEnd{
+        visibility: hidden;   
+    }
+</style>
+<div class="clearfix" ng-init="init()">
+    <div class="form text-left datePickerHolder">
+        <div class="form-group">
+            <label class="control-label" ng-show="vis.s">
+                <span ng-if="showLabels">Start Date</span>
+                <input type="text" 
+                       id="customDatePickerStart" 
+                       class="form-control" 
+                       ng-model="ngModel.startDate" 
+                       ng-change="updateFields(ngModel, 's')" ng-click="updateFields(ngModel, 's')" />
+            </label>
+            <label class="control-label" ng-show="vis.st">
+                <span ng-if="showLabels">Start Time</span>
+                <input type="text" 
+                       id="customTimePickerStart" 
+                       class="form-control" 
+                       ng-model="ngModel.startTime" 
+                       ng-change="updateFields(ngModel, 'st')" ng-click="updateFields(ngModel, 'st')" />
+            </label>
+            <label class="control-label" ng-show="vis.e">
+                <span ng-if="showLabels">End Date</span>
+                <input type="text" 
+                       id="customDatePickerEnd" 
+                       class="form-control" 
+                       ng-model="ngModel.endDate" 
+                       ng-change="updateFields(ngModel, 'e')"  />
+            </label>
+            <label class="control-label" ng-show="vis.et">
+                <span ng-if="showLabels">End Time</span>
+                <input type="text" 
+                       id="customTimePickerEnd" 
+                       class="form-control" 
+                       ng-model="ngModel.endTime" 
+                       ng-change="updateFields(ngModel, 'et')" />
+            </label>
+            <label class="control-label">
+                <span ng-if="showLabels">End Time</span>
+                <input type="text" 
+                       id="outPutEle" 
+                       class="form-control" 
+                       ng-model="ngModel.output" 
+                       ng-change="updateFields(ngModel, 'res')" 
+                       ng-click="startDateProcess()"/>
+            </label>
+        </div>
+    </div>
+</div>

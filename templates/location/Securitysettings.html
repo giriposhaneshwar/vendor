@@ -1,0 +1,50 @@
+<div style="display:none;">
+
+    <!---->
+
+    <map center="{{map.center.latitude}},{{map.center.longitude}}" zoom="15" on-center-changed="centerChanged()" geo-fallback-center="[17.44181923495811,78.38556525023193]">
+        <marker position="{{map.center.latitude}}, {{map.center.longitude}}" draggable="true" on-dragend="getCurrentLocation()"></marker>
+    </map>
+
+    <form>
+        <div class="form-group">
+            <label for="inputEmail">street</label>
+
+            <input ng-model="locations.street1" class="form-control" id="autocomplete" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">address</label>
+            <input type="address" ng-model="locations.adress2" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">city</label>
+            <input type="city" ng-model="locations.city" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">district</label>
+            <input type="district" ng-model="locations.district" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">state</label>
+            <input type="state" ng-model="locations.state" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">country</label>
+            <input type="country" ng-model="locations.country" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail">zip</label>
+            <input type="zip" ng-model="locations.zip" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+
+    </form>
+
+
+
+</div>

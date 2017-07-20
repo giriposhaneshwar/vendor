@@ -1,0 +1,90 @@
+<style>
+    .dt_Holder{
+        display: block;
+        overflow: hidden;
+        border: 1px solid #ccc;
+    }
+    .dt_Holder>.dt_innerContainer{
+        display: block;
+        position: relative;
+        min-height: 35px;
+        min-width: 350px;
+    }
+    .dt_Holder>.dt_innerContainer>.dt_startDate,
+    .dt_Holder>.dt_innerContainer>.dt_startTime,
+    .dt_Holder>.dt_innerContainer>.space,
+    .dt_Holder>.dt_innerContainer>.dt_endDate,
+    .dt_Holder>.dt_innerContainer>.dt_endTime{
+        display: inline-block;
+        padding: 5px;
+        border: 1px solid #ccc;
+        margin-right: -4px;
+        min-height: inherit;
+        /*min-width: 50px;*/
+        /*position: relative;*/
+        vertical-align: top;
+    }
+    .dt_Holder>.dt_innerContainer>.space{
+        text-align: center;
+        min-width: 5px;
+        width: 4px;
+        padding: 4px 2px;
+    }
+    .dt_Holder>.dt_innerContainer .inputField{
+        /*visibility: hidden; */
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        width: 0px !important;
+        height: 0px !important;
+        padding: 0px !important;
+        border: none !important; 
+        opacity: 0; 
+        -webkit-opacity: 0; 
+        -moz-opacity: 0;
+        z-index: -1;
+        /*border: 1px solid #000;*/
+    }
+</style>
+<div class="clearfix">
+    <!--    Options: {{options | json}}
+        <br> <br>
+        Model: {{ngModel | json}}-->
+
+
+    <!--View Warper-->
+    <div class="dt_Holder">
+        <div class="dt_innerContainer flatpickr" id="dt_innerContainer">
+            <span class="dt_startDate" id="dt_startDate" data-toggle>
+                {{ngModel.startDate}}
+                <input type="text" 
+                       class="inputField dt_startDate" 
+                       ng-model="ngModel.startDate" ng-change="handleChange(ngModel, 1)">
+            </span>
+            <span class="dt_startTime" id="dt_startTime" class="ui-timepicker-input">
+                {{ngModel.startTime}}
+                <input type="text" 
+                       class="inputField dt_startTime" 
+                       ng-model="ngModel.startTime" ng-change="handleChange(ngModel, 2)">
+            </span>
+            <span class="space" id="space" ng-if="showSpace">-</span>
+            <span class="dt_endDate" id="dt_endDate">
+                <span ng-if="showEle.ed">{{ngModel.endDate}}</span>
+                <input type="text" 
+                       class="inputField dt_endDate" 
+                       ng-model="ngModel.endDate" ng-change="handleChange(ngModel, 4)">
+            </span>
+            <span class="dt_endTime" id="dt_endTime" class="ui-timepicker-input">
+                {{ngModel.endTime}}
+                <input type="text" 
+                       class="inputField dt_endTime" 
+                       ng-model="ngModel.endTime" ng-change="handleChange(ngModel, 5)">
+            </span>
+        </div>
+    </div>
+    {{showSpace| json}}
+
+    <!--View Warper End -->
+
+
+</div>

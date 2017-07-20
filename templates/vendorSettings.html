@@ -1,0 +1,44 @@
+<div ng-controller="vendorSettingCtrl">
+
+    <form class="form form-horizontal form-bordered col-xs-12 noPad" onsubmit="return false;" enctype="multipart/form-data" ng-init="tab = 1" novalidate>
+
+        <!--  <div class="col-xs-2 text-left noPadd">
+             <div class="pageTitle" style="margin-left:17px">Settings</div> -->
+        <div class="vendor-sidebar col-sm-3 col-xs-3" style="display: none;">
+            <h3>Settings</h3>
+            <!-- <ul id="listElement">
+                <li><a ng-click="selectMyAccount();">My-Account</a></li>
+                <li><a ng-click="selectLocation();">Location</a></li>
+
+                <li ui-sref-active="active"><a href="#" ui-sref="vendorSettings.Location">Location</a></li>
+                <li ui-sref-active="active"><a href="#">Public Profile Settings</a></li>
+                <li ui-sref-active="active"><a href="#" ui-sref="vendorSettings.My-Account">Account Settings</a></li>
+                <li ui-sref-active="active"><a href="#">Business Settings</a></li>
+                <li ui-sref-active="active"><a href="#">Security Settings</a></li>
+                <li ui-sref-active="active"><a href="#">Payment Settings</a></li>
+            </ul>-->
+
+
+            <!-- <ul class="list-group" id="listElement" style="cursor: pointer;"> -->
+            <ul class="vendor-sidebar-menu">
+                <!--<pre>{{tabs}}</pre>-->
+
+                <li ng-class="{ active2: activePath == '/vendorSettings/updateLocation' || activePath == '/vendorSettings/Location'}"  class="list-group-item" href="" ui-sref="vendorSettings.Location"><a>Location</a></li>
+                <li id="a" ui-sref-active="active2" class="list-group-item" href="" ui-sref="vendorSettings.My-Account.tab1" ng-click="tabaction('1')"><a>Account Settings</a></li>
+                <li id="b" ui-sref-active="active2" class="list-group-item" ui-sref="vendorSettings.My-Account.tab2" href="" ng-click="tabaction('2')"><a>Business Settings</a></li>
+                <li ui-sref-active="active2" class="list-group-item" href="" ui-sref="vendorSettings.Securitysettings"><a>Security Settings</a></li>
+                <li id="c" ui-sref-active="active2" class="list-group-item" ui-sref="vendorSettings.My-Account.tab3" href="" ng-click="tabaction('3')"><a>Payment Settings</a></li>
+                <li ui-sref-active="active2" class="list-group-item" href="" ui-sref="vendorSettings.subscription"><a>Subscription</a></li>
+            </ul>
+
+        </div>
+
+        <div class="col-xs-12 noPad" >
+
+            <div ui-view autoscroll="false"></div>
+
+        </div>
+
+
+
+</div>

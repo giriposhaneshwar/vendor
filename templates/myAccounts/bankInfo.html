@@ -1,0 +1,139 @@
+<div style="margin-top:25px">
+    <div class="col-xs-12">
+
+        <div class="form-group col-xs-6" ng-class="(err.name_of_bank == true) ? 'has-error' : 'has - primary' ">
+            <label class="control-label" for="email">Name of the Bank</label>
+            <div>
+                <!-- placeholder="Name of the Bank" -->
+                <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="bank.name_of_bank" ng-focus="err.name_of_bank = false;" required>
+            </div>
+            <div class="col-xs-6">
+                <span class="text-danger" ng-show="err.name_of_bank">Please enter bank name</span>
+            </div>
+        </div>
+        <div class="form-group col-xs-6" ng-class="(err.account_type == true) ? 'has-error' : 'has - primary' ">
+            <label class="control-label" for="account_type">Account Type</label>
+            <div>
+                <select class="form-control" ng-model="bank.account_type" ng-focus="err.account_type = false;">
+                    <option value="">Select account</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Current">Current</option>
+                    <option value="Checking">Checking</option>
+                </select>
+            </div>
+            <div class="col-xs-6">
+                <span class="text-danger" ng-show="err.account_type">Please select account type</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="col-xs-12">
+
+
+    <div class="form-group col-xs-3" ng-class="(err.address_line1 == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="address_line1">Address Line 1</label>
+        <div>
+            <!-- placeholder="Address1" -->
+            <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="bank.address_line1" ng-focus="err.address_line1 = false;" required>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-danger" ng-show="err.address_line1">Please enter address line 1</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-3">
+        <label class="control-label" for="address_line2">Address Line 2</label>
+        <div>
+            <!-- placeholder="Address2" -->
+            <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="bank.address_line2" required>
+        </div>
+    </div>
+    <div class="form-group col-xs-6" ng-class="(err.account_number == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="account_number">Account Number</label>
+        <div>
+            <!-- placeholder="Account Number" -->
+            <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="bank.account_number" ng-focus="err.account_number = false;" required>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-danger" ng-show="err.account_number">Please enter account number</span>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12">
+    <div class="form-group col-xs-3" ng-class="(err.city == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="city">City</label>
+        <div>
+            <select class="form-control" ng-model="bank.city" ng-change="change(bank.city)" ng-focus="err.city = false;">
+                <option value="">Select city</option>
+                <option ng-repeat="city in citiesList" ng-selected="{{city.id == bank.city}}" value={{city.id}}>{{city.name}}</option>
+            </select>
+        </div>
+        <div class="col-xs-12">
+            <span class="text-danger" ng-show="err.city">Please enter city</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-3" ng-class="(err.state == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="state">State</label>
+        <div>
+            <select class="form-control" ng-model="bank.state" ng-focus="err.state = false;">
+                <option value="">Select state</option>
+                <option ng-repeat="state in statesList" ng-selected="{{state.id == bank.state}}" value="{{state.id}}">{{state.name}}</option>
+            </select>
+        </div>
+        <div class="col-xs-12">
+            <span class="text-danger" ng-show="err.state">Please enter state</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-6" ng-class="(err.account_name == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="account_name">Account Name</label>
+        <div>
+            <!-- placeholder="Account Name" -->
+            <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="bank.account_name" ng-focus="err.account_name = false;" required>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-danger" ng-show="err.account_name">Please enter account name</span>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12">
+    <div class="form-group col-xs-3" ng-class="(err.country == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="country">Country</label>
+        <div>
+            <select class="form-control" ng-model="bank.country" ng-focus="err.country = false;">
+                <option value="">Select country</option>
+                <option ng-repeat="country in countriesList" ng-selected="{{country.id == bank.country}}" value="{{country.id}}">{{country.name}}</option>
+            </select>
+        </div>
+        <div class="col-xs-12">
+            <span class="text-danger" ng-show="err.country">Please enter country</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-3" ng-class="(err.zip == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="zip">ZIP/PIN Code</label>
+        <div>
+            <!-- placeholder="Account Name" -->
+            <input type="text" class="form-control" ng-model="bank.zip" ng-focus="err.zip = false;" required>
+        </div>
+        <div class="col-xs-12">
+            <span class="text-danger" ng-show="err.zip">Please enter ZIP/PIN code</span>
+        </div>
+    </div>
+    <div class="form-group col-xs-6" ng-class="(err.routing_number == true) ? 'has-error' : 'has - primary' ">
+        <label class="control-label" for="routing_number">Routing Number&nbsp;(IFSC Code)</label>
+        <div>
+            <!-- placeholder="Account Name" -->
+            <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="bank.routing_number" ng-focus="err.routing_number = false;" required>
+        </div>
+        <div class="col-xs-6">
+            <span class="text-danger" ng-show="err.routing_number">Please enter routing number</span>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 text-right pad20">
+    <button type="submit" ng-disabled="disFalg" class="btn btn-primary loginButton" ng-click="saveBankInfo()" id="fontBold">Save<span class="fa fa-angle-right" aria-hidden="true" id="arrRight"></button>
+                </div>

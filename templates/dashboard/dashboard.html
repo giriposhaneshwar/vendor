@@ -1,0 +1,211 @@
+<div class="spinner" ng-show="loading">
+    <img ng-src="{{loadderUrl}}" alt="loading"/>
+</div>
+<div class="container-fluid dashboard noPad" ng-init="init()" ng-hide="loading">
+    <div class="event-wrapper noPad">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noPad">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 dashboardLeftSection noPad">
+                <div class="dashboardSection col-xs-12 noPad">
+                    <div class="dashboardTitle">
+                        <span>BOOKINGS</span>
+                        <span class="allProducts" style="float: right;"><a ui-sref="myBookings.all">ALL BOOKINGS</a></span>
+                    </div>
+                    <div class="sectionBody col-xs-12 noPad">
+                        <div ng-show="dashboardBookingData.message == 'Result'" class="col-xs-12 noPad">
+                            <div class="col-md-2 noPad col-sm-2 col-xs-2 col-lg-1">
+                                <!-- <img src="images/calendar.png" class="Combined-Shape"> -->
+                                <div class="Combined-Shape-img text-center">
+                                    <span class="margin-topbott ng-binding" style="display: block;padding-top: 28%;color: #ff735a;font-family: gotham-medium;font-size: 20px;">
+                                        {{dashboardBookingData.events[0].event.event_start_date| date:'dd'}}
+                                    </span>
+                                </div>
+                                <p class="shortDate">{{dashboardBookingData.events[0].event.event_start_date| date:'MMM yyyy'}}</p>
+                            </div>
+                            <div class="col-md-6 pad10-lr col-sm-8 col-xs-10 col-lg-7">
+                                <span class="eventName col-md-12 noPad">{{dashboardBookingData.events[0].event.event_name}}</span>
+                                <span ng-if="diffDays <= 1" class="eventdetails col-md-12 noPad">{{dashboardBookingData.events[0].event.event_start_date| date:'EEEE, dd MMM yyyy HH:mm'}} - {{dashboardBookingData.events[0].event.event_end_date| date:'HH:mm'}}</span>
+                                <span ng-if="diffDays > 1"  class="eventdetails col-md-12 noPad">{{dashboardBookingData.events[0].event.event_start_date| date:'EEEE, dd MMM yyyy HH:mm'}} - <br>{{dashboardBookingData.events[0].event.event_end_date| date:'EEEE, dd MMM yyyy HH:mm'}}</span>
+                            </div>
+                            <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-2 pad10-lr col-sm-12 col-lg-4">
+                                <a href="javascript:void(0)" class="btn theme-btn showproducts" style="width: 118px;" ng-click="viewProduct(dashboardBookingData.events[0].event.event_id)">View Products</a>
+                            </div>
+
+                        </div>
+                        <div class="noData" ng-hide="dashboardBookingData.message == 'Result'">There are no bookings done</div>
+                    </div>
+                </div>
+                <div class="dashboardSection col-xs-12 noPad">
+                    <div class="dashboardTitle">
+                        <span>CUSTOM REQUESTS</span>
+                        <span class="allProducts" style="float: right;"><a ui-sref="customRequests.all">ALL REQUESTS</a></span>
+                    </div>
+                    <div class="sectionBody col-xs-12 noPad">
+                        <!--{{CustomRequestData.message}}<br>-->
+                        <div ng-show="CustomRequestData.message == 'Result'" class="col-xs-12 noPad">
+                            <div class="col-md-1 noPad">
+                                <!-- <img src="images/calendar.png" class="Combined-Shape"> -->
+                                <div class="Combined-Shape-img text-center">
+                                    <span class="margin-topbott ng-binding" style="display: block;padding-top: 28%;color: #ff735a;font-family: gotham-medium;font-size: 20px;">
+                                        {{CustomRequestData.requests[0].start_time| date:'dd'}}
+                                    </span>
+                                </div>
+                                <p class="shortDate">{{CustomRequestData.requests[0].start_time| date:'MMM&nbspyyyy'}}</p>
+                            </div>
+                            <div class="col-md-8 pad10-lr">
+                                <span class="eventName col-md-12 noPad">{{CustomRequestData.requests[0].event_name}}</span>
+                                <span ng-if="diffDays2 <= 1" class="eventdetails col-md-12 noPad">{{CustomRequestData.requests[0].start_time| date:'EEEE, dd MMM yyyy HH:mm'}} - {{CustomRequestData.requests[0].end_time| date:'HH:mm'}}</span>
+                                <span ng-if="diffDays2 > 1"  class="eventdetails col-md-12 noPad">{{CustomRequestData.requests[0].start_time| date:'EEEE, dd MMM yyyy HH:mm'}} - <br>{{CustomRequestData.requests[0].end_time| date:'EEEE, dd MMM yyyy HH:mm'}}</span>
+                            </div>
+                            <div class="col-xs-3 noPad">
+                                <!-- href="#/customRequests/pending/{{CustomRequestData.requests[0].req_number}}" -->
+                                <a  ui-sref="customRequests.pending({'id': CustomRequestData.requests[0].req_number})"  class="btn theme-btn showproducts" style="width: 118px;" >View Request</a>
+                            </div>
+                        </div>
+                        <div class="noData" ng-show="CustomRequestData.message == 'Records Empty'">There are no received Custom Requests</div>
+                    </div>
+                </div>
+
+                <div class="dashboardSection col-xs-12 noPad">
+                    <div class="dashboardTitle col-xs-12 noPad">
+                        <span>MY MESSAGES</span>
+                    </div>
+                    <div class="col-sm-12 noPad sectionBody">
+                        <div class="col-xs-4 noPad">
+                            <p class="text-center product-count">
+                                <a href="#/myMessages">{{dashboardData.inquires}}</a>
+                            </p>
+                            <p class="text-center product-name">
+                                <a href="#/myMessages">Inquiries</a>
+                            </p>
+                        </div>
+                        <div class="col-xs-4 noPad">
+                            <p class="text-center product-count"><a href="/mySupport" ui-sref="mySupport">{{dashboardData.support}}</a></p>
+                            <p class="text-center product-name"><a href="/mySupport" ui-sref="mySupport">Support</a></p>
+                        </div>
+                        <div class="col-xs-4 noPad">
+                            <p class="text-center product-count"><a href="/myAccount" ui-sref="myAccount">{{dashboardData.account}}</a></p>
+                            <p class="text-center product-name"><a href="/myAccount" ui-sref="myAccount">Account</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 dashboardRightSection noPad">
+                <div class="col-xs-12 noPad">
+                    <div class="dashboardTitle col-md-12 col-xs-12 noPad">
+                        <span>PRODUCTS</span>
+                    </div>
+                    <div class="prodSectionBody col-md-12 col-xs-12 noPad" ng-if="dashboardData.products > 0">
+                        <div id="productDiv" class="col-md-12 productDiv" ng-show="productDetails.length > 0" ng-repeat="data in productDetails| limitTo:4">
+                            <div class="col-md-1 noPad">
+                                <img src="images/cakeImg.png" class="cakeImg">
+                            </div>
+                            <div class="col-md-9 noPad">
+                                <span class="eventName col-md-12 noPad" ng-click="editProductCatalog(data)" style="cursor: pointer;">
+                                    <span>{{data.product_name}}</span>
+                                    <span ng-if="data.product_upc_ean_code != undefined && data.product_upc_ean_code != null && data.product_upc_ean_code != ''">
+                                        ({{data.product_upc_ean_code}})
+                                    </span>
+                                </span>
+                                <span class="eventdetails col-md-12 noPad">
+                                    <!-- <span>{{data.location_name}}</span> -->
+                                    <span ng-repeat="value in data.location_name.split(',') track by $index ">
+                                        <span class="glyphicon glyphicon-map-marker"></span>
+                                        <span style="padding: 2px;"> {{value}}</span>
+                                    </span>
+                                </span>
+
+                            </div>
+                            <div class="col-md-2 noPad iconsHolder text-right">
+                                <i class="fa fa-pencil" ng-click="editProductCatalog(data)"></i>
+                                <i class="fa fa-trash-o" ng-click="deleteProductConfirm(data)"></i>
+                            </div>
+                        </div>
+                        <div class="noData" ng-show="productDetails.length < 0">There are no bookings done</div>
+                    </div>
+                    <div class="prodDiv text-center col-md-12 col-xs-12 noPad">
+                        <span class="allProd"><a href="#product_service_catalog/Products">ALL PRODUCTS ({{dashboardData.products}})</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <h3 class="dashboard-title">Dashboard</h3>
+                </div>
+                <div class="row alert alert-dismissible" style="padding-right: 15px;" ng-if="admin.emailStatus == false">
+                    <div style="border: 1px #ddd solid; padding: 10px; background: #f9f9f9; margin: 0; font-size: 16px">
+                        Notification</div>
+                    <div
+                        style="border-left: 1px #ddd solid; border-right: 1px #ddd solid; border-bottom: 1px #ddd solid; padding: 20px;">
+                        <div class="row">
+                            <div class="col-sm-7" style="padding-top: 8px">A validation
+                                mail sent to your registered email.Please use the confirmation
+                                link to verify your email.</div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary">Resend Verification
+                                    Mail</button>
+                            </div>
+                            <div class="col-sm-2" style="padding-top: 10px; padding-left: 0">
+                                <button type="button" class="close" data-dismiss="alert"
+                                        aria-label="Close" style="right: -7px">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-sm-4 col-xs-10 dashboard-custom-wrapper">
+                        <div class="col-md-8 col-sm-7 col-xs-6">
+                            <p class="text-center product-count"><a href ng-click="getstatus()">{{dashboardData.products}}</a></p>
+                            <p class="text-center product-name"><a href ng-click="getstatus()">Products</a></p>
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-xs-6">
+                            <img src="img/products.png" alt="Products"/>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-4 col-xs-10 dashboard-custom-wrapper">
+                        <div class="col-md-8 col-sm-7 col-xs-6">
+                            <p class="text-center product-count"><a href="#/myBookings/scheduled">{{dashboardData.bookings}}</a></p>
+                            <p class="text-center product-name"><a href="#/myBookings/scheduled">Bookings</a></p>
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-xs-6">
+                            <img src="img/icon-booking.png" alt="Booking"/>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-4 col-xs-10 dashboard-custom-wrapper">
+                        <div class="col-md-8 col-sm-7 pad-0 col-xs-6">
+                            <p class="text-center product-count"><a href="#/customRequests/pending" class="request">{{dashboardData.requests}}</a></p>
+                            <p class="text-center product-name"><a href="#/customRequests/pending" class="request">Custom Requests</a></p>
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-xs-6">
+                            <img src="img/request.png" alt="Request"/>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-4 col-xs-10 dashboard-custom-wrapper">
+                        <div class="col-md-8 col-sm-7 col-xs-6">
+                            <div class="col-xs-4">
+                                <p class="text-center product-count"><a href="#/myMessages" >{{dashboardData.inquires}}</a></p>
+                                <p class="text-center product-name"><a href="#/myMessages">Inquiries</a></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="text-center product-count"><a href="" ui-sref="myAccount" >{{dashboardData.account}}</a></p>
+                                <p class="text-center product-name"><a href="" ui-sref="myAccount">Account</a></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <p class="text-center product-count"><a href="" ui-sref="mySupport" >{{dashboardData.support}}</a></p>
+                                <p class="text-center product-name"><a href="" ui-sref="mySupport">Support</a></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-xs-6">
+                            <img src="img/inquiry-i.png" alt="Inquiry"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

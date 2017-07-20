@@ -1,0 +1,61 @@
+<div ui-view autoscroll="false">
+    <!--    <h1>Business time list</h1> -->
+    <div class="col-xs-12 blockMain noPad">
+        <!-- <div class="mar-top-6" style="padding: 10px 0 0 0">
+            <button ui-sref="calendar.availability" class="btn btn-primary loginButton pull-right">Maintain Working Hours</button>
+        </div> -->
+        <table class="col-xs-12 table table-bordered available_timeList" style="background-color:#fff;">
+            <thead>
+                <tr>
+                    <th style="width: 10%">WEEKDAY</th>
+                    <th style="width: 15%">CATEGORY</th>
+                    <th style="width: 15%">LOCATION</th>
+                    <th style="width: 20%">PRODUCT</th>
+                    <th style="width: 10%">START TIME</th>
+                    <th style="width: 10%">END TIME</th>
+                    <th style="width: 10%">ACTION</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="getBsnessTime in getBusinessTime.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))|orderBy:$index|limitTo:entryLimit">
+                <tr>
+                    <td  ng-repeat='week in week_number' ng-show="getBsnessTime.week_number == week.id" >{{week.name}}</td>
+                    <td>{{getBsnessTime.category_name}}</td>
+                    <td>{{getBsnessTime.location_name}}</td>
+                    <td ng-if="getBsnessTime.referred_for !== 'location'">{{getBsnessTime.product_name}}</td>
+                    <td ng-if="getBsnessTime.referred_for == 'location'">All</td>
+                    <td>{{getBsnessTime.start_time}}</td>
+                    <td>{{getBsnessTime.end_time}}</td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" ng-click="editCalenderAvailability(getBsnessTime);" data-toggle="tooltip" title="Edit"></i>&nbsp
+                        <i class="fa fa-trash-o" aria-hidden="true" ng-click="deleteCalenderAvailability(getBsnessTime)" data-toggle="tooltip" title="Delete"></i>
+                    </td>
+                </tr>
+            </tbody>
+            <!--            <tbody class="text-center" ng-if="getBusinessTime.length == 0">
+                            <tr>
+                                <td colspan="7">
+                                    <div class="row no-results">
+                                        No Results Found
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>-->
+        </table>
+        <div class="col-xs-12">
+            <div class="text-center " ng-show="getBusinessTime.length > 10">
+                <uib-pagination class="pagination pagination-sm" total-items="getBusinessTime.length" ng-model="currentPage" boundary-links="true" items-per-page="entryLimit" ng-click="getCurrentPage();">
+                </uib-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="timeConfirmationDelete.html">
+    <div class="modal-body" id="modal-body">
+    <p class="text-center modal-delete">Are you sure you want to delete ?</p>
+    </div>
+    <div class="modal-footer" style="padding: 7px 15px 8px">
+    <button class="btn btn-primary  buttonBg pad15 pad20-lr" type="button" ng-click="ok()">Yes</button>
+    <button class="btn btn-info buttonBg-white pad20-lr" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

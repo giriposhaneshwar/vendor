@@ -1,0 +1,409 @@
+<style type="text/css">
+    .date-field{
+        width: 27%;
+    }
+    .status-field{
+        width: 15%;
+    }
+    .remaining-time-field {
+        width: 15%;
+    }
+    .category-field{
+        width: 12%;
+    }
+    .customer-name-field {
+        width: 13%;
+    }
+    .image-holder{
+        margin-left: 10px;
+    }
+</style>
+<div class="admin-container" ng-init="init()">
+    <div class="row">
+        <div class="vendor-sidebar col-sm-3" style="display: none;">
+            <h3>Custom Requests</h3>
+            <ul class="vendor-sidebar-menu">
+                <li class=" {{crStatus == '0' ? 'active' : '' }} " href="#" ui-sref="customRequests/all">All Requests</li>
+                <li class=" {{crStatus == '1' ? 'active' : '' }} " href="#" ui-sref="customRequests/pending" >Manage Requests</li>
+                <li class=" {{crStatus == '2' ? 'active' : '' }} " href="#" ui-sref="customRequests/completed">Completed Requests</li>
+            </ul>
+        </div>
+        <div class="col-sm-12 vendor-main-content" style="padding: 10px 20px 0px 13px;min-height: 800px;">
+            <!--             <h2>Custom Request List</h2> -->
+            <div ng-if="customRequests.length > 0" class="col-xs-12 noPad">
+                <div class="custom-req-item-wrapper col-xs-12 ng-scope noPad" 
+                     dir-paginate="custReq in customRequests | itemsPerPage:10" 
+                     id="{{custReq.req_number}}">
+
+                    <div class="custom-req-item col-xs-12 noPad" >
+                        <!-- <pre>{{custReq}}</pre> -->
+                        <div class="col-xs-12 noPad mar20-bottom">    
+                            <div class="col-sm-11 text-left noPad">
+                                <h4>Custom Request ID: 
+                                    <span>{{custReq.req_number}}</span>
+                                </h4>
+                            </div>
+                            <div class="col-sm-1 titleData noPad">
+
+                                <span class="glyphicon glyphicon-menu-up pull-right" 
+                                      style="top: 57px;"
+                                      ng-click='hideProductId(custReq.req_number)'
+                                      ng-show="showDetailsById == custReq.req_number"></span>
+                                <span class="glyphicon glyphicon-menu-down pull-right" 
+                                      style="top: 57px;"
+                                      ng-click='showProductId(custReq.req_number)'
+                                      ng-show="showDetailsById != custReq.req_number"></span>
+                            </div>
+                        </div>    
+                        <div class="col-xs-12 noPad">
+                            <div class="col-sm-2 date-field text-left noPad">
+                                <span class="bookingTitles">EVENT DATE:</span>
+                            </div>
+                            <div class="col-sm-2 text-left noPad">
+                                <span class="bookingTitles">EVENT TYPE</span>
+                            </div>
+                            <div class="col-sm-2 customer-name-field text-left noPad">
+                                <span class="bookingTitles">CUSTOMER</span>
+                            </div>
+                            <div class="col-sm-2 category-field text-left noPad">
+                                <span class="bookingTitles">CATEGORY</span>
+                            </div>
+                            <div class="col-sm-2 remaining-time-field text-left noPad">
+                                <span class="bookingTitles">REMAINING TIME</span>
+                            </div>
+                            <div class="col-sm-2 status-field text-left noPad">
+                                <span class="bookingTitles">STATUS</span>
+                            </div>
+                            <!-- <div class="col-sm-1"></div> -->
+                        </div>
+                        <div class="col-xs-12 noPad">
+
+                            <div class="col-sm-2 date-field noPad">
+                                <div class="strip-event-date" ng-if="custReq.displayformat == 0">
+                                    <div class="col-xs-12 noPad">
+                                        <div class="col-sm-12 noPad">
+                                            <div class="col-xs-12 noPad">
+                                                <div class="col-sm-12 text-left titleData noPad"> <p>{{custReq.eventdate}}, {{custReq.eventtime}}</p>
+                                                </div> 
+                                                <!--   <div class="col-xs-12 noPad text-left titleData" ng-if="custReq.diffDays < 1">
+                                                      <p>{{custReq.formattedFromDate| date:'EEEE, dd MMM yyyy, HH:mm'}} - {{custReq.formattedToDate| date:'HH:mm'}}</p>
+                                                  </div>
+                                                  <div class="col-xs-12 noPad text-left titleData" ng-if="custReq.diffDays >= 1">
+                                                      <div><p>{{custReq.formattedFromDate| date:'EEEE, dd MMM yyyy HH:mm'}} -</p></div> 
+                                                      <div><p>{{custReq.formattedToDate| date:'EEEE, dd MMM yyyy HH:mm'}}</p></div>
+                                                  </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-xs-12 noPad">
+                                        <div class="col-sm-12 noPad">
+                                            <div class="col-xs-12 noPad">
+                                                <div class="col-sm-12 text-left titleData noPad"><p> {{custReq.eventtime}}</p> </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="col-xs-12 noPad"
+                                     ng-if="custReq.displayformat == 1">
+                                    <div class="col-xs-12 noPad">
+                                        <div class="col-sm-12 text-left titleData noPad"><p>{{custReq.eventdate}}- {{custReq.eventtime}}</p> </div>
+                                    </div>
+                                    <!--  <div class="col-xs-12 noPad text-left titleData" ng-if="custReq.diffDays < 1">
+                                         <p>{{custReq.formattedFromDate| date:'EEEE, dd MMM yyyy, HH:mm'}} - {{custReq.formattedToDate| date:'HH:mm'}}</p>
+                                     </div>
+                                     <div class="col-xs-12 noPad text-left titleData" ng-if="custReq.diffDays >= 1">
+                                         <div><span>{{custReq.formattedFromDate| date:'EEEE, dd MMM yyyy HH:mm'}} -</span></div> 
+                                         <div><p>{{custReq.formattedToDate| date:'EEEE, dd MMM yyyy HH:mm'}}</p></div>
+                                     </div> -->
+                                    <!-- <div class="col-xs-12 noPad">
+                                        <div class="col-sm-12 text-left titleData noPad"><p>{{custReq.eventtime}}</p></div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-2 text-lef noPad titleData">
+                                <p>{{custReq.eventTypeName}}</p>
+                            </div>
+                            <div class="col-sm-2 customer-name-field text-left noPad titleData">
+                                <p>{{custReq.first_name}} {{custReq.last_name}}</p>
+                            </div>
+                            <div class="col-sm-2 category-field text-left noPad titleData">
+                                <p>{{custReq.categoryName}}</p>
+                            </div>
+                            <div class="col-sm-2 remaining-time-field text-left noPad titleData">
+                                <!--  <p>{{custReq.timer}}</p> -->
+                                <!--{{custReq.vreq_status| json}}-->
+                                <p ng-if="custReq.diff < 0
+                                                        && custReq.vreq_status != 'Quote Accepted'
+                                                        && custReq.vreq_status != 'Quote Rejected'
+                                                        && custReq.vreq_status != 'Custom Request Withdrawn'
+                                                        && custReq.vreq_status != 'Quote Submitted'
+                                                        && custReq.vreq_status != 'Quote Pending'">
+                                    Expired
+                                </p>
+
+                                <p ng-if="custReq.diff > 0
+                                                        && custReq.vreq_status != 'Quote Accepted'
+                                                        && custReq.vreq_status != 'Quote Rejected'
+                                                        && custReq.vreq_status != 'Quote Submitted'
+                                                        && custReq.vreq_status != 'Custom Request Withdrawn'
+                                                        && custReq.vreq_status != 'Quote Pending'">
+                                    {{custReq.timer}} 
+                                </p>
+                                <!--{{custReq.diff | json}}- {{custReq.vreq_status | json}}-->
+
+                                <p ng-if="custReq.diff < 0
+                                                        && (custReq.vreq_status == 'Quote Accepted'
+                                                                || custReq.vreq_status == 'Quote Rejected'
+                                                                || custReq.vreq_status == 'Quote Submitted'
+                                                                || custReq.vreq_status == 'Custom Request Withdrawn'
+                                                                || custReq.vreq_status == 'Quote Pending')"> - </p>
+
+                            </div>
+                            <div class="col-sm-2 status-field text-left noPad titleData">
+                                <p ng-if="custReq.vreq_status == 'Custom Request Received'">Custom Request Received</p>
+                                <p ng-if="custReq.diff > 0 && custReq.vreq_status == 'Quote Submitted'">Quote Submitted</p>
+                                <p ng-if="custReq.diff < 0 && custReq.vreq_status == 'Quote Submitted'">Quote Expired</p>
+                                <p ng-if="custReq.vreq_status == 'Quote Accepted'">Quote Accepted</p>
+                                <p ng-if="custReq.vreq_status == 'Quote Rejected'">Quote Rejected</p>
+                                <p ng-if="custReq.vreq_status == 'Custom Request Withdrawn'">Custom Request Withdrawn</p>
+                                <p ng-if="custReq.vreq_status == 'Quote Pending'">Quote Pending</p>
+                            </div>
+                            <!-- <div class="col-sm-1 titleData"><span class="glyphicon glyphicon-menu-down"></span></div> -->
+                        </div>
+                    </div>
+                    <div class="custom-req-details col-xs-12" ng-show='$state.params.id == custReq.req_number'>
+                        <div class="noPad col-xs-12">
+                            <div class="col-sm-5 noPad">
+                                <div class="col-xs-12 noPad bookingTitles"><p>CUSTOM REQUEST MESSAGE</p></div>
+                                <div class="col-xs-12 noPad titleData1"><p ng-bind-html="custReq.req_desc"></p></div>
+                                <div class="col-xs-12 noPad">
+                                    <div class="col-xs-12 bookingTitles noPad" ng-if="custReq.customerMedia.length > 0"><p>ATTACHMENTS</p></div>
+                                    <div class="col-xs-12 titleData noPad">
+                                        <div class="attch" ng-repeat="media in custReq.customerMedia">
+                                            <img class="img-responsive" alt="ATTACHMENTS" src="{{imagepath}}{{media.media}}"></div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="col-sm-2 attch" ng-if="custReq.customerMedia.length>0">Attachments:</div>
+                                    <div class="col-sm-9">
+                                        <p class="image-holder" ng-repeat="media in custReq.customerMedia">
+                                            <a href="{{imagepath}}{{media.media}}" target="_blank">{{media.original}}</a>
+                                        </p>                                   
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="col-sm-6 noPad quote-btns" ng-if="custReq.vreq_status == 'Custom Request Received' && custReq.diff > 0">
+                                <button class="btn theme-btn" ng-click="showQuotationPopup(custReq.vid, custReq.req_number, custReq.req_desc, custReq.event_summary_id, custReq.eventTypeName, custReq.categoryName, custReq.formattedFromDate, custReq.formattedFromTime, custReq.formattedToDate, custReq.formattedToTime, custReq.customerMedia, custReq.displayformat, custReq.eventdate, custReq.eventtime)">
+                                    Create Quote
+                                </button>
+                                <!--button class="btn btn-danger"> 
+                                    Ignore
+                                </button-->
+                            </div>
+
+                            <div class="col-sm-7 noPad" ng-if="custReq.vreq_status == 'Quote Submitted' || custReq.vreq_status == 'Quote Accepted' || custReq.vreq_status == 'Quote Rejected' || custReq.quotation_price">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4 bookingTitles pad5-lr" style="width: 27%;"><p>QUOTE DETAILS</p></div>
+                                    <div class="col-xs-8 titleData1 noPad">
+                                        <p ng-bind-html="custReq.quotation_text"></p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4 bookingTitles pad5-lr" style="width: 27%;"><p>QUOTE PRICE</p></div>
+                                    <div class="col-xs-8 titleData noPad"><p>${{formatPrice(custReq.quotation_price)}}</p></div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-4 bookingTitles pad5-lr" style="width: 27%;"><p>DELIVERY PRICE</p></div>
+                                    <div class="col-xs-8 titleData noPad"><p> ${{formatPrice(custReq.delivery_fee)}}</p> </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12 bookingTitles pad5-lr" ng-if="custReq.vendorMedia.length > 0"><p>ATTACHMENTS</p></div>
+                                    <div class="col-xs-12 titleData noPad">
+                                        <div class="attch" ng-repeat="media in custReq.vendorMedia">
+                                            <img class=" img-responsive" alt="ATTACHMENTS" src="{{cvimagepath}}{{media.media}}"></div>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- <h4>QUOTE DETAILS</h4>
+                                <p> <strong> Quote Text: </strong>
+                                    <p ng-bind-html="custReq.quotation_text"></p>
+                                 </p>
+                                <p> <strong> QUOTE PRICE: </strong> ${{formatPrice(custReq.quotation_price)}} </p>
+                                <p> <strong> DELIVERY PRICE: </strong> ${{formatPrice(custReq.delivery_fee)}} </p>
+                                <div class="row">
+                                    <div class="col-sm-2 attch" ng-if="custReq.vendorMedia.length>0">ATTACHMENTS:</div>
+                                    <div class="col-sm-9">
+                                        <p class="image-holder" ng-repeat="media in custReq.vendorMedia">
+                                            <a href="{{cvimagepath}}{{media.media}}" target="_blank">{{media.original}}</a>
+                                        </p>                                   
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center" ng-show="customRequests.length > 10">
+                    <dir-pagination-controls
+                        max-size="10"
+                        direction-links="true"
+                        boundary-links="true" >
+                    </dir-pagination-controls>
+                </div>
+            </div>
+            <!--            <div class="text-center" ng-if="customRequests.length==0">
+                            <h3>No Results Found</h3>
+                        </div>-->
+        </div>
+
+        <div class="modal fade" id="sendQuotation" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="stopQuotation();">&times;</button>
+                        <h4 class="modal-title">Custom Request Quote</h4>
+                        <div class="cr-warning">
+                            <div class="row">
+                                <div class="col-xs-12" style="color: #000;">
+                                    Your quotation has not been submitted. If you close this window, the data you entered will be lost. 
+                                    <div class="pad10-top">
+                                        <button class="btn theme-btn" ng-click="closeQuotation();">Close Anyway</button>
+                                        <button class="btn theme-btn cancel-btn" ng-click="hideWarning()"> Cancel </button>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <strong> Event Type: </strong> {{quoEventType}}
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="strip-event-date"
+                                     ng-if="displayformat == 0">
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <div class="row">
+                                                <div class="col-sm-12"> <p> <strong> Event Date: </strong> {{eventdate}} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 ">
+                                            <div class="row">
+                                                <div class="col-sm-12"><p> <strong> Event Time: </strong> {{eventtime}}</p> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="strip-event-date"
+                                     ng-if="displayformat == 1">
+                                    <div class="row">
+                                        <div class="col-sm-12"><p> <strong> Event Date & Time </strong> {{eventdate}} -
+                                            </p> </div>
+                                        <div class="col-sm-12"><p class="mar-lft-113">{{eventtime}}</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-req-details">                             
+                            <div class="row">
+                                <div class="col-sm-12">                                 
+                                    <h4>Custom Request Message</h4>
+                                    <p ng-bind-html="qDes"></p>
+                                    <div class="row">
+                                        <div class="col-sm-2"><label>Attachments:</label></div>
+                                        <div class="col-sm-10">
+                                            <p class="image-holder" ng-repeat="media in quoCmedia">
+                                                <a href="{{imagepath}}{{media.media}}" target="_blank">{{media.original}}</a>
+                                            </p>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-quote-text">
+                            <h4>Quote Description</h4>
+
+                            <!-- <text-angular ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','quote'],['bold','italics','underline','strikeThrough','ul','ol','undo','redo','clear']
+                            ,['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent','html','wordcount','charcount']]" cols="4" rows="3" class="form-control customize-description" placeholder="" ng-model="quotationDescription" id="quotationDescription" ng-keyup="changedInputText($event);"></text-angular> -->
+                            <textarea ng-model="quotationDescription" id="quotationDescription" ng-keyup="changedInputText($event);" class="form-control customize-description" placeholder="Quote Description" style="resize: none; margin-top: 10px;">                                
+                            </textarea>
+
+                            <div class="cr-err text-danger" id="quotationDescriptionErr"></div>
+
+                        </div>
+
+                        <div class="modal-quote-price">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label> Quote Price </label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input type="number" 
+                                           name="price"
+                                           class="form-control"
+                                           placeholder="Enter Quote Price"
+                                           ng-model="quotationPrice"
+                                           id="quotationPrice" 
+                                           min="0" 
+                                           value="0" 
+                                           step=".01"
+                                           ng-keypress="checkKeyPattern($event, quotationPrice)"
+                                           ng-keyup="changedInputText($event);"/>
+                                    <div class="cr-err text-danger" id="quotationPriceErr"></div>
+                                </div>
+                            </div>    
+                        </div>
+
+                        <div class="modal-delivery-date">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label> Delivery Price </label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input type="number" 
+                                           class="form-control"
+                                           id="deliveryPrice"
+                                           placeholder="Enter Delivery Price"
+                                           min="0" 
+                                           value="0" 
+                                           step=".01"
+                                           ng-keypress="checkKeyPattern($event, quotationPrice)"
+                                           ng-model="deliveryPrice"
+                                           ng-keyup="changedInputText($event);"/>
+                                    <div class="cr-err text-danger" id="deliveryPriceErr"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-attachment">
+                            <label class="custom-file-input" >
+                                <span class="icon-picture"></span> Click here to attach files or drop files here
+                                <input id="Upload" title=" " type="file" class="customized" multiple="multiple" name="_photos" accept="image/*" onchange="angular.element(this).scope().getFileDetails(this)"> 
+
+                            </label>
+
+
+                        </div>
+                        <div style="margin-left:5px;" ng-repeat="img in customRequestFiles track by $index">
+                            {{img.name}} <span ng-click="removeImage($index)" class="fa fa-trash text-danger"></span>
+                        </div>
+                        <div class="modal-button text-center">
+                            <button class="btn theme-btn" ng-click="submitQuotation()" >Send Quote</button>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

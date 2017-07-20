@@ -1,0 +1,33 @@
+
+
+
+<div class="blockMain">  
+    <div ng-if="admin.emailStatus == false" class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <h3>A validation mail sent to your registered email. <br> Please use the confirmation link to verify your email.
+            <br><br><a class="btn btn-info buttonBg verifyButton" href="javascript:void(0)" ng-click="resendLink()" >Resend Verification Mail</a>
+        </h3>
+    </div>
+
+    <div ng-if="admin.emailStatus == true && admin.venodorStatus == false" class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <a href="javascript:void(0)" ng-click="gotoBusinessInfoPage();" style="color: #565a5c; text-decoration: none;"> 
+            <h3 style="display: inline-block;">Click here to submit your Business information.</h3> 
+        </a>
+
+    </div>
+    <div ng-if="admin.venodorVStatus == 1 && admin.venodorStatus == true" class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <h3>Your Business is submitted, we will let you know once verification is completed.</h3>
+    </div>
+    <div ng-if="admin.venodorVStatus == 2 && admin.venodorStatus == true" class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <h3>Your Business verification is in progress, we will let you know once completed.</h3>
+    </div>
+    <div ng-if="admin.venodorVStatus == 3 && admin.venodorStatus == true" class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <h3>Your account is on hold, Please contact Administrator.</h3>
+    </div>
+
+    <div ng-if="admin.emailStatus == true && admin.venodorStatus == true && admin.venodorVStatus == 4 && admin.bankStatus == false" class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <h3>Please add your bank information.</h3>
+    </div>
+
+</div>
+<!-- </form>
+</div> -->

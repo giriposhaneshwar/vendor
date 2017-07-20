@@ -1,0 +1,23 @@
+<div class="spinner" ng-show="loading">
+    <img ng-src="{{loadderUrl}}" alt="loading"/>
+</div>
+<div class="container-fluid  bgWhite dashboard noPad" ng-init="init()" ng-hide="loading">
+    <div class="col-md-12 col-xs-12" style="width: 250px;">
+        {{datePickerSpanResult| json}} <br><br>
+        <div class="clearfix" range-picker-span
+             options ="optionsSpan"
+             ng-model="datePickerSpanResult">
+        </div>
+        <hr />
+    </div>
+
+
+
+<!--    <div class="col-md-12 col-xs-12">
+        {{datePickerResult| json}} <br>
+        <div class="clearfix" range-picker
+             options ="options"
+             ng-model="datePickerResult">
+        </div>
+    </div>-->
+</div>

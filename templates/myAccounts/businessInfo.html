@@ -1,0 +1,520 @@
+<style type="text/css">
+    .custom-file-input {
+        /* background: #f9f9f9;
+        color: #e71e80;
+        width: 100%;
+        text-align: center;
+        padding: 8px 0 8px 0;
+        cursor: pointer;
+        border: 1px dashed #e71e80;
+        position: relative; */
+        /* font-size: 14px; */
+        color: #FFFFFF;
+        background-color: #ff735a;
+        font-family: gotham-medium;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 2;
+        letter-spacing: 1px;
+        height: 30px;
+        width: 133px;
+        border-radius: 4px;
+        border: none;
+        background-color: #ff735a;
+        padding: 6px 10px 6px 10px;
+    }
+</style>
+<div class="col-xs-12 noPad">
+    <div class="col-xs-12 noPad">
+        <div class="col-xs-12 pad1">
+            <!-- <div class="col-xs-12 noPadd" style="border-top: 5px solid #3C8CBD;border-left: 1px solid #3C8CBD;border-right: 1px solid #3C8CBD;border-bottom: 1px solid #3C8CBD;min-height:915px;border-radius: 5px/5px;"> -->
+            <div class="col-xs-12 noPadd" style="border-radius: 4px;">
+                <div class="" style="background-color: #fff;border-bottom: 1px solid #eaedf1;border-radius: 4px;">
+                    <h2 style="margin: 0;padding: 10px 16px 10px 20px;" class="labelName">Business Information </h2>
+                </div>
+                <form class="form" autocomplete="off">
+                    <div class="col-xs-12 pad10-lr">
+                        <div class="col-md-6 col-xs-12 pad10-lr pad10-top" ng-class="(err2.bussinessName == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Business Name</label>
+                            <div>
+                                <input type="text" ng-focus="err2.bussinessName = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.bussinessName" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.bussinessName">Please enter business name</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pad10-lr col-xs-12 pad10-top" ng-class="(err2.bussinessAsName == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Doing Business as Name</label>
+                            <div>
+                                <input type="text" ng-focus="err2.bussinessAsName = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.bussinessAsName" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.bussinessAsName">Please enter doing business as name</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pad10-lr col-xs-12 pad10-top" ng-class="(err2.contactName == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Contact First Name</label>
+                            <div>
+                                <input type="text" ng-focus="err2.contactName = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.contactName" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.contactName">Please enter contact first name</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pad10-lr col-xs-12 pad10-top" ng-class="(err2.contactLName == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Contact Last Name</label>
+                            <div>
+                                <input type="text" ng-focus="err2.contactLName = false" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.contactLName" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.contactLName">Please enter contact last name</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 noPad">
+                            <div class="col-md-4 pad10-lr col-xs-12 pad10-top" ng-class="(err2.bEmail == true) || (err2.valid_email == true) ? 'has-error-no' : 'has - primary'">
+                                <label class="control-label labelName" for="email">Email</label>
+                                <div>
+                                    <input type="text" ng-focus="err2.bEmail = false;
+                                                    err2.valid_email = false" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.bEmail" required>
+                                </div>
+                                <div class="col-xs-12 noPad">
+                                    <span class="text-danger" ng-show="err2.bEmail && !err2.valid_email">Please enter email</span>
+                                    <span class="text-danger" ng-show="err2.valid_email">Please enter valid email</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pad10-lr col-xs-12 pad10-top" ng-class="(err2.phone_number_cdn == true) ? 'has-error-no' : 'has - primary'">
+                                <label class="control-label labelName" for="phone_number">Phone Number</label>
+                                <div class="phoneNumberHolder">
+                                    <span ng-if="vendor.phone_number">+1</span>
+                                    <input type="text" 
+                                           ng-focus="err2.phone_number_cdn = false;" 
+                                           placeholder="+1xxxxxxxxxx"
+                                           class="form-control" 
+                                           ng-class="{'code':vendor.phone_number}"
+                                           name="attractionID"
+                                           id="attractionID" 
+                                           ng-model="vendor.phone_number" 
+                                           ng-keyup="checkPhonePattern(vendor.phone_number)">
+                                </div>
+                                <div class="col-xs-12 noPad">
+                                    <span class="text-danger" ng-show="err2.phone_number_cdn">Please enter valid phone number</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pad10-lr col-xs-12 pad10-top" ng-class="(err2.fax_number == true) ? 'has-error-no' : 'has - primary'">
+                                <label class="control-label labelName" for="fax_number">Fax Number</label>
+                                <div class="phoneNumberHolder">
+                                    <span ng-if="vendor.fax_number">+1</span>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           ng-class="{'code':vendor.fax_number}"
+                                           placeholder="+1xxxxxxxxxx"
+                                           ng-focus="err2.fax_number = false;" 
+                                           name="attractionID"
+                                           id="attractionID" 
+                                           ng-model="vendor.fax_number">
+                                </div>
+                                <div class="clearfix noPad">
+                                    <span class="text-danger" ng-show="err2.fax_number">Please enter valid fax number</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 noPad">
+                            <div class="col-md-4 pad10-lr col-xs-12 pad10-top">
+                                <label class="control-label labelName" for="bGross">Average Annual Revenue</label>
+                                <!-- <div class="input-group">
+                                    <span class="input-group-addon">$</span> -->
+                                <div>
+                                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.bGross" required>
+                                </div>
+                                <div class="col-xs-12 noPad">
+                                    <span class="text-danger" ng-show="err2.bGross">Please enter average annual revenue</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pad10-lr col-xs-12 pad10-top" ng-class="(err2.bYear == true) ? 'has-error-no' : 'has - primary'">
+                                <label class="control-label labelName" for="email">Year Established</label>
+                                <div>
+                                    <select class="form-control" ng-options="yearObj.value as yearObj.value for yearObj in yearsList" ng-model="vendor.bYear" ng-focus="err2.bYear = false;">
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 noPad">
+                                    <span class="text-danger" ng-show="err2.bYear">Please select year established</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pad10-lr col-xs-12 pad10-top" ng-class="(err2.online_vendor == true) ? 'has-error-no' : 'has - primary'">
+                                <label class="control-label labelName" for="online_vendor">Online Vendor</label>
+                                <div>
+                                    <select class="form-control" name="online_v" ng-model="vendor.online_vendor" ng-focus="err2.online_vendor = false;">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 noPad">
+                                    <span class="text-danger" ng-show="err2.online_vendor">Please select Vendor</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 pad10-lr col-xs-12 pad10-top" ng-class="(err2.website == true || err2.websitepattern) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName">Website Url</label>
+                            <div>
+                                <input type="text" ng-focus="err2.website = false; err2.websitepattern = false" class="form-control" name="website" id="website" ng-model="vendor.website" placeholder="https://www.domainame.com" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.website">Please enter  URL</span>
+                                <span class="text-danger" ng-show="err2.websitepattern">Please enter valid URL</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-xs-12 noPad">
+            <div class="col-xs-12 noPadd" style="padding-top: 40px;border-radius: 4px;">
+                <div class="" style="background-color: #fff;border-bottom: 1px solid #eaedf1;border-radius: 4px;">
+                    <h2 style="margin: 0;padding: 10px 16px 10px 20px;" class="labelName">Business Location </h2>
+                </div>
+                <div class="col-xs-12 pad10-lr">
+                    <div class="col-sm-12 noPad">
+                        <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.locationName == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Location Name</label>
+                            <div>
+                                <input type="text" ng-focus="err2.locationName = false;" class="form-control" name="locationName" id="locationName" ng-model="vendor.locationName" placeholder="Enter location name" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.locationName">Please enter location name</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.address == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Address</label>
+                            <div>
+                                <input type="text" ng-focus="err2.address = false;" class="form-control" name="attractionID" id="city_country" ng-model="vendor.address" placeholder="Enter address" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.address">Please enter Address</span>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group" style="margin-top: -5px;"> -->
+                        <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.city == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="city">City</label>
+                            <div>
+                                <input readonly="true" type="text" ng-focus="err2.city = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.city" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.city">Please select city</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 noPad">
+                        <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.state == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="state">State</label>
+                            <div>
+                                <input readonly="true" type="text" ng-focus="err2.state = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.state" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.state">Please select state</span>
+                            </div>
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="form-group" style="margin-top: -20px;"> -->
+                        <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.country == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="email">Country</label>
+                            <div>
+                                <input readonly="true" type="text" ng-focus="err2.country = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.country" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.country">Please select country</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.zip == true) ? 'has-error-no' : 'has - primary'">
+                            <label class="control-label labelName" for="zip">Zip Code</label>
+                            <div>
+                                <input readonly="true" type="text" ng-focus="err2.zip = false;" ng-model-options="{updateOn: 'blur'}" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.zip" required>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <span class="text-danger" ng-show="err2.zip">Please enter valid zip code</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <div class="col-md-12 col-xs-12 pad10">
+                        <!--  <input type="text" placeholder="Search for Address or Area or City" ng-focus="err2.address=false;" class="form-control controls" name="attractionID" id="city_country" ng-model="user.address" required>   -->
+                        <!-- <div id="mapCanvas" class="mapCanvas" ng-init="initAutocomplete();"></div>-->
+                        <!--  <map center="{{map.center.latitude}},{{map.center.longitude}}" zoom="{{map.center.zoom}}" on-center-changed="centerChanged()" geo-fallback-center="[17.44181923495811,78.38556525023193]" style=" width: 450px;
+                            height: 450px;margin-left: 5px;;">
+                                                <marker position="{{map.center.latitude}}, {{map.center.longitude}}" draggable="true" on-dragend="getCurrentLocation()"></marker>
+                                            </map>
+                                                  <p>====={{map}}</p>
+                                               <pre>{{test_map}}</pre> -->
+                        <map center="{{test_map}}" zoom="{{map.zooms}}" on-center-changed="centerChanged()" geo-fallback-center="[17.44181923495811,78.38556525023193]" style=" width: 100%;
+                             height: 280px;">
+                            <marker position="{{test_map}}" draggable="true" on-dragend="getCurrentLocation()"></marker>
+                        </map>
+                    </div>
+                    <!--     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15224.999272541649!2d78.36776457289751!3d17.447753158677738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc8c5d69df%3A0x19688beb557fa0ee!2sHITEC+City%2C+Hyderabad%2C+Telangana+500081!5e0!3m2!1sen!2sin!4v1471942915975" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+                </div>
+                <!--     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15224.999272541649!2d78.36776457289751!3d17.447753158677738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc8c5d69df%3A0x19688beb557fa0ee!2sHITEC+City%2C+Hyderabad%2C+Telangana+500081!5e0!3m2!1sen!2sin!4v1471942915975" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 noPad">
+
+    <div class="col-xs-12 noPad">
+        <div class="col-xs-12 noPadd" style="padding-top: 40px;border-radius: 4px;">
+            <div class="" style="background-color: #fff;border-bottom: 1px solid #eaedf1;border-radius: 4px;">
+                <h2 style="margin: 0;padding: 10px 16px 10px 20px;" class="labelName">Business Documents </h2>
+            </div>
+            <div class="col-xs-12 pad10-lr">
+                <!--  <div class="form-group"> -->
+                <div class="clearfix">
+                    <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.licenseNo == true) ? 'has-error-no' : 'has - primary'">
+                        <label class="control-label labelName" for="licenseNo">License Number</label>
+                        <div>
+                            <input type="text" ng-focus="err2.licenseNo = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.licenseNo" required ng-disabled="fieldDisabledes.licenseNo">
+                        </div>
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" ng-show="err2.licenseNo">Please enter license number</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.issuerName == true) ? 'has-error-no' : 'has - primary'">
+                        <label class="control-label labelName" for="issuerName">Issuer Name</label>
+                        <div>
+                            <input type="text" ng-focus="err2.issuerName = false;" class="form-control" name="attractionID" id="attractionID" ng-model="vendor.issuerName" required ng-disabled="fieldDisabledes.issuerName">
+                        </div>
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" ng-show="err2.issuerName">Please enter issuer name</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.expDate == true) ? 'has-error-no' : 'has - primary'">
+                        <label class="control-label labelName" for="expDate">Expiration Date</label>
+                        <input ng-model="vendor.expDate" 
+                               ng-focus="err2.expDate = false;" 
+                               id="businessDate" 
+                               type='text' 
+                               class="form-control from_date form-margin" 
+                               style="border-radius:0;margin-right:-5px" 
+                               placeholder="Select Date" 
+                               ng-disabled="fieldDisabledes.expDate">
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" ng-show="err2.expDate">Please select expiration date</span>
+                        </div>
+                    </div>
+                </div>
+                <!--  <div class="col-xs-4 pad5" ng-class="(err2.expDate == true) ? 'has-error-no' : 'has - primary' ">
+                    <label class="control-label" for="expDate">Expiration Date</label>
+                    <div>
+                        <div class="input-group ">
+                            <input type="text" data-date-today-btn="linked" data-date-today-highlight="true" class="form-control" ng-model="vendor.expDate" ng-model-options="{timezone:'UTC'}" data-provide="datepicker" data-date-autoclose="true" data-date-format='mm-dd-yyyy' ng-focus="selectedCal1 = !selectedCal1;
+                                    err2.expDate = false" placeholder="mm-dd-yyyy" call-date="selectedCal1" data-date-start-date='0d' readonly='true' ng-disabled="fieldDisabledes.expDate">
+                    
+                            <label for="date-picker-2" class="input-group-addon btn" ng-click="selectedCal1 = !selectedCal1;"><span class="fa fa-calendar"></span></label>
+                        </div>
+                        <div class="col-xs-12">
+                            <span class="text-danger" ng-show="err2.expDate">Please select expiration date</span>
+                        </div>
+                    </div>
+                    </div> -->
+                <!-- </div> -->
+                <div class="clearfix">
+                    <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.email == true) ? 'has-error-no' : 'has - primary'">
+                        <div class="col-xs-12 noPadd">
+                            <label class="control-label labelName" for="email">Company Business License</label>
+                            <span class="" ng-if="vendor.licence_document !== undefined && vendor.licence_document !== null" id="viewImage">
+                                <a href={{vendor.licence_document}} class="viewstyle"  target="_blank" title="View Business License"> view</a>
+                            </span>
+                            <div>
+                                <button class="custom-file-input" >
+                                    <span class="icon-picture"></span> ATTACH FILES 
+                                    <input id="Upload" type="file" title=" " class="customized"  name="_photos"  onchange="angular.element(this).scope().getFileDetails(this)" ng-focus="err2.license = false"> 
+                                </button>
+                            </div>
+                            <div>
+                                <p>{{customRequestFile}} </p>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-4" ng-if="vendor.licence_document != undefined" id="viewImage">
+                            <a href={{vendor.licence_document}} class="viewstyle"  target="_blank" title="View Logo"> view</a>
+                        </div> -->
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" ng-show="err2.license">license must be in png/jpg/pdf/docx format</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.email == true) ? 'has-error-no' : 'has - primary'">
+                        <div class="col-xs-12 noPadd">
+                            <label class="control-label labelName" for="email">Company Logo</label>
+                            <span class="" ng-if="vendor.logo != undefined && vendor.logo != null" id="viewImage">
+                                <a href={{vendor.logo}} target="_blank" class="viewstyle" title="View Logo"> view</a>
+                            </span>
+                            <div>
+                                <button class="custom-file-input" >
+                                    <span class="icon-picture"></span> ATTACH FILES 
+                                    <input id="Upload1" type="file" class="customized"  name="logo" accept="image/*"  onchange="angular.element(this).scope().getlogo(this)" ng-focus="err2.license = false"> 
+                                </button>
+                            </div>
+                            <div>
+                                <p>{{customRequestFile1}} </p>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-4" ng-if="vendor.logo != undefined" id="viewImage">
+                            <a href={{vendor.logo}} target="_blank" class="viewstyle" title="View Logo"> view</a>
+                        </div> -->
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" ng-show="err2.logo">logo must be in png/jpg format</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 pad10-lr pad10-top" ng-class="(err2.email == true) ? 'has-error-no' : 'has - primary'">
+                        <div class="col-xs-12 noPadd">
+                            <label class="control-label labelName" for="email">W-9 Form</label>&nbsp;<a href="resources/W-9 form.pdf" download title="Download Sample W-9 Form"><i class="fa fa-cloud-download" aria-hidden="true" ></i></a>
+                            <span class="" ng-if="vendor.w9form != undefined && vendor.w9form != null" id="viewImage">
+                                <a href={{vendor.w9form}} target="_blank"  class="viewstyle" title="View W-9 Form"> view</a>
+                            </span>
+                            <div>
+                                <button class="custom-file-input" >
+                                    <span class="icon-picture"></span> ATTACH FILES 
+                                    <input id="Upload2" type="file" class="customized"  name="logo"  onchange="angular.element(this).scope().getw9form(this)" ng-focus="err2.w9form = false"> 
+                                </button>
+                            </div>
+                            <div>
+                                <p>{{customRequestFile2}} </p>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-4" ng-if="vendor.w9form != undefined" id="viewImage">
+                            <a href={{vendor.w9form}} target="_blank"  class="viewstyle" title="View Logo"> view</a>
+                        </div> -->
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" ng-show="err2.w9form">w9form must be in pdf format</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 noPad">
+        <div class="col-xs-12 noPadd" style="padding-top: 10px;border-radius: 4px;">
+            <div class="" style="background-color: #fff;border-bottom: 1px solid #eaedf1;border-radius: 4px;">
+                <h2 style="margin: 0;padding: 10px 16px 10px 20px;" class="labelName">Product / Service Information </h2>
+            </div>
+            <div class="col-md-12 col-xs-12 pad10-lr">
+                <div class="col-md-6 col-xs-6 pad10-lr pad10-top" ng-class="(err2.email == true) ? 'has-error-no' : 'has - primary'">
+                    <label class="control-label labelName" for="email">Description</label>
+                    <div>
+                        <textarea cols="4" rows="6" style="height: auto; resize: none;" class="form-control" placeholder="Please provide a brief description of products / services that you provide to your customers" ng-model="vendor.pDesc"></textarea>
+                    </div>
+                    <div class="col-xs-4 noPad">
+                        <span class="text-danger" ng-show="err2.email">Please enter hotspot name</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6 pad10-lr pad10-top" ng-class="(err2.status == true) ? 'has-error-no' : 'has - primary'">
+                    <label class="col-xs-12 control-label noPadd labelName" id="left" for="email">
+                        Vendor Type
+                    </label>
+                    <div class="col-xs-12 noPadd vendorTypeHolder">
+                        <div class="col-xs-6 checkbox noPadd" ng-repeat="category in categoriesList">
+                            <!-- ng-checked="isChecked(category.id)" ng-change="sync(bool, category)" category.status  -->
+                            <label>
+                                <input 
+                                    type="checkbox" 
+                                    ng-model="category.status" 
+                                    ng-focus="err2.categorySelect = false" 
+                                    ng-click="getCategory(category.id, category.status)">
+                                <span class="checkboxReplace"> </span>
+                                {{category.category_name}} 
+                                <!--- {{category.id}} - {{catList.length}}-->
+                            </label>
+                        </div>
+                    </div>
+                    <!--{{categoriesList | json}}-->
+                    <div class="col-xs-12 text-center noPad">
+                        <span class="text-danger" ng-show="err2.categorySelect">Please select atleast one Vendor Type</span>
+                    </div>
+                </div>
+                <!--///////////////////-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--<pre>{{Catering}},{{Cake}},{{PartySupplies}},{{PartyFavors}}</pre>-->
+<!--{{Category_price}} {{Category_price1}}-->
+<div class="col-xs-12 noPad">
+    <!--  <div ng-show="Category_price == true"> -->
+    <div >
+        <div class="col-xs-12 pad10-lr">
+            <div class="col-xs-12 noPadd" style="padding-top: 40px;border-radius: 4px;">
+                <div class="" style="background-color: #fff;border-bottom: 1px solid #eaedf1;border-radius: 4px;">
+                    <h2 style="margin: 0;padding: 10px 16px 10px 20px;" class="labelName">Shipping and Handling charges  </h2>
+                </div>
+                <div class="col-xs-12 noPad">
+                    <!-- <div>
+                        <a href="" ng-click="addschedulelines($index)">
+                        <button style="margin-right: 23px;" type="button" class="btn btn-default btn-circle pull-right"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                        </a>
+                        <br>
+                    </div> -->
+                    <div class="col-xs-12 noPad">
+                        <!--<h5><strong>Delivery Price :</strong>-->
+                        <!--<pre>{{schedulelines}}</pre>-->
+                        <!--  </h5> -->
+                        <div ng-repeat="scheduleline in schedulelines">
+                            <form>
+                                <div class="col-xs-12 pad10-lr">
+                                    <div class="col-md-11 noPad">
+                                        <div class="col-xs-4 pad10-lr pad10-top">
+                                            <label class="control-label labelName" for="expDate">Product price from</label>
+                                            <div class="col-xs-12 noPad">
+                                                <input type="text" ng-model="scheduleline.from" ng-keyup="demo(scheduleline.from, $index)" class="form-control">
+                                            </div>
+                                            <!-- <div class="input-group">
+                                                <span class="input-group-addon">$</span>
+                                                <input type="text" ng-model="scheduleline.from" ng-keyup="demo(scheduleline.from,$index)" class="form-control">
+                                            </div> -->
+                                        </div>
+                                        <div class="col-xs-4 pad10-lr pad10-top">
+                                            <label class="control-label labelName" for="expDate">Product price to </label>
+                                            <div class="col-xs-12 noPad">
+                                                <input type="text" ng-model="scheduleline.to" ng-keyup="demo1(scheduleline.to, $index)" class="form-control">
+                                            </div>
+                                            <!-- <div class="input-group">
+                                                <span class="input-group-addon">$</span>
+                                                <input type="text" ng-model="scheduleline.to" ng-keyup="demo1(scheduleline.to,$index)" class="form-control">
+                                            </div> -->
+                                        </div>
+                                        <div class="col-xs-4 pad10-lr pad10-top">
+                                            <label class="control-label labelName" for="expDate">Delivery fee</label>
+                                            <div class="col-xs-12 noPad">
+                                                <input type="text" ng-model="scheduleline.cost" ng-keyup="demo2(scheduleline.cost, $index)" class="form-control">
+                                            </div>
+                                            <!-- <div class="input-group">
+                                                <span class="input-group-addon">$</span>
+                                                <input type="text" ng-model="scheduleline.cost" ng-keyup="demo2(scheduleline.cost,$index)" class="form-control">
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 noPad" style="display: inline-block;">
+                                        <label class="control-label labelName" style="visibility: hidden;">space</label>
+                                        <div class="mar5-top pad10-top iconsHolder">
+                                            <a href="javascript:void(0)" class="btn btn-default btn-circle buttonBg" ng-click="addschedulelines($index)">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" ng-hide="schedulelines.length == 1" ng-if="$index" ng-click="removeschedulelines($index)">
+                                                <i class="fa fa-trash-o"></i>
+                                                <!-- <div class="col-xs-12 "><button style="margin-top: 0px;" type="button" class="btn btn-default btn-circle pull-right"><i class="glyphicon glyphicon-minus-sign"></i></button></div> -->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 pad20">
+    <!-- <div class="col-xs-6"><a ng-click="goToBasic()" class="btn btn-primary loginButton"><span class="fa fa-angle-left" aria-hidden="true" id="arrLeft"></span>Back</a></div> -->
+    <div class="col-xs-12 pad5 pad10-lr text-left">
+        <!--{{admin.bankStatus | json}}-->
+        <button ng-disabled="disFalg" ng-show="admin.bankStatus == false || admin.bankStatus == 'false'" class="theme-btn loginButton" ng-click="saveBusinessInfo(vendor)" id="fontBold">UPDATE INFO<span class="fa fa-angle-right" aria-hidden="true" id="arrRight"></span></button>
+        <button ng-disabled="disFalg" ng-show="admin.bankStatus == true || admin.bankStatus == 'true'" class="theme-btn loginButton" ng-click="saveBusinessInfo(vendor)" id="fontBold">UPDATE INFO</button>
+        <!-- <a ng-disabled="disFalg" ng-show="admin.venodorStatus===true || admin.venodorStatus==='true'" class="btn btn-primary loginButton" id="fontBold" ng-click="goToAccount()">Next<span class="fa fa-angle-right" aria-hidden="true" id="arrRight"></a> -->
+    </div>
+</div>

@@ -1,0 +1,258 @@
+<div class="col-xs-12 noPad AcctBasicInfo">
+    <!-- <pre>{{Vendor.profile_pic_path}}</pre> -->
+    <div class="col-xs-2 noPad"> 
+        <span class="profileImageHolder">
+            <!--{{admin.vendor.profile_pic_path | json}}-->
+            <img id='profpic' class="img-responsive accountImg" ng-src="{{admin.vendor.profile_pic_path}}">   
+            <!--<p class="change-pic">Change Picture</p>--> 
+            <input id="propic" title=" " name="file" ng-model="vendorImage" type="file" class="customized fileInput" alt="Upload" accept="image/*" onchange="angular.element(this).scope().getPicDetail(this)"/>
+        </span>
+    </div>
+    <div class="col-xs-10 noPad">
+        <div class="col-xs-12 noPad">
+            <div class="pad10-lr col-xs-6" ng-class="(err1.firstName == true) ? 'has-err1or' : 'has - primary'">
+                <label class="control-label labelName mar10-top" for="firstName">First Name</label>
+                <div>
+                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="user.firstName" ng-focus="err1.firstName = false;" required>
+                </div>
+                <div class="col-xs-6 noPad">
+                    <span class="text-danger" ng-show="err1.firstName">Please enter first name</span>
+                </div>
+            </div>
+            <div class="pad10-lr col-xs-6" ng-class="(err1.lastName == true) ? 'has-err1or' : 'has - primary'">
+                <label class="control-label labelName mar10-top" for="lastName">Last Name</label>
+                <div>
+                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="user.lastName" ng-focus="err1.lastName = false;" required>
+                </div>
+                <div class="col-xs-6 noPad">
+                    <span class="text-danger" ng-show="err1.lastName">Please enter last name</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 noPad">
+            <div class="pad10-lr col-xs-6" ng-class="(err1.email == true) ? 'has-err1or' : 'has - primary'">
+                <label class="control-label labelName mar10-top" for="email">Email Address</label>
+                <div>
+                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="user.email" ng-focus="err1.email = false;" required ng-disabled="true">
+                </div>
+                <div class="col-xs-6 noPad">
+                    <span class="text-danger" ng-show="err1.email">Please enter email address</span>
+                </div>
+            </div>
+
+            <div class="col-xs-6 pad10-lr">
+                <label class="control-label labelName mar10-top">Current Password</label>
+                <!-- <input type="text" class="form-control" value="********" ng-disabled="disablePassword"> -->
+                <div class="">
+                    <button class="change-time-btn" ng-click="changePassword();">CHANGE PASSWORD</button>
+                </div>
+            </div>
+            <!-- <div class="col-xs-5 form-group">
+                <label></label></br>
+                <button class="btn theme-btn change-time-btn" ng-click="changePassword();"><i class="fa fa-pencil" aria-hidden="true"></i> Change Password</button>
+            </div> -->
+        </div>
+        <div class="col-xs-12 pad10" id="vednorChangePwd" style="display: none;"> 	<!-- //Change password -->
+            <label class="labelName mar10-top"><strong>Change Password</strong>
+                <!--<br> {{passRes| json}}-->
+            </label>
+            <form name="changePwdForm" novalidate>
+                <div class="col-xs-12 noPad">
+                    <div class="col-sm-6 noPad" style="padding-right: 10px;">
+                        <label class="labelName mar10-top">New Password</label>
+                        <input type="password" 
+                               class="form-control" 
+                               name="password" 
+                               placeholder="5 characters min" 
+                               ng-model="changePass.newPassword"
+                               ng-keyup="checkCharacterEntry($event, changePass, 1)" 
+                               required>
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" 
+                                  ng-show="passwordError.pass1.status">
+                                {{passwordError.pass1.message}}
+                            </span>
+                            <!--  <span class="text-danger" ng-show="passerr" style="">5 characters min</span> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pad10-lr">
+                        <label class="labelName mar10-top">Retype New Password</label>
+                        <input type="password" 
+                               class="form-control" 
+                               name="retypePassword" 
+                               ng-model="changePass.retypePassword"
+                               ng-keyup="checkCharacterEntry($event, changePass, 2)" 
+                               required>
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" 
+                                  ng-show="passwordError.pass2.status">
+                                {{passwordError.pass2.message}}
+                            </span>  
+                            <!--  <span class="text-danger" ng-show="passerr1" style="">5 characters min</span>  -->
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center noPad mar10-top">
+                    <div class="vendor-profile-topPadd text-left">
+                        <button class="btn theme-btn change-time-btn" ng-click="updatePassword(changePass)" ng-disabled="changePwdForm.$invaild">Update</button>
+                        <button class="btn theme-btn change-time-btn cancelBtn" ng-click="cancelChangePwd();">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-12 noPad">
+            <div class="col-xs-6 pad10-lr">
+                <label class="control-label labelName mar10-top">Select Your Time Zone</label>
+                <div class="timeZoneHolder">
+                    <input id="tags" type="text" class="form-control"  ng-model="user.timezone">
+                </div>
+            </div>
+            <div class="col-xs-6 pad10-lr">
+                <div class="col-xs-12 noPad" ng-class="(err1.basic_phone_number_cdn == true) ? 'has-error' : 'has - primary'">
+                    <label class="control-label labelName mar10-top" for="phone_number">Phone Number</label>
+                    <div class="phoneNumberHolder">
+                        <span ng-if="user.basic_phone_number">+1</span>
+                        <input type="text" 
+                               ng-focus="err1.basic_phone_number_cdn = false;" 
+                               class="form-control" 
+                               ng-class="{'code':user.basic_phone_number}"
+                               name="attractionID" 
+                               id="attractionID" 
+                               ng-model="user.basic_phone_number" 
+                               ng-keyup="checkPhonePattern(user.basic_phone_number)" 
+                               placeholder="+1xxxxxxxxxx">
+                    </div>
+                    <div class="col-xs-12 noPad">
+                        <span class="text-danger" ng-show="err1.basic_phone_number_cdn">Enter valid phone number</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-left pad10" style="padding-top: 30px;">
+            <button type="submit" ng-show="admin.venodorStatus === false || admin.bankStatus == false" ng-disabled="disFalg" class="theme-btn loginButton" style="border: none;" ng-click="saveBasicInfo();" id="fontBold">UPDATE INFO</button>
+            <button ng-disabled="disFalg" ng-show="admin.venodorStatus === true && admin.bankStatus == true" class="theme-btn loginButton" style="border: none;" ng-click="saveBasicInfo();" id="fontBold">UPDATE INFO</button>
+            <!-- <a type="submit" ng-disabled="disFalg" class="btn btn-primary loginButton" id="fontBold" ng-click="goToBusiness()">Next<span class="fa fa-angle-right" aria-hidden="true" id="arrRight"></a> -->
+        </div>
+
+    </div>
+
+
+
+
+    <br>
+    <!-- <div class="col-xs-12">
+            <div class="form-group col-xs-6" ng-class="(err1.firstName == true) ? 'has-err1or' : 'has - primary'">
+                <label class="control-label" for="firstName">First Name</label>
+                <div>
+                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="user.firstName" ng-focus="err1.firstName = false;" required>
+                </div>
+                <div class="col-xs-6">
+                    <span class="text-danger" ng-show="err1.firstName">Please enter first name</span>
+                </div>
+            </div>
+            <div class="form-group col-xs-6" ng-class="(err1.lastName == true) ? 'has-err1or' : 'has - primary'">
+                <label class="control-label" for="lastName">Last Name</label>
+                <div>
+                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="user.lastName" ng-focus="err1.lastName = false;" required>
+                </div>
+                <div class="col-xs-6">
+                    <span class="text-danger" ng-show="err1.lastName">Please enter last name</span>
+                </div>
+            </div>
+        </div> -->
+    <div class="col-xs-12">
+        <!-- <div class="form-group col-xs-6" ng-class="(err1.email == true) ? 'has-err1or' : 'has - primary'">
+            <label class="control-label" for="email">Email</label>
+            <div>
+                <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="user.email" ng-focus="err1.email = false;" required ng-disabled="true">
+            </div>
+            <div class="col-xs-6">
+                <span class="text-danger" ng-show="err1.email">Please enter email address</span>
+            </div>
+        </div> -->
+        <!-- <div class="form-group col-xs-6 " style="padding:0px">
+            <div class="form-group col-xs-4" ng-class="(err1.basic_phone_country_code_cdn == true) ? 'has-error' : 'has - primary'">
+                <label class="control-label" for="phone_country_code">Phone Country Code</label>
+                <div>
+                    <input type="text" ng-focus="err1.basic_phone_country_code_cdn = false;" class="form-control" name="attractionID" id="attractionID" ng-model="user.basic_phone_country_code">
+                </div>
+                <div class="col-xs-12">
+                    <span class="text-danger" ng-show="err1.basic_phone_country_code_cdn">Phone Country Code should have minimum of 3 digits.</span>
+                </div>
+            </div>
+            <div class="form-group col-xs-4" ng-class="(err1.basic_phone_area_code_cdn == true) ? 'has-error' : 'has - primary'">
+                <label class="control-label" for="phone_area_code">Phone Area Code</label>
+                <div>
+                    <input type="text" ng-focus="err1.basic_phone_area_code_cdn = false;" class="form-control" name="attractionID" id="attractionID" ng-model="user.basic_phone_area_code">
+                </div>
+                <div class="col-xs-12">
+
+               <span class="text-danger" ng-show="err1.basic_phone_area_code_cdn">Area Code should have minimum of 3 digits.</span>
+                </div>
+
+            </div>
+            <div class="form-group col-xs-4" ng-class="(err1.basic_phone_number_cdn == true) ? 'has-error' : 'has - primary'">
+                <label class="control-label" for="phone_number">Phone Number</label>
+                <div>
+                    <input type="text" ng-focus="err1.basic_phone_number_cdn = false;" class="form-control" name="attractionID" id="attractionID" ng-model="user.basic_phone_number">
+                </div>
+                <div class="col-xs-12">
+
+               <span class="text-danger" ng-show="err1.basic_phone_number_cdn">Phone number should have minimum of 7 digits.</span>
+
+               </div>
+            </div>
+        </div> -->
+        <!-- <label class="control-label" for="phoneNumber">Phone</label>
+        <div>
+            <input type="text" class="form-control" name="attractionID" id="attractionID" required ng-model="user.phone_number">
+        </div> -->
+    </div>
+    <!-- <div class="col-xs-12">
+        <div class="col-xs-7 form-group">
+            <label class="control-label">Select Your Time Zone</label>
+            <input id="tags" type="text" class="form-control" ng-disabled="disableTimezone">
+        </div>
+        <div class="col-xs-5 form-group">
+            <label></label></br>
+            <button id="displayVendor" class="btn theme-btn change-time-btn" ng-click="changeTimeZone();"><i class="fa fa-pencil" aria-hidden="true"></i> Change</button>
+        </div>
+    </div> -->
+    <!-- <div class="col-xs-12" id="vendorPwd">
+        <div class="col-xs-7 form-group">
+            <label class="control-label">Password</label>
+            <input type="text" class="form-control" value="********" ng-disabled="disablePassword">
+        </div>
+        <div class="col-xs-5 form-group">
+            <label></label></br>
+            <button class="btn theme-btn change-time-btn" ng-click="changePassword();"><i class="fa fa-pencil" aria-hidden="true"></i> Change Password</button>
+        </div>
+    </div> -->
+    <!-- <div class="col-xs-12" id="vednorChangePwd" style="display: none;">
+        <label><strong>Change Password</strong></label>
+        <form name="changePwdForm" novalidate>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>New Password</label>
+                    <input type="password" class="form-control" name="password" ng-model="change.newPassword" required>
+                </div>
+                <div class="col-sm-4">
+                    <label>Retype New Password</label>
+                    <input type="password" class="form-control" name="retypePassword" ng-model="change.retypePassword" required>
+                </div>
+            </div>
+            <div class="row col-xs-8 text-center">
+                <div class="vendor-profile-topPadd">
+                    <button class="btn theme-btn change-time-btn" ng-click="updatePassword()" ng-disabled="changePwdForm.$invaild">Update</button>
+                    <button id="showPswdBtn" class="btn btn-info change-time-btn" ng-click="cancelChangePwd();">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div> -->
+    <!-- <div class="col-sm-12 text-right pad20">
+        <button type="submit" ng-show="admin.venodorStatus === false || admin.bankStatus == false" ng-disabled="disFalg" class="btn btn-primary loginButton" ng-click="saveBasicInfo();" id="fontBold">UPDATE INFO<span class="fa fa-angle-right" aria-hidden="true" id="arrRight"></button>
+        <button ng-disabled="disFalg" ng-show="admin.venodorStatus === true && admin.bankStatus == true" class="btn btn-primary loginButton" ng-click="saveBasicInfo();" id="fontBold">UPDATE INFO</button>
+        <a type="submit" ng-disabled="disFalg" class="btn btn-primary loginButton" id="fontBold" ng-click="goToBusiness()">Next<span class="fa fa-angle-right" aria-hidden="true" id="arrRight"></a>
+    </div> -->
+</div>

@@ -1,0 +1,105 @@
+<style>
+    .form-control-custom {
+        display: block;
+        width: 100%;
+        height: 30px;
+        padding: 1px 0px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background: none;
+        margin-bottom: 5px;
+        background-image: none;
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+    }
+</style>
+<div class="blockMain">
+    <div class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px">
+        <div class="container">
+            <div class="col-xs-12 noPad">
+                <div class="col-xs-12 noPad">
+                    <div class='col-md-4 col-sm-6'>
+                        <div class="form-group" ng-class="(err.week_number == true) ? 'has-error' : 'has - primary'">
+                            <label class="control-label">Week Day</label>
+                            <div>
+                                <select ng-if="page.type == 'post'" class="form-control" name="week_number" id="week_number" ng-model="calAvl.week_number" ng-focus="err.week_number = false;" >
+                                    <option value="">Please select day</option>
+                                    <option ng-repeat="week in week_number" value={{week.id}}>{{week.name}}</option>
+
+                                </select>
+                                <select ng-if="page.type == 'put'" class="form-control" name="week_number" id="week_number" ng-model="calAvl.week_number" ng-focus="err.week_number = false;" disabled >
+                                    <option value="">Please select day</option>
+                                    <option ng-repeat="week in week_number" value={{week.id}}>{{week.name}}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="text-danger" ng-show="err.week_number">Please select week</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-4 col-sm-6'>
+                        <div class="form-group" ng-class="(err.location_id == true) ? 'has-error' : 'has - primary'">
+                            <label class="control-label">Location</label>
+                            <div>
+                                <select ng-if="page.type == 'post'" class="form-control" ng-model="calAvl.location_id" ng-change="getAttributes(calAvl.location_id)" ng-focus="err.location_id = false;" >
+                                    <option value="">Please select location</option>
+                                    <option ng-repeat="location in getLocation" value={{location.id}}>{{location.location_name}}</option>
+                                </select>
+
+                                <select  ng-if="page.type == 'put'" class="form-control" ng-model="calAvl.location_id" ng-options='location.id as (location.location_name)  for location in getLocation' ng-focus="err.location_id = false;" >
+
+                                </select>
+
+                            </div>
+                            <div>
+                                <span class="text-danger" ng-show="err.location_id">Please select location</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class='col-md-4 col-sm-3'>
+                        <div class="form-group" ng-class="(err.start_time == true) ? 'has-error' : 'has - primary'">
+                            <label>Start Time</label>
+                            <div class='input-group'>
+                                <input ng-model="calAvl.start_time" id="start_time"  type='text' class="form-control from_date form-margin" ng-focus="err.start_time = false" style="border-radius:0;margin-right:-5px" placeholder="Select Start Time">
+                                <!-- <input type="text" id="time1" class="form-control" ng-model="calAvl.start_time" data-date-autoclose="true" placeholder="hh:mm" ng-focus="datetimepicker6 = !datetimepicker6;err.start_time = false;">
+                                <label for="date-picker-6" class="input-group-addon btn " id="btn1" ng-click="datetimepicker6 = !datetimepicker6;"><span class="glyphicon glyphicon-time"></span></label>
+                            </div>
+                            <div> -->
+
+                                <span class="text-danger" ng-show="err.start_time">Please enter start time</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-4 col-sm-3'>
+                        <div class="form-group" ng-class="(err.end_time == true) || (err.end_time_wrong == true) ? 'has-error' : 'has - primary'">
+                            <label>End Time</label>
+                            <div class='input-group date' id='datetimepicker5'>
+
+                                <input ng-change="end_time(calAvl, $index)" ng-model="calAvl.end_time" id="end_time"  type='text' class="form-control end_time form-margin" ng-focus="err.end_time = false;err.end_time_wrong = false;" style="border-radius:0;margin-right:-5px" placeholder="Select End Time" ng-blur="enddate()" ng-disabled="!calAvl.start_time">
+
+
+                                <!--  <input id="time2" type='text' class="form-control" ng-model="calAvl.end_time" placeholder="hh:mm" ng-focus="datetimepicker5 = !datetimepicker5;err.end_time = false;" ng-blur="enddate()" />
+                                 <label for="date-picker-5" class="input-group-addon btn " id="btn2" ng-click="datetimepicker5 = !datetimepicker5;"><span class="glyphicon glyphicon-time"></span></label> -->
+
+                                <span class="text-danger" ng-show="err.end_time">Please enter end time</span><br>
+                                <span class="text-danger" ng-show="err.end_time_wrong">End Time should be greater than Start Time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-xs-12 text-center" style="margin:20px 0px">
+
+                    <button class="btn btn-md btn-primary anchorButton" ng-if="page.type == 'post'" ng-click="addAvailableTime(calAvl)" style="width:100px;"> Save</button>
+                    <button ng-if="page.type == 'put'" class="btn btn-md btn-primary anchorButton" ng-click="updateAvailableTime(calAvl);" style="width:100px;"> Update</button>
+                    <button class="btn btn-md btn-warning anchorButton" ng-click="addAvailableCancel();" style="width:100px;"> Cancel</button>
+                </div>
+                <script type="text/javascript">
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

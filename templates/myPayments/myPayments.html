@@ -1,0 +1,144 @@
+<div ng-init="init()">
+    <!--{{paymentCheck| json}}-->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPad bgWhite">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vendor-main-content noPad">
+            <div class="my-events-filter pad10-lr col-xs-12" style="border-bottom: 1px solid #e5e7eb;">
+                <div class="col-xs-12 noPad">
+
+                    <div class="col-sm-3 pad10-lr">
+                        <div class="col-xs-12 noPad dropdown">
+                            <div class="evtDate1" ng-show="!showEvtDate" ng-class="{
+                                    'open' : showFilterDate}">
+                                <!--<div class="col-sm-12 noPad dropdown-toggle" id="menu1" data-toggle="dropdown" ng-init="dateFlag = angular.element(this).scope().attr('aria-expanded')">-->
+                                <div class="col-sm-12 noPad dropdown-toggle" id="menu1" data-toggle="dropdown" ng-click="showFilterDate = !showFilterDate">
+                                    <label class="dropdowns" style="cursor: pointer;">SELECT DATE RANGE</label>
+                                    <span class="glyphicon" ng-class="{
+                                            'glyphicon-menu- up': showFilterDate, 'glyphicon-menu-down': !showFilterDate}"></span>
+                                </div>
+                                <ul class="dropdown-menu dropFilter" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation">
+                                        <input type="text" class="form-control dropInput" name="SELECT DATE RANGE" 
+                                               id="myBookingsDateRange" ng-model="paymentCheck.myBookingsDateRange" readonly placeholder="Type to search" />
+                                        <!--<span class="clear-input" ng-show="myBookingsDateRange" ng-click="myBookingsDateRange = '';filterMyBookings();">&times;</span>-->
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--{{showEvtDate| json}}  - {{start_date| json}} - {{end_date| json}}-->
+                            <div class="evtDate2" ng-if="showEvtDate">
+                                <label class="dropdowns" style="cursor: pointer;color: #FD7357;"> 
+                                    <!--{{myBookingsDateRange| date: "dd-MM-yyyy"}}-->
+                                    {{renderDateRange}}
+                                </label>
+                                <span class="clear-inputFilter" ng-click="clearDatePicker('date');">
+                                    <!--&times;-->
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    <div class="col-sm-3 pad10-lr">
+                                            <div class="col-xs-12 noPad dropdown"> 
+                                                <div class="evtType1" ng-hide="showEvtType" ng-class="{
+                                                        'open' : showFilterType}">
+                                                    <div class="col-sm-12 noPad clear-input-wrapper dropdown-toggle" id="menu2" data-toggle="dropdown" ng-click="showFilterType = !showFilterType">
+                                                        <label class="dropdowns" style="cursor: pointer;"> Event Type</label>
+                                                        <span class="glyphicon"  ng-class="{
+                                                                'glyphicon-menu- up': showFilterType, 'glyphicon-menu-down': !showFilterType}"></span>
+                                                    </div>
+                                                    <ul class="dropdown-menu dropFilter" role="menu" aria-labelledby="menu2">
+                                                        <li role="presentation">
+                                                            <div class="eventTypeHolder">
+                                                                <input type="text" name="eventType" class="form-control dropInput"
+                                                                       ng-model="eventType" id="eventType" autocomplete
+                                                                       placeholder="Type to search" ng-change="filterMyBookings();" />
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="evtType2" ng-show="showEvtType">
+                                                    <label class="dropdowns" style="cursor: pointer;color: #FD7357;"> {{eventType}}</label>
+                                                    <span class="clear-inputFilter" 
+                                                          ng-show="showEvtType" 
+                                                          ng-click="eventType = '';
+                                                              showEvtType = false">
+                                                        &times;
+                                                        <i class="fa fa-times"></i>
+                                                    </span>
+                                                     <span class="clear-inputFilter" ng-show="showEvtType"  ng-click="eventType = ''">&times;</span> 
+                                                </div>
+                                            </div>
+                                        </div>-->
+
+                    <div class="col-sm-3 pad10-lr">
+                        <div class="col-xs-12 noPad dropdown"> 
+                            <div class="evtType1" ng-if="!showBookingId" ng-class="{
+                                    'open' : showFilterType}">
+                                <div class="col-sm-12 noPad clear-input-wrapper dropdown-toggle" id="menu2" data-toggle="dropdown" ng-click="showFilterType = !showFilterType">
+                                    <label class="dropdowns" style="cursor: pointer;"> Booking ID</label>
+                                    <span class="glyphicon"  ng-class="{
+                                            'glyphicon-menu- up': showFilterType, 'glyphicon-menu-down': !showFilterType}"></span>
+                                </div>
+                                <ul class="dropdown-menu dropFilter" role="menu" aria-labelledby="menu2">
+                                    <li role="presentation">
+                                        <div class="eventTypeHolder">
+                                            <input type="text" name="eventType" class="form-control dropInput"
+                                                   ng-model="paymentCheck.booking_number" id="eventType" autocomplete
+                                                   placeholder="Type to search"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="evtType2" ng-if="showBookingId">
+                                <label class="dropdowns" style="cursor: pointer;color: #FD7357;"> {{paymentCheck.booking_number}}</label>
+                                <span class="clear-inputFilter" 
+                                      ng-if="showBookingId" 
+                                      ng-click="clearDatePicker('bookingId')">
+                                    <!--&times;
+                                    ng-show="showEvtType" 
+                                      ng-click="eventType = '';
+                                          showEvtType = false">
+                                    -->
+                                    <i class="fa fa-times"></i>
+                                </span>
+                                <!-- <span class="clear-inputFilter" ng-show="showEvtType"  ng-click="eventType = ''">&times;</span> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="event-wrapper noPad">
+                <!--{{myPayments| json}}-->
+                <div class="">
+                    <table class="table table-responsive table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%">Booking ID</th>
+                                <th style="width: 40%">Amount</th>
+                                <th style="width: 25%">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="my-booking-wrapper" dir-paginate="payment in myPayments | itemsPerPage:10 | filter:eventType" id="{{payment.event_id}}">
+                                <td>{{payment.booking_number}}</td>
+                                <td>
+                                    <span ng-if="payment.amount">${{payment.amount| number:'2'}}</span>
+                                    <span ng-if="!payment.amount">-</span>
+                                </td>
+                                <td>{{payment.created_on}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="text-center" ng-show="myPayments.length > 10">
+                        <dir-pagination-controls
+                            max-size="10"
+                            direction-links="true"
+                            boundary-links="true" >
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>

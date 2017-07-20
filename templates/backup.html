@@ -1,0 +1,166 @@
+<form class="form-horizontal form-bordered row" onsubmit="return false;" enctype="multipart/form-data" novalidate ng-init="tab = 1">
+    <div class="col-xs-2 text-left noPadd">
+        <div class="pageTitle" style="margin-left:17px">Settings</div>
+        <ul id="listElement">
+            <li><a ui-sref="My-Account" >My-Account</a></li>
+            <li><a ui-sref="Location" ng-click="tab = 1">Location</a></li>
+        </ul>
+    </div>
+    <div class="col-xs-10 blockMain" ng-if="tab == 2">
+        <div class="col-xs-12" style="background-color:#ffffff;">
+            <div class="col-xs-6">  
+                 <div class="col-xs-12">
+                     <div class="form-group" ng-class="(err.address == true) ? 'has-error' : 'has-primary' ">
+                            <label class="control-label" for="email">Address</label>
+                            <div>
+                                <input type="text" placeholder="Address" ng-focus="err.address=false;" class="form-control" name="attractionID" id="city_country" ng-model="address" required>
+                            </div>
+                            <div class="col-xs-12">
+                                <span class="text-danger" ng-show="err.address">Please enter Address.</span>
+                            </div>
+                        </div>
+                </div>
+                  <div class="col-xs-12">
+                     <div class="form-group" >
+                              <div id="mapCanvasLoc" class="mapCanvas" ng-init="initAutocomplete();"></div>
+                    </div>
+                </div>
+               
+           </div>
+            <div class="col-xs-6">
+              
+              <div class="col-xs-12">
+                  <div class="col-xs-12">
+                     <div class="form-group" ng-class="(err.address == true) ? 'has-error' : 'has-primary' ">
+                            <label class="control-label" for="email">Location Name</label>
+                            <div>
+                                <input type="text" placeholder="Address" ng-focus="err.address=false;" class="form-control" name="attractionID" id="city_country" ng-model="user.address" required>
+                            </div>
+                            <div class="col-xs-12">
+                                <span class="text-danger" ng-show="err.address">Please enter location name.</span>
+                            </div>
+                        </div>
+                </div>  
+                <div class="col-xs-12">
+                    <div class="form-group" ng-class="(err.shortDesc == true) ? 'has-error' : 'has-primary' ">
+                        <label class="control-label" for="name">Location Description</label>
+                        <div>
+                            <textarea cols="4" rows="3" class="form-control" placeholder="Short Description" ng-model="product.longDesc"></textarea>
+                            <!-- <input type="text" placeholder="Short Description" ng-focus="err.shortDesc=false;" class="form-control" name="shortDesc" ng-model="product.shortDesc" required> -->
+                        </div>
+                        <div class="col-xs-4">
+                            <span class="text-danger" ng-show="err.email">Please enter short description.</span>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-xs-12">
+                      <div class="form-group" >
+                            <div class="col-xs-6 pad5" ng-class="(err.country == true) ? 'has-error' : 'has-primary' ">
+                                <label class="control-label" for="email">Country</label>
+                                <div>
+                                    <input type="text" placeholder="Country" ng-focus="err.country=false;" class="form-control" name="attractionID" id="attractionID" ng-model="country" required>
+                                    
+                                </div>
+                                <div class="col-xs-12">
+                                <span class="text-danger" ng-show="err.country">Please select country.</span>
+                            </div>
+                            </div>
+                            <div class="col-xs-6 pad5" ng-class="(err.state == true) ? 'has-error' : 'has-primary' ">
+                                <label class="control-label" for="state">State</label>
+                                <div>
+                                    <input type="text" placeholder="State" ng-focus="err.state=false;" class="form-control" name="attractionID" id="attractionID" ng-model="state" required>
+                                    
+                                </div>
+                                <div class="col-xs-12">
+                                <span class="text-danger" ng-show="err.state">Please select state.</span>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <div class="col-xs-6 pad5" ng-class="(err.city == true) ? 'has-error' : 'has-primary' ">
+                                <label class="control-label" for="city">City</label>
+                                <div>
+                                    <input type="text" placeholder="City" ng-focus="err.city=false;" class="form-control" name="attractionID" id="attractionID" ng-model="city" required>
+                                    
+                                </div>
+                                <div class="col-xs-12">
+                                <span class="text-danger" ng-show="err.city">Please select city.</span>
+                            </div>
+                            </div>
+                            <div class="col-xs-6 pad5" ng-class="(err.zip == true) ? 'has-error' : 'has-primary' ">
+                                <label class="control-label" for="zip">Zip</label>
+                                <div>
+                                    <input type="text" placeholder="Zip" ng-focus="err.zip=false;" class="form-control" name="attractionID" id="attractionID" ng-model="zip" required>
+                                </div>
+                                <div class="col-xs-12">
+                                    
+                                <span class="text-danger" ng-show="err.zip">Please enter zip.</span>
+                            </div>
+                            </div>
+                        </div>
+
+                </div>
+              </div>
+        
+            </div>
+ 
+       
+    </div>
+
+</div>
+<div class="form-horizontal form-bordered row" ng-show="tab==2">
+     <div class="col-xs-2 text-left noPadd"></div>
+     <div class="col-xs-10 blockMain">
+        <div class="col-xs-12" style="background-color:#ffffff;margin-bottom:10px" ng-show="tab == 2">    
+             <div class="col-xs-12 text-center" style="margin:20px 0px"  style="background-color:#ffffff;margin:20px 0px" >
+                <button type="submit" ng-disabled="disFalg" class="btn btn-primary loginButton">Submit</button>
+                <button type="submit" ui-sref="Location" ng-click="tab=1" ng-disabled="disFalg" class="btn btn-info loginButton">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="tab == 1">
+ <button ui-sref="Location" ng-click="tab = 2" class="pull-right">Add location</button>
+</div>
+    <div class="col-xs-10 blockMain" ng-if="tab == 1">
+
+        <div class="col-xs-12 " style="background-color:#ffffff;height:300px">
+
+            <table class="col-xs-12 table table-bordered" style="margin:26px 0px">
+                <thead>
+                    <tr>
+                        <th>Location Name</th>
+                        <th>Location Description</th>
+                        <th>Address</th>
+                        <th>Country</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Zip</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>L.N.Vesta</td>
+                        <td>Near Image Hospital</td>
+                        <td>Madhapur, Hyderabad</td>
+                        <td>India</td>
+                        <td>Telangana</td>
+                        <td>Hydrabad</td>
+                        <td>3500081</th>
+                    </tr>
+                    <tr>
+                        <td>Gowra Tulip</td>
+                        <td>Near Fresh Living Apt.</td>
+                        <td>Madhapur, Hyderabad</td>
+                        <td>India</td>
+                        <td>Telangana</td>
+                        <td>Hydrabad</td>
+                         <td>3500081</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</form>

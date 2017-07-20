@@ -1,0 +1,30 @@
+<div>
+    <form class="form formHolder clearfix" onsubmit="return false;" enctype="multipart/form-data" novalidate>
+
+        <!--        <div class="vendor-sidebar col-sm-3">
+                        <div class="pageTitle" style="margin-left:17px">My Calendar</div> 
+                    <h3>My Calendar</h3>
+                     <ul id="listElement">
+                            <li><a ng-click="selectProductsTab()">Products List</a></li>
+                            <li><a ng-click="selectAddProductTab()">Add Product</a></li> 
+                        <li ui-sref-active="active"><a href="#" ui-sref="calendar.availability">Add business time</a></li>
+                        <li ui-sref-active="active"><a href="#" ui-sref="calendar.available_time_list">Business time list</a></li>
+                        <li ui-sref-active="active"><a href="#" ui-sref="calendar.addcalendarEvent">Add calendar event</a>
+                            <li ui-sref-active="active"><a href="#" ui-sref="calendar.calendarEventList">Calendar event list</a></li>
+                             <li ui-sref-active="active"><a href="#" ui-sref="calendar.Calendarview">Calendar view</a> 
+        
+                        </li>
+                    </ul>
+        
+                    <ul class="vendor-sidebar-menu">
+                          <ul class="list-group" id="listElement" style="cursor: pointer;"> 
+                        <li ui-sref-active="active2" class="list-group-item" href ui-sref="calendar.availability" ng-class="{'activeClass': $state.current.name == 'calendar.update_available_time'}"><a>Maintain Working Hours</a></li>
+                        <li ui-sref-active="active2" class="list-group-item" href ui-sref="calendar.available_time_list"><a>Working Hours</a></li>
+                        <li ui-sref-active="active2" class="list-group-item" href ui-sref="calendar.addcalendarEvent" ng-class="{'activeClass': $state.current.name == 'calendar.updatecalendarEvent'}"><a>Add Unavailable Timeslots</a>
+                        <li ui-sref-active="active2" class="list-group-item" href ui-sref="calendar.calendarEventList"><a>Unavailable Timeslots</a></li>
+                    </ul>
+                </div>-->
+        <div class="clearfix formContainer">
+            <div ui-view autoscroll="false"></div>
+        </div>
+</div>

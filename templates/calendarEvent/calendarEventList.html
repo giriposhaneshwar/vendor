@@ -1,0 +1,77 @@
+<div ui-view autoscroll="false">
+    <!--     <h1>calendar event list</h1> -->
+    <div class="col-xs-12 blockMain noPad">
+        <!-- <div style="padding: 10px 0px 0px 0px;">
+            <button ui-sref="calendar.addcalendarEvent" class="btn btn-primary loginButton pull-right">Add Unavailable Timeslots</button>
+        </div> -->
+        <!--  <pre>{{getCalEvent}}</pre> -->
+        <table class="col-xs-12 table table-bordered" style="background-color:#ffffff;">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Booking Dates</th>
+                    <th style="width: 10%;">Category</th>
+                    <th style="width: 10%;">Location</th>
+                    <th style="width: 10%;">Product</th>
+                    <th style="width: 13%;">Event Name</th>
+                    <th style="width: 27%;">Event Description</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="getCalEvnt in getCalEvent.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))|orderBy:$index|limitTo:entryLimit">
+                <tr>
+                    <td>
+                        <!--{{getCalEvnt| json}}-->
+                        <!--{{getCalEvnt.dayDiff| json}}-->
+                        <div class="dateDisplay dateRange" ng-if="getCalEvnt.dayDiff > 0">
+                            <div><span>From</span><span>: {{getCalEvnt.homeFromDate| date:"dd MMM yyyy, HH:mm"}}</span></div>
+                            <div><span>To</span><span>: {{getCalEvnt.homeToDate| date:"dd MMM yyyy, HH:mm"}}</span></div>
+                        </div>
+                        <div class="dateDisplay oneDay" ng-if="getCalEvnt.dayDiff == 0">
+                            <div>
+                                {{getCalEvnt.homeFromDate| date:"dd MMM yyyy"}}, 
+                                {{getCalEvnt.homeFromDate| date:"HH:mm"}} -
+                                {{getCalEvnt.homeToDate| date:"HH:mm"}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{getCalEvnt.category_name}}</td>
+                    <td>{{getCalEvnt.location_name}}</td>
+                    <td ng-if="getCalEvnt.referred_for !== 'location'">{{getCalEvnt.product_name}}</td>
+                    <td ng-if="getCalEvnt.referred_for == 'location'">All</td>
+                    <td>{{getCalEvnt.event_name}}</td>
+                    <td  style="max-width:300px;word-wrap:break-word;">{{getCalEvnt.event_description}}</td>
+                    <td>
+                        <div ng-show="getCalEvnt.booking_type == 'other'">
+                            <i class="fa fa-pencil" aria-hidden="true" ng-click="editCalendarEvent(getCalEvnt)" data-toggle="tooltip" title="Edit"></i>&nbsp
+                            <i class="fa fa-trash-o" aria-hidden="true" ng-click="deleteCalendarEvent(getCalEvnt)" data-toggle="tooltip" title="Delete"></i>
+                        </div> </td>
+                </tr>
+            </tbody>
+            <!--            <tbody class="text-center" ng-if="getCalEvent.length == 0">
+                            <tr>
+                                <td colspan="7">
+                                    <div class="row no-results">
+                                        No Results Found
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>-->
+        </table>   
+        <div class="col-xs-12">
+            <div class="text-center " ng-show="getCalEvent.length > 10">
+                <uib-pagination class="pagination" total-items="getCalEvent.length" ng-model="currentPage" class="pagination-sm" boundary-links="true" items-per-page="entryLimit" ng-click="getCurrentPage();">
+                </uib-pagination>
+            </div> 
+        </div>  
+    </div>
+</div>
+
+<script type="text/ng-template" id="confirmationDelete.html">
+    <div class="modal-body" id="modal-body">
+    <p class="text-center modal-delete">Are you sure you want to delete ?</p>
+    </div>
+    <div class="modal-footer" style="padding: 7px 15px 8px">
+    <button class="btn btn-primary buttonBg pad15 pad20-lr" type="button" ng-click="ok()" style="padding-left: 35px; pading-right: 35px;">Yes</button>
+    <button class="btn btn-info buttonBg-white pad20-lr" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

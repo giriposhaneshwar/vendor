@@ -1,0 +1,77 @@
+{
+  "_args": [
+    [
+      "braintree-web",
+      "/var/www/html/arevea/Arevea/branches/Server/arevea"
+    ]
+  ],
+  "_from": "braintree-web@latest",
+  "_id": "braintree-web@3.6.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/braintree-web",
+  "_nodeVersion": "6.9.1",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/braintree-web-3.6.0.tgz_1478897904616_0.11532231653109193"
+  },
+  "_npmUser": {
+    "email": "devs@getbraintree.com",
+    "name": "braintree"
+  },
+  "_npmVersion": "3.10.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "braintree-web",
+    "raw": "braintree-web",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/braintree-web/-/braintree-web-3.6.0.tgz",
+  "_shasum": "68dc7d431437c92fc5661562be3d9edea0098495",
+  "_shrinkwrap": null,
+  "_spec": "braintree-web",
+  "_where": "/var/www/html/arevea/Arevea/branches/Server/arevea",
+  "author": {
+    "email": "code@getbraintree.com",
+    "name": "braintree"
+  },
+  "bugs": {
+    "url": "https://github.com/braintree/braintree-web/issues"
+  },
+  "dependencies": {},
+  "description": "A suite of tools for integrating Braintree in the browser",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "68dc7d431437c92fc5661562be3d9edea0098495",
+    "tarball": "https://registry.npmjs.org/braintree-web/-/braintree-web-3.6.0.tgz"
+  },
+  "homepage": "https://github.com/braintree/braintree-web",
+  "keywords": [
+    "braintree",
+    "payments"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "devs@getbraintree.com",
+      "name": "braintree"
+    }
+  ],
+  "name": "braintree-web",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/braintree/braintree-web.git"
+  },
+  "scripts": {},
+  "version": "3.6.0"
+}

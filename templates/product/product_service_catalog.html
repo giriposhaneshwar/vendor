@@ -1,0 +1,34 @@
+<div ng-controller="productsCtrl">
+    <form class="form form-horizontal form-bordered row" onsubmit="return false;" enctype="multipart/form-data" novalidate>
+       <!--  <div class="col-xs-2 text-left noPadd"> -->
+        <div class="vendor-sidebar col-sm-3" style="display: none;">
+        
+          <!--   <div class="pageTitle" style="margin-left:17px;margin-top: -35px;">Products and Services Catalog</div> -->
+           <h3>Products and Services Catalog</h3>
+           <!--<ul id="listElement">
+    <li><a ng-click="selectProductsTab()">Products List</a></li>
+    <li><a ng-click="selectAddProductTab()">Add Product</a></li>
+    <li ui-sref-active="active"><a href="#" ui-sref="product_service_catalog.Products">All</a></li>
+    <li ui-sref-active="active"><a href="#">Download</a>
+        <li ui-sref-active="active"><a href="#">Upload</a></li>
+        <li ui-sref-active="active"><a href="#" ui-sref="product_service_catalog.addProduct">Add new product or service</a>
+            <li ui-sref-active="active"><a href="#">Edit product or service</a>
+            </li>
+</ul>-->
+
+             <ul class="vendor-sidebar-menu">
+           <!--  <ul class="list-group" id="listElement" style="cursor: pointer;"> -->
+                    <li ui-sref-active="active2" class="list-group-item" href="#" ui-sref="product_service_catalog.Products"><a ng-click="removeStatus()">All</a></li>
+                    <li ui-sref-active="active2" class="list-group-item"  href="#"><a>Download</a>
+                    <li ui-sref-active="active2" class="list-group-item" href="#"><a>Upload</a></li>
+                    <li ui-sref-active="active2" class="list-group-item" href="#" ui-sref="product_service_catalog.addProduct"><a>Add new product or service</a></li>
+
+            </ul>
+
+
+
+        </div>
+        <div class="col-xs-12">
+            <div ui-view autoscroll="false"></div>
+        </div>
+</div>

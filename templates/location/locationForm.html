@@ -1,0 +1,218 @@
+<div class="formContainerBg clearfix">
+    <!--<pre>{{updatemap}}</pre>-->
+    <div class="col-sm-8 col-md-8 col-xs-12 bgWhite pad10-lr">
+        <div class="col-sm-12 col-xs-12 pad10">
+            <div class="pad-0" ng-class="(err.location_name == true) ? 'has-error' : 'has-primary'">
+                <label class="labelName" for="location_name">Location Name</label>
+                <div>
+                    <input type="text" placeholder="Location Name" ng-focus="err.location_name = false;" class="form-control" name="attractionID" id="city_countryy" ng-model="addLoc.location_name" required>
+                </div>
+                <div class="col-xs-12 noPad">
+                    <span class="text-danger" ng-show="err.location_name">Please enter location name</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 pad10">
+            <div class="pad-0" ng-class="(err.location_description == true) ? 'has-error' : 'has-primary'">
+                <label class="labelName" for="location_description">Location Description</label>
+                <div>
+                    <textarea cols="4" rows="3" class="form-control" placeholder="Location Description" ng-model="addLoc.location_description" ng-focus="err.location_description = false;" required></textarea>
+                    <!-- <input type="text" placeholder="Short Description" ng-focus="err.location_description=false;" class="form-control" name="shortDesc" ng-model="product.shortDesc" required> -->
+                </div>
+                <div class="col-xs-12 noPad">
+                    <span class="text-danger" ng-show="err.location_description">Please enter location description</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 noPad">
+            <div class="col-sm-6 col-xs-12 pad10">
+                <div class="pad-0">
+                    <label class="labelName" for="yelp_id">Yelp Id</label>
+                    <div>
+                        <!--<textarea cols="4" rows="3" class="form-control" placeholder="Location Description" ng-model="addLoc.location_description" ng-focus="err.location_description=false;" required></textarea>-->
+                        <input type="text" placeholder="Yelp Id" class="form-control" name="yelp_id" ng-model="addLoc.yelp_id"> 
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-sm-12 pad10">
+                <label class="labelName">Select your Time Zone </label>
+                <input id="tags" type="text" placeholder="Select your time zone" class="form-control ui-autocomplete-input" ng-model="addLoc.timezone">
+                <span class="selectTimeZoneOptionsHolder"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-12 noPad">
+            <div class="col-sm-6 col-xs-12 pad10">
+                <div ng-class="(err.phone_country_code == true) ? 'has-error-no' : 'has-primary'">
+                    <label class="labelName" for="city">Phone</label>
+                    <div class="phoneNumberHolder">
+                        <span ng-if="addLoc.phone_country_code">+1</span>
+                        <input type="text" 
+                               placeholder="+1xxxxxxxxxx" 
+                               ng-focus="err.phone_country_code = false;" 
+                               class="form-control" 
+                               ng-class="{'code':addLoc.phone_country_code}"
+                               name="attractionID" 
+                               id="attractionID" 
+                               ng-model="addLoc.phone_country_code" required>
+                    </div>
+                    <div class="col-xs-12 noPad">
+                        <span class="text-danger" 
+                              ng-show="err.phone_country_code">
+                            Phone number should have minimum of 11 digits.
+                        </span>
+                    </div>
+                </div>
+                <!--            <div class="form-group pad-0">
+                
+                                <div class="col-xs-4 pad5" ng-class="(err.phone_country_code == true) ? 'has-error' : 'has-primary'">
+                                    <label class="labelName" for="city">Phone Country Code</label>
+                                    <div>
+                                        <input type="text" placeholder="Phone Country Code" ng-focus="err.phone_country_code = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.phone_country_code" required>
+                                    </div>
+                                    <div class="col-xs-12">
+                                    </div>
+                                </div>
+                
+                
+                                <div class="col-xs-4 pad5" ng-class="(err.phone_area_code == true) ? 'has-error' : 'has-primary'">
+                                    <label class="labelName" for="state">Phone Area Code</label>
+                                    <div>
+                                        <input type="text" placeholder="Phone Area Code" ng-focus="err.phone_area_code = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.phone_area_code" required>
+                                    </div>
+                                    <div class="col-xs-12">
+                                    </div>
+                                </div>
+                
+                                <div class="col-xs-4 pad5" ng-class="(err.phone_number_cdn == true) ? 'has-error' : 'has-primary'">
+                                    <label class="labelName" for="city">Phone Number</label>
+                                    <div>
+                                        <input type="text" placeholder="Phone Number" ng-focus="err.phone_number_cdn = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.phone_number" required>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span class="text-danger" ng-show="err.phone_number_cdn">Phone number should have minimum of 7 digits.</span>
+                                    </div>
+                                </div>
+                            </div>-->
+
+            </div>
+
+
+            <!--<pre>{{addLoc}}</pre>-->
+            <div class="col-sm-6 col-xs-12  pad10" ng-class="(err.address_line1 == true) ? 'has-error' : 'has-primary'">
+                <label class="labelName" for="address_line1">Address Line 1</label>
+                <div class="pac-card">
+                    <!--  <input type="text" id="autocomplete1" placeholder="Address" ng-focus="err.address_line1=false;" class="form-control" name="attractionID" ng-model="addLoc.address_line1" required>-->
+                    <input id="autocomplete1" class="form-control" placeholder="Enter address line 1" ng-model="addLoc.address_line1" ng-focus="err.address_line1 = false;" name="attractionID" ng-change="validateaddress()" required>
+                </div>
+                <div class="col-xs-12 noPad">
+                    <span class="text-danger" ng-show="err.address_line1">Please enter Address</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 noPad">
+            <div class="col-sm-6 col-xs-12  pad10">
+                <label class="labelName" for="address_line2">Address Line 2</label>
+                <div>
+                    <!-- placeholder="Address2" -->
+                    <input type="text" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.address_line2" required readonly>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-xs-12  pad10" ng-class="(err.city == true) ? 'has-error' : 'has-primary'">
+                <label class="labelName" for="city">City</label>
+                <div>
+                    <input readonly type="text" placeholder="Enter city" ng-focus="err.city = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.city" required>
+                </div>
+                <div class="col-xs-12 noPad">
+                    <span class="text-danger" ng-show="err.city">Please select city</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 noPad">
+            <div class="col-sm-6 col-xs-12  pad10" ng-class="(err.state == true) ? 'has-error' : 'has-primary'">
+                <label class="labelName" for="state">State</label>
+                <div>
+                    <input readonly type="text" placeholder="Enter state" ng-focus="err.state = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.state"  required>
+                </div>
+                <div class="col-xs-12 noPad">
+                    <span class="text-danger" ng-show="err.state">Please select state</span>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12  pad10" ng-class="(err.country == true) ? 'has-error' : 'has-primary'">
+                <label class="labelName" for="email">Country</label>
+                <div>
+                    <input readonly type="text" placeholder="Enter country" ng-focus="err.country = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.country" required>
+                </div>
+                <div class="col-xs-12 noPad">
+                    <span class="text-danger" ng-show="err.country">Please select country</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xs-12  pad10" ng-class="(err.zip == true) ? 'has-error' : 'has-primary'">
+            <label class="labelName" for="zip">Zip Code</label>
+            <div>
+                <input readonly type="text" placeholder="Enter zip code" ng-focus="err.zip = false;" class="form-control" name="attractionID" id="attractionID" ng-model="addLoc.zip"  required>
+            </div>
+            <div class="col-xs-12 noPad">
+                <span class="text-danger" ng-show="err.zip">Please enter zip code</span>
+            </div>
+        </div>
+
+
+
+        <!--        <div class="col-xs-5">
+                    <div class="col-xs-12" style="margin-top: 10px;">
+                        <div class="form-group">
+                            <div id="mapCanvasLoc" style=" width: 432px;
+            height: 600px;" class="mapCanvas"></div>
+                            <p ng-init="initAutocomplete();"></p>
+        
+        
+                              <map center="{{map.center.latitude}},{{map.center.longitude}}" zoom="{{map.zooms}}" on-center-changed="centerChanged()" geo-fallback-center="[17.44181923495811,78.38556525023193]" style=" width: 105%;
+             height: 600px;" ng-if="page.type == 'post'">
+                                 <marker position="{{map.center.latitude}}, {{map.center.longitude}}" draggable="true" on-dragend="getCurrentLocation()"></marker>
+                             </map> 
+                              <pre>{{test}}</pre> 
+        
+        
+        
+        
+        
+                        </div>
+                    </div>
+                </div>-->
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 noPad">
+        <div class="col-sm-8 text-center mar20-top mar20-bottom">
+            <button ng-if="page.type == 'post'" 
+                    type="submit"
+                    ng-disabled="isResponse" 
+                    class="btn pad10 col-sm-12 btn-primary loginButton buttonBg anchorButton" 
+                    style="height: 50px;" 
+                    ng-click="addLocationDetail()">Add Location</button>
+            <button ng-if="page.type == 'put'" 
+                    type="submit"
+                    ng-disabled="isResponse" 
+                    class="btn pad10 col-sm-12 btn-primary loginButton buttonBg anchorButton" 
+                    style="height: 50px;" 
+                    ng-click="updateLocation(addLoc)">Update</button>
+        </div>
+        <div class="col-sm-4 text-center mar20-top mar20-bottom pad5-lr pad10-right">
+            <button type="submit" 
+                    ng-click="cancelUpdateLocation()" 
+                    class="btn btn-info pad10 col-sm-12 loginButton buttonBg-white anchorButton">
+                Cancel
+            </button>
+        </div>
+        <div>
+            <map center="{{test}}" zoom="{{map.zooms}}" on-center-changed="centerChanged()" geo-fallback-center="[17.44181923495811,78.38556525023193]" style="width: 100%; height: 600px;">
+                <marker position="{{test}}" draggable="true" on-dragend="getCurrentLocation()"></marker>
+            </map> 
+        </div>
+    </div>
+</div>
