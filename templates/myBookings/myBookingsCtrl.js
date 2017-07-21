@@ -495,15 +495,4 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         $scope.getMyBookings($rootScope.args);
     };
 
-//    $(document).off().on("click", ".showproducts", function () {
-//        $(".showproducts").not(this).closest(".my-booking-wrapper").find(".my-booking-product-details").hide();
-//        $(".showproducts").not(this).closest(".my-booking-wrapper").find(".my-booking-product-details").removeClass("show-element");
-//        $(this).closest(".my-booking-wrapper").find(".my-booking-product-details").toggleClass("show-element");
-//        $(".hideshowproducts .showproducts").html('View Products');
-//        if ($(this).closest(".my-booking-wrapper").find(".my-booking-product-details").hasClass("show-element")) {
-//            $(this).html('Hide Products');
-//        } else {
-//            $(this).html('View Products');
-//        }
-//    });
 });

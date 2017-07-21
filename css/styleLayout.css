@@ -766,6 +766,47 @@ textarea:-moz-placeholder{ /* Firefox 18- */
     display: none
 }
 
+.myBookingStyle .static-pos {
+    padding: 15px 0 25px 15px;
+}
+body .myBookingStyle{
+    font-size: 12px;
+    line-height: 20px;
+    font-family: "Montserrat", Arial, sans-serif;
+    color: #565a5c;
+    -webkit-font-smoothing: antialiased;
+}
+.myBookingStyle .my-booking-product-details{
+    display: none;
+    padding-top: 10px;
+}
+.myBookingStyle .my-booking-wrapper{
+    width: 100%;
+    padding-top: 20px;
+    float: left;
+    box-shadow: 0 1px 0 0 #e5e7eb;
+    /* margin: 20px 0 0px 0; */
+}
+.myBookingStyle .booking-date-fields{
+    width: 23%;
+}
+.myBookingStyle .booking-price-fields{
+    width: 13%;
+}
+
+.myBookingStyle .booking-title-fields{
+    width: 18%;
+}
+.myBookingStyle .booking-customer-fields{
+    width: 17%;
+}
+.myBookingStyle .booking-number-fields{
+    width: 12%;
+}
+.myBookingStyle .booking-details-fields {
+    width: 17%;
+}
+
 /*
     ///////////////////   Media Queries 
 */
@@ -815,10 +856,10 @@ textarea:-moz-placeholder{ /* Firefox 18- */
         /* margin-bottom: 10px; */
     }
     .logoSection .profileImage>span{
-        
-padding:  0px;
-        
-margin:  0px;
+
+        padding:  0px;
+
+        margin:  0px;
     }
     .logoSection .profileImage>span>ul{
         z-index: 9999;
@@ -827,6 +868,17 @@ margin:  0px;
         display: block;
         position: fixed;
         left: -250px;
+        z-index: 9999;
+        border-right: 1px solid #ccc;
+        top: 0px;
+        width: 250px;
+        -webkit-transition: all 1s; /* Safari */
+        transition: all 1s;
+    }
+    .leftNavSection.mainNav.open{
+        display: block;
+        position: fixed;
+        left: 0px;
         z-index: 9999;
         border-right: 1px solid #ccc;
         top: 0px;
@@ -853,10 +905,20 @@ margin:  0px;
         width: 32px;
         padding: 8px;
         vertical-align: middle;
+        line-height: 1.2em;
+        font-size: 16px;
     }
     .leftNavSection.mainNav .navCtrl>span>span{
         display: block;
         padding-top: 4px;
         border-top: 2px solid #fff;
+    }
+    
+    .myBookingStyle .booking-date-fields,
+    .myBookingStyle .booking-title-fields,
+    .myBookingStyle .booking-price-fields,
+    .myBookingStyle .booking-customer-fields,
+    .myBookingStyle .booking-number-fields{
+        width: 100%;
     }
 }

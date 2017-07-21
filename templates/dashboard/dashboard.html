@@ -42,7 +42,7 @@
                     <div class="sectionBody col-xs-12 noPad">
                         <!--{{CustomRequestData.message}}<br>-->
                         <div ng-show="CustomRequestData.message == 'Result'" class="col-xs-12 noPad">
-                            <div class="col-md-1 noPad">
+                            <div class="col-md-2 noPad col-sm-2 col-xs-2 col-lg-1">
                                 <!-- <img src="images/calendar.png" class="Combined-Shape"> -->
                                 <div class="Combined-Shape-img text-center">
                                     <span class="margin-topbott ng-binding" style="display: block;padding-top: 28%;color: #ff735a;font-family: gotham-medium;font-size: 20px;">
@@ -51,12 +51,12 @@
                                 </div>
                                 <p class="shortDate">{{CustomRequestData.requests[0].start_time| date:'MMM&nbspyyyy'}}</p>
                             </div>
-                            <div class="col-md-8 pad10-lr">
+                            <div class="col-md-6 pad10-lr col-sm-8 col-xs-10 col-lg-7">
                                 <span class="eventName col-md-12 noPad">{{CustomRequestData.requests[0].event_name}}</span>
                                 <span ng-if="diffDays2 <= 1" class="eventdetails col-md-12 noPad">{{CustomRequestData.requests[0].start_time| date:'EEEE, dd MMM yyyy HH:mm'}} - {{CustomRequestData.requests[0].end_time| date:'HH:mm'}}</span>
                                 <span ng-if="diffDays2 > 1"  class="eventdetails col-md-12 noPad">{{CustomRequestData.requests[0].start_time| date:'EEEE, dd MMM yyyy HH:mm'}} - <br>{{CustomRequestData.requests[0].end_time| date:'EEEE, dd MMM yyyy HH:mm'}}</span>
                             </div>
-                            <div class="col-xs-3 noPad">
+                            <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-2 pad10-lr col-sm-12 col-lg-4">
                                 <!-- href="#/customRequests/pending/{{CustomRequestData.requests[0].req_number}}" -->
                                 <a  ui-sref="customRequests.pending({'id': CustomRequestData.requests[0].req_number})"  class="btn theme-btn showproducts" style="width: 118px;" >View Request</a>
                             </div>

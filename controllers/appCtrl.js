@@ -563,7 +563,19 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
     $scope.gotoLocation = function () {
         window.location.hash = '/Location'
     }
-})
+
+    /*
+     * Checking screen resolution to know in mobile / web
+     */
+    $scope.isWeb = false;
+    $scope.$watch('screenWidth', function (n, o) {
+        if (n > 768) {
+            $scope.isWeb = true;
+        } else {
+            $scope.isWeb = false;
+        }
+    })
+});
 
 
 

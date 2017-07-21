@@ -35,7 +35,7 @@
             }
         </style>
     </head>
-    <body ng-controller="mainCtrl" ng-init="init()">   
+    <body ng-controller="mainCtrl" ng-init="init()" resize>   
         <div id="page-container" class="mainContainer catalog sidebar-partial sidebar-visible-lg sidebar-no-animations clearfix">
             <div class="logoSection container-fluid noPad" ng-show="loginStatus">
                 <div class="logoContainer col-sm-3 col-md-2 col-lg-2 col-xs-12 noPad">
@@ -63,10 +63,10 @@
                 </div>
             </div>
             <div class="bodyContainer container-fluid noPad">
-                <div class="leftNavSection mainNav col-sm-3 col-md-2 col-lg-2 col-xs-12 noPad" >
-                
-                    <div class="navCtrl">
-                        <span>
+                <div class="leftNavSection mainNav col-sm-3 col-md-2 col-lg-2 col-xs-12 noPad" ng-class="{'open': openMainMenu}">
+                    <div class="navCtrl" ng-click="openMainMenu = !openMainMenu">
+                        <span ng-if="openMainMenu">X</span>
+                        <span ng-if="!openMainMenu">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -75,14 +75,14 @@
                     <nav id="custom-bootstrap-menu" class="navbar navbar-default nav2" ng-show="loginStatus">
                         <!-- navbar-static-top container -->
                         <div class="navHolder">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
+                            <!--                            <div class="navbar-header">
+                                                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                                                <span class="sr-only">Toggle navigation</span>
+                                                                <span class="icon-bar"></span>
+                                                                <span class="icon-bar"></span>
+                                                                <span class="icon-bar"></span>
+                                                            </button>
+                                                        </div>-->
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav" ng-hide="admin.bankStatus == false">
                                     <li ng-class="{active1: activePath == '/dashboard' }">

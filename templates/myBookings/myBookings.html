@@ -1,99 +1,27 @@
-<style type="text/css">
-    /*    .theme-btn {
-            height: 30px;
-            width: 133px;
-            border-radius: 4px;
-            background-color: #ff735a;
-            font-family: gotham-light;
-            font-size: 10px;
-            font-weight: 500;
-            line-height: 2;
-            letter-spacing: 1px;
-            color: #ffffff;
-        }*/
-    .static-pos {
-        padding: 15px 0 25px 15px;
-    }
-    body {
-        font-size: 12px;
-        line-height: 20px;
-        font-family: "Montserrat", Arial, sans-serif;
-        color: #565a5c;
-        -webkit-font-smoothing: antialiased;
-    }
-    .my-booking-product-details{
-        display: none;
-        padding-top: 10px;
-    }
-    .my-booking-wrapper{
-        width: 100%;
-        padding-top: 20px;
-        float: left;
-        box-shadow: 0 1px 0 0 #e5e7eb;
-        /* margin: 20px 0 0px 0; */
-    }
-    .booking-date-fields{
-        width: 23%;
-    }
-    .booking-price-fields{
-        width: 13%;
-    }
-
-    .booking-title-fields{
-        width: 18%;
-    }
-    .booking-customer-fields{
-        width: 17%;
-    }
-    .booking-number-fields{
-        width: 12%;
-    }
-    .booking-details-fields {
-        width: 17%;
-    }
-
-</style>
-
-<div ng-init="init()">
+<div ng-init="init()" class="myBookingStyle">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPad">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vendor-main-content noPad">
             <div class="my-events-filter pad10-lr col-xs-12" style="border-bottom: 1px solid #e5e7eb;">
                 <div class="col-xs-12 noPad">
-                    <div class="col-sm-3 pad10-lr">
-                        <!-- <div class="col-xs-12 noPad">
-                            
-                            <div class="col-sm-12 noPad">
-                                <label class="dropdowns">SELECT DATE RANGE</label>
-                                <span class="glyphicon glyphicon-menu-down"></span>
-                            </div>
-                            <div class="col-sm-12 clear-input-wrapper noPad">
-                                <input type="text" class="form-control" name="SELECT DATE RANGE"
-                                    id="myBookingsDateRange" ng-model="myBookingsDateRange" readonly placeholder="Select Date Range" />
-                                <span class="clear-input" ng-show="myBookingsDateRange" ng-click="myBookingsDateRange=''">&times;</span>
-                            </div>
-                            
-                        </div> -->
-
+                    <div class="col-sm-4 col-xs-6 pad10-lr">
                         <div class="col-xs-12 noPad dropdown">
-                            <div class="evtDate1" ng-show="!showEvtDate" ng-class="{'open' : showFilterDate}">
-                                <!--<div class="col-sm-12 noPad dropdown-toggle" id="menu1" data-toggle="dropdown" ng-init="dateFlag = angular.element(this).scope().attr('aria-expanded')">-->
+                            <div class="evtDate1" ng-show="!showEvtDate" ng-class="{
+                                    'open' : showFilterDate}">
                                 <div class="col-sm-12 noPad dropdown-toggle" id="menu1" data-toggle="dropdown" ng-click="showFilterDate = !showFilterDate">
                                     <label class="dropdowns" style="cursor: pointer;">SELECT DATE RANGE</label>
-                                    <span class="glyphicon" ng-class="{'glyphicon-menu-up': showFilterDate, 'glyphicon-menu-down': !showFilterDate}"></span>
+                                    <span class="glyphicon" ng-class="{
+                                            'glyphicon-menu- up': showFilterDate, 'glyphicon-menu-down': !showFilterDate}"></span>
                                 </div>
 
                                 <ul class="dropdown-menu dropFilter" role="menu" aria-labelledby="menu1">
                                     <li role="presentation">
                                         <input type="text" class="form-control dropInput" name="SELECT DATE RANGE" 
                                                id="myBookingsDateRange" ng-model="myBookingsDateRange" readonly placeholder="Type to search" />
-                                        <!--<span class="clear-input" ng-show="myBookingsDateRange" ng-click="myBookingsDateRange = '';filterMyBookings();">&times;</span>-->
                                     </li>
                                 </ul>
                             </div>
-                            <!--{{showEvtDate| json}}  - {{start_date| json}} - {{end_date| json}}-->
                             <div class="evtDate2" ng-if="showEvtDate">
                                 <label class="dropdowns" style="cursor: pointer;color: #FD7357;"> 
-                                    <!--{{myBookingsDateRange| date: "dd-MM-yyyy"}}-->
                                     {{renderDateRange}}
                                 </label>
                                 <span class="clear-inputFilter" ng-click="clearDatePicker();">
@@ -102,32 +30,15 @@
                                 </span>
                             </div>
                         </div>
-
-
-
-
                     </div>
-                    <div class="col-sm-3 pad10-lr">
-
-                        <!-- <div class="col-xs-12 noPad">
-                            <div class="col-sm-12 clear-input-wrapper">
-                                <label class="dropdowns"> Event Type</label>
-                                <span class="glyphicon glyphicon-menu-down"></span>
-                            </div>
-                            <div class="col-sm-12 noPad">
-                                <input type="text" name="eventType" class="form-control"
-                                    ng-model="eventType" id="eventType" autocomplete
-                                    placeholder="Event Type" />
-                                <span class="clear-input" ng-show="eventType"  ng-click="eventType=''">&times;</span>    
-                            </div>
-                        </div> -->
-
-
+                    <div class="col-sm-4 col-xs-6 pad10-lr">
                         <div class="col-xs-12 noPad dropdown"> 
-                            <div class="evtType1" ng-hide="showEvtType" ng-class="{'open' : showFilterType}">
+                            <div class="evtType1" ng-hide="showEvtType" ng-class="{
+                                    'open' : showFilterType}">
                                 <div class="col-sm-12 noPad clear-input-wrapper dropdown-toggle" id="menu2" data-toggle="dropdown" ng-click="showFilterType = !showFilterType">
                                     <label class="dropdowns" style="cursor: pointer;"> Event Type</label>
-                                    <span class="glyphicon"  ng-class="{'glyphicon-menu-up': showFilterType, 'glyphicon-menu-down': !showFilterType}"></span>
+                                    <span class="glyphicon"  ng-class="{
+                                            'glyphicon-menu- up': showFilterType, 'glyphicon-menu-down': !showFilterType}"></span>
                                 </div>
                                 <ul class="dropdown-menu dropFilter" role="menu" aria-labelledby="menu2">
                                     <li role="presentation">
@@ -143,57 +54,14 @@
                                 <label class="dropdowns" style="cursor: pointer;color: #FD7357;"> {{eventType}}</label>
                                 <span class="clear-inputFilter" 
                                       ng-show="showEvtType" 
-                                      ng-click="eventType = ''; showEvtType = false">
+                                      ng-click="eventType = '';
+                                          showEvtType = false">
                                     <!--&times;-->
                                     <i class="fa fa-times"></i>
                                 </span>
-                                <!-- <span class="clear-inputFilter" ng-show="showEvtType"  ng-click="eventType = ''">&times;</span> -->
                             </div>
                         </div>
-
                     </div>
-
-                    <!--  <div class="col-sm-3">
-                         <div class="row">
-                             <div class="col-sm-12">
-                                 <label>Event Status</label>
-                             </div>
-                          
-                             <div class="col-sm-12">
-                                 <select class="form-control" id="eventStatus">
-                                     <option value="0">All</option>
-                                     <option value="1" ng-selected="eventStatus==1">Scheduled</option>
-                                     <option value="2">Completed</option>
-                                     <option value="3">Cancelled</option>
-                                 </select>
-                             </div>
-                         </div>
-                     </div> -->
-
-                    <!-- <div class="col-sm-2">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>Event To Date </label>
-                            </div>
-                            <div class="col-sm-12">
-                                <input type="text" class="form-control" name=""
-                                    id="myEventsToDate" ng-model="myEventsToDate"
-                                    ng-disabled="!myEventsFromDate" readonly />
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-sm-2"> 		//search button
-
-                        <div class="col-xs-12 noPad">
-                            <div class="col-sm-12">
-                                <label>&nbsp;</label>
-                            </div>
-                            <div class="col-sm-12">
-                                <button class="btn checkout-btn theme-btn"
-                                    ng-click="filterMyBookings();"  style="padding: 6px 20px !important;">Search</button>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="event-wrapper">
@@ -209,208 +77,325 @@
                                 <img src="images/glasses-brindis-with-a-heart.png" class="glasses-brindis-with-a-heart">
                                 <span class="eventName col-md-12 noPad">{{myBooking.event.event_name}}</span>
                                 <span class="personDetails col-md-12 noPad">{{myBooking.event.name_of_person}}<span ng-if="myBooking.event.name2 != '' && myBooking.event.name2 != null"> &amp; {{myBooking.event.name2}}</span><span ng-if="myBooking.event.age != '' && myBooking.event.age != 0">, {{myBooking.event.age}} years</span><span ng-if="myBooking.event.no_of_years != '' && myBooking.event.no_of_years != 0">, {{myBooking.event.no_of_years}} years</span>
-
-                                    <div class="col-sm-12 noPad" style="font-size:12px;padding-top:20px;padding-bottom:40px;border-radius:4px" >
-                                        <div class="col-xs-12 noPad" >
+                                    <div class="col-sm-12 noPad" style="font-size:12px;padding-top:20px;padding-bottom:40px;border-radius:4px">
+                                        <div class="col-xs-12 noPad">
                                             <!-- <pre>{{myBooking.event}}</pre> -->
                                             <!-- <pre>{{myBooking.bookinfo}}</pre>  -->
-                                            <div class="col-sm-3 booking-date-fields noPad">
+                                            <div class="col-sm-3 booking-date-fields pad2 pad10-top">
                                                 <span class="bookingTitles">EVENT DATE:</span>
-                                                <div class="col-xs-12 noPad" ng-if="myBooking.event.displayformat == 1">
+                                                <div class="" ng-if="myBooking.event.displayformat == 1">
                                                     <!-- <pre>{{myBooking.event.formattedFromDate}}</pre> -->
-                                                    <div class="col-sm-12 my-booking-data noPad">   
-                                                        <div>{{myBooking.event.formattedFromDate}} -</div> <div ng-if="myBooking.event.daysDiff >= 1"> {{myBooking.event.formattedToDate}}</div>      
+                                                    <div class="col-sm-12 my-booking-data noPad">
+                                                        <div>{{myBooking.event.formattedFromDate}} -</div>
+                                                        <div ng-if="myBooking.event.daysDiff >= 1"> {{myBooking.event.formattedToDate}}</div>
                                                         <!--   {{myBooking.event.eventdate}} - -->
                                                     </div>
                                                     <!-- <div class="col-sm-12 my-booking-dates">  
-                                                        {{myBooking.event.eventtime}}
-                                                    </div> -->
-
+                                                                                    {{myBooking.event.eventtime}}
+                                                                                </div> -->
                                                 </div>
-                                                <div class="col-xs-12 noPad" ng-if="myBooking.event.displayformat == 0">
+                                                <div class=" " ng-if="myBooking.event.displayformat == 0">
                                                     <!-- <pre>{{myBooking.event.formattedFromDate}}</pre> -->
-                                                    <div class="col-sm-12 my-booking-data noPad">         
+                                                    <div class="col-sm-12 my-booking-data noPad">
                                                         <!-- {{myBooking.event.eventdate}} -->
-                                                        <div>{{myBooking.event.formattedFromDate}} <span ng-if="myBooking.event.daysDiff >= 1">-</span></div> <div ng-if="myBooking.event.daysDiff >= 1"> {{myBooking.event.formattedToDate}}</div>
+                                                        <div>{{myBooking.event.formattedFromDate}} <span ng-if="myBooking.event.daysDiff >= 1">-</span></div>
+                                                        <div ng-if="myBooking.event.daysDiff >= 1"> {{myBooking.event.formattedToDate}}</div>
                                                     </div>
                                                     <!--  <div class="col-sm-12 my-booking-dates"> 
-                                                         {{myBooking.event.eventtime}} 
-                                                     </div> -->
-
+                                                                                     {{myBooking.event.eventtime}} 
+                                                                                 </div> -->
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 booking-title-fields pad10-lr">
-                                                <span class="bookingTitles">EVENT TIME:</span>
+                                            <div class="col-sm-2 booking-title-fields  pad2 pad10-top">
+                                                <span class="bookingTitles ">EVENT TIME:</span>
                                                 <!-- <span class="my-booking-data">{{myBooking.event.eventtime}}</span> -->
-                                                <div ng-if="myBooking.event.daysDiff < 1">
+                                                <div class=" " ng-if="myBooking.event.daysDiff < 1">
                                                     {{myBooking.event.stDate| date: "HH:mm"}} - {{myBooking.event.edDate| date: "HH:mm"}}
                                                 </div>
-                                                <div ng-if="myBooking.event.daysDiff >= 1">
-                                                    <div>{{myBooking.event.stDate| date: "HH:mm"}}</div> 
+                                                <div class=" " ng-if="myBooking.event.daysDiff >= 1">
+                                                    <div>{{myBooking.event.stDate| date: "HH:mm"}}</div>
                                                     <div>{{myBooking.event.edDate| date: "HH:mm"}}</div>
                                                 </div>
-                                            </div> 
+                                            </div>
                                             <!-- <div class="col-sm-2 booking-title-fields">
-                                                <span class="bookingTitles">Event Title</span>
-                                                <p>{{myBooking.event.event_name}}</p>
-                                            </div>  -->
-                                            <div class="col-sm-2 booking-price-fields pad10-lr">
-                                                <span class="text-left bookingTitles"> PRICE</span>
-                                                <span class="text-center my-booking-data">${{total1| number:2 }}</span>
+                                                                            <span class="bookingTitles">Event Title</span>
+                                                                            <p>{{myBooking.event.event_name}}</p>
+                                                                        </div>  -->
+                                            <div class="col-sm-2 booking-price-fields  pad2 pad10-top">
+                                                <span class="text-left bookingTitles "> PRICE</span>
+                                                <span class="text-center my-booking-data ">${{total1| number:2 }}</span>
                                             </div>
-                                            <div class="col-sm-2 booking-customer-fields pad10-lr">
+                                            <div class="col-sm-2 booking-customer-fields  pad2 pad10-top">
                                                 <span class="text-left bookingTitles">CUSTOMER NAME</span>
-                                                <span class="my-booking-data">{{myBooking.event.first_name}} {{myBooking.event.last_name}}</span>
+                                                <span class="my-booking-data ">{{myBooking.event.first_name}} {{myBooking.event.last_name}}</span>
                                             </div>
-                                            <div class="col-sm-1 booking-number-fields pad10-lr">
-                                                <span class="bookingTitles">BOOKING #</span>
-                                                <span class="my-booking-data" ng-repeat="bookinginf in myBooking.bookinfo">
+                                            <div class="col-sm-1 booking-number-fields  pad2 pad10-top">
+                                                <span class="bookingTitles ">BOOKING #</span>
+                                                <span class="my-booking-data " ng-repeat="bookinginf in myBooking.bookinfo">
                                                     {{bookinginf.book_no}} </a>
 
                                                 </span>
                                             </div>
-                                            <div class="col-sm-2 hideshowproducts booking-details-fields text-right noPad" ng-if="$state.params.id != myBooking.event.event_id">
+                                            <div class="col-sm-2 hideshowproducts booking-details-fields text-right pad2 pad10-top pad10-bottom" ng-if="$state.params.id != myBooking.event.event_id">
                                                 <a href='javascript:void(0);' ng-click='viewBookingProduct(myBooking)' class="btn theme-btn showproducts">View Products</a>
                                             </div>
-                                            <div class="col-sm-2 hideshowproducts booking-details-fields text-right noPad" ng-if="$state.params.id == myBooking.event.event_id">
+                                            <div class="col-sm-2 hideshowproducts booking-details-fields text-right  pad2 pad10-top pad10-bottom" ng-if="$state.params.id == myBooking.event.event_id">
                                                 <a href='javascript:void(0);' ng-click='hideBookingProduct(myBooking)' class="btn theme-btn hideproducts">Hide Products</a>
                                             </div>
                                         </div>
                                     </div>
-
                             </div>
                         </div>
-
                         <div class="my-booking-product-details col-xs-12 noPad" 
-                             style="width:100%;border-bottom:1px #9e9e9e solid;border-top: 1px solid #e5e7eb;"
-                             ng-class="{
-                                     'show-element' : $state.params.id == myBooking.event.event_id}">
-                            <div class="col-xs-12 noPad" style="cursor:pointer;">
-                                <div class="col-sm-12 noPad">
-                                    <div class="col-sm-4 col-xs-hidden">&nbsp;</div>
-                                    <div class="col-sm-2 col-xs-6">
-                                        <h4 class="event-heading text-center"> <span>Booking #</span></h4>
+                             style="width:100%;border-bottom:1px #9e9e9e solid;border-top: 1px solid #e5e7eb;" 
+                             ng-class="{'show-element' : $state.params.id == myBooking.event.event_id}">
+                            <div class="onlyWeb" ng-if="isWeb">
+                                <div class="col-xs-12 noPad" style="cursor:pointer;">
+                                    <div class="col-sm-12 noPad">
+                                        <div class="col-sm-4 col-xs-hidden">&nbsp;</div>
+                                        <div class="col-sm-2 col-xs-6">
+                                            <h4 class="event-heading text-center"> <span>Booking #</span></h4>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-6">
+                                            <h4 class="event-heading text-center">Delivery Options</h4>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-6">
+                                            <h4 class="event-heading text-center">Unit Price</h4>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-6">
+                                            <h4 class="event-heading text-center">Quantity</h4>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <h4 class="event-heading text-center">Shipping Price</h4>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <h4 class="event-heading text-center">Total</h4>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <h4 class="event-heading text-center">Status</h4>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-1 col-xs-6">
-                                        <h4 class="event-heading text-center">Delivery Options</h4>
-                                    </div>
-                                    <div class="col-sm-1 col-xs-6">
-                                        <h4 class="event-heading text-center">Unit Price</h4>
-                                    </div>
-                                    <div class="col-sm-1 col-xs-6">
-                                        <h4 class="event-heading text-center">Quantity</h4>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <h4 class="event-heading text-center">Shipping Price</h4>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <h4 class="event-heading text-center">Total</h4>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <h4 class="event-heading text-center">Status</h4>
+                                </div>
+                                <div class="col-xs-12 noPad" ng-repeat="product in myBooking.products">
+                                    <!-- <pre>{{product}}</pre> -->
+                                    <div class="col-sm-12 noPad" style="padding:10px">
+                                        <div class="col-sm-2">
+                                            <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
+                                            <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
+                                            <span class="event-heading" ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on cake:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a></a>
+                                            <div style="font-size:14px">{{getDecodedValue(product.event_summary_data.product_name)}}</div>
+                                            <div class="event-row">{{getDecodedValue(product.event_summary_data.product_description)}}
+                                            </div>
+                                            <div><span style="color:#ff735a">{{product.event_summary_data.vendor_name}}</span></div>
+                                            <div class="event-row-ans">
+                                                <span class="icon-location" style="color: #0066C0;"></span>
+                                                <span ng-if="product.event_summary_data.product_address.product_address_line1">  
+                                                    {{product.event_summary_data.product_address.product_address_line1}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address.product_address_line1">
+                                                <span ng-if="product.event_summary_data.product_address.product_address_line2">  
+                                                    {{product.event_summary_data.product_address.product_address_line2}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address.product_address_line2">
+                                                <span ng-if="product.event_summary_data.product_address.product_city_name">
+                                                    {{product.event_summary_data.product_address.product_city_name}},
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_address.product_state_name"> 
+                                                    {{product.event_summary_data.product_address.product_state_name}} 
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_address.product_zip_code">   
+                                                    {{product.event_summary_data.product_address.product_zip_code}} 
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address.product_country_name"> {{product.event_summary_data.product_address.product_country_name}}
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_address_line1">  
+                                                    {{product.event_summary_data.product_address_line1}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address_line1">
+                                                <span ng-if="product.event_summary_data.product_address_line2">  
+                                                    {{product.event_summary_data.product_address_line2}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address_line2">
+                                                <span ng-if="product.event_summary_data.product_city_name">
+                                                    {{product.event_summary_data.product_city_name}},
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_state_name"> 
+                                                    {{product.event_summary_data.product_state_name}} 
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_zip_code">   
+                                                    {{product.event_summary_data.product_zip_code}} 
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_country_name"> {{product.event_summary_data.product_country_name}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-xs-6 text-center padding-top-bottom">
+                                            <div class="not-applicable">
+                                                {{product.booking_number}}
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
+                                            <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == true">-NA-</div>
+                                            <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == false">
+                                                <div ng-if="product.event_summary_data.delivery_mode == 'pickup'">
+                                                    Store Pickup
+                                                </div>
+                                                <div ng-if="product.event_summary_data.delivery_mode == 'delivery'">
+                                                    Delivery
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-3 text-center padding-top-bottom">
+                                            <p class="row-pricing">
+                                                {{product.event_summary_data.currency_symbol}}{{formatPricing(product.product_price)}}
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-3 text-center padding-top-bottom">
+                                            <div class="quantityPadd">{{product.event_summary_data.product_qty}}</div>
+                                        </div>
+                                        <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
+                                            <div class="not-applicable"> {{product.event_summary_data.currency_symbol}}{{formatPricing(product.delivery_cost)}}</div>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-3 text-center padding-top-bottom">
+                                            <p class="row-pricing" ng-init="$parent.total1 = $parent.total1 + product.delivery_cost + product.total_price">
+                                                {{product.event_summary_data.currency_symbol}}{{(product.delivery_cost + product.total_price) | number:2 }}
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
+                                            <div class="not-applicable">{{product.status_text}}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-xs-12 noPad" ng-repeat="product in myBooking.products">
-                                <!-- <pre>{{product}}</pre> -->
-                                <div class="col-sm-12 noPad" style="padding:10px">
-                                    <div class="col-sm-2">
-                                        <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
-                                        <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
-                                        <span class="event-heading"  ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on cake:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span> 
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a></a>
-                                        <div style="font-size:14px">{{getDecodedValue(product.event_summary_data.product_name)}}</div>
-                                        <div class="event-row">{{getDecodedValue(product.event_summary_data.product_description)}}
+                            <div class="onlyMobile" ng-if="!isWeb">
+                                <!--                                <div class="col-xs-12 noPad" style="cursor:pointer;">
+                                                                    <div class="col-sm-12 noPad">
+                                                                        <div class="col-sm-4 col-xs-hidden">&nbsp;</div>
+                                                                        <div class="col-sm-2 col-xs-6">
+                                                                            <h4 class="event-heading text-center"> <span>Booking #</span></h4>
+                                                                        </div>
+                                                                        <div class="col-sm-1 col-xs-6">
+                                                                            <h4 class="event-heading text-center">Delivery Options</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-1 col-xs-6">
+                                                                            <h4 class="event-heading text-center">Unit Price</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-1 col-xs-6">
+                                                                            <h4 class="event-heading text-center">Quantity</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-1">
+                                                                            <h4 class="event-heading text-center">Shipping Price</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-1">
+                                                                            <h4 class="event-heading text-center">Total</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-1">
+                                                                            <h4 class="event-heading text-center">Status</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
+                                <div class="col-xs-12 noPad" ng-repeat="product in myBooking.products">
+                                    <!-- <pre>{{product}}</pre> -->
+                                    <div class="col-sm-12 col-xs-12 noPad" style="padding:10px">
+                                        <div class="col-sm-2 col-xs-12">
+                                            <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
+                                            <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
+                                            <span class="event-heading" ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on cake:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span>
                                         </div>
-                                        <div><span style="color:#ff735a">{{product.event_summary_data.vendor_name}}</span></div>
-                                        <div class="event-row-ans">
-                                            <span class="icon-location" style="color: #0066C0;"></span>
-                                            <span ng-if="product.event_summary_data.product_address.product_address_line1">  
-                                                {{product.event_summary_data.product_address.product_address_line1}},
-                                            </span><br ng-if="product.event_summary_data.product_address.product_address_line1">
-                                            <span ng-if="product.event_summary_data.product_address.product_address_line2">  
-                                                {{product.event_summary_data.product_address.product_address_line2}},
-                                            </span><br ng-if="product.event_summary_data.product_address.product_address_line2">
-                                            <span ng-if="product.event_summary_data.product_address.product_city_name">
-                                                {{product.event_summary_data.product_address.product_city_name}},
-                                            </span>
-                                            <span ng-if="product.event_summary_data.product_address.product_state_name"> 
-                                                {{product.event_summary_data.product_address.product_state_name}} 
-                                            </span>
-                                            <span ng-if="product.event_summary_data.product_address.product_zip_code">   
-                                                {{product.event_summary_data.product_address.product_zip_code}} 
-                                            </span> <br ng-if="product.event_summary_data.product_address.product_country_name">   
-                                            {{product.event_summary_data.product_address.product_country_name}} 
-                                            </span>
-
-
-                                            <span ng-if="product.event_summary_data.product_address_line1">  
-                                                {{product.event_summary_data.product_address_line1}},
-                                            </span><br ng-if="product.event_summary_data.product_address_line1">
-                                            <span ng-if="product.event_summary_data.product_address_line2">  
-                                                {{product.event_summary_data.product_address_line2}},
-                                            </span><br ng-if="product.event_summary_data.product_address_line2">
-                                            <span ng-if="product.event_summary_data.product_city_name">
-                                                {{product.event_summary_data.product_city_name}},
-                                            </span>
-                                            <span ng-if="product.event_summary_data.product_state_name"> 
-                                                {{product.event_summary_data.product_state_name}} 
-                                            </span>
-                                            <span ng-if="product.event_summary_data.product_zip_code">   
-                                                {{product.event_summary_data.product_zip_code}} 
-                                            </span> <br ng-if="product.event_summary_data.product_country_name">   
-                                            {{product.event_summary_data.product_country_name}} 
-                                            </span>
-
-
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2 col-xs-6 text-center padding-top-bottom">
-                                        <div class="not-applicable">
-                                            {{product.booking_number}}
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
-                                        <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == true">-NA-</div>
-                                        <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == false">
-                                            <div ng-if="product.event_summary_data.delivery_mode == 'pickup'">
-                                                Store Pickup
+                                        <div class="col-sm-2 col-xs-12">
+                                            <div style="font-size:14px">{{getDecodedValue(product.event_summary_data.product_name)}}</div>
+                                            <div class="event-row">{{getDecodedValue(product.event_summary_data.product_description)}}</div>
+                                            <div><span style="color:#ff735a">{{product.event_summary_data.vendor_name}}</span></div>
+                                            <div class="event-row-ans">
+                                                <span class="icon-location" style="color: #0066C0;"></span>
+                                                <span ng-if="product.event_summary_data.product_address.product_address_line1">  
+                                                    {{product.event_summary_data.product_address.product_address_line1}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address.product_address_line1">
+                                                <span ng-if="product.event_summary_data.product_address.product_address_line2">  
+                                                    {{product.event_summary_data.product_address.product_address_line2}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address.product_address_line2">
+                                                <span ng-if="product.event_summary_data.product_address.product_city_name">
+                                                    {{product.event_summary_data.product_address.product_city_name}},
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_address.product_state_name"> 
+                                                    {{product.event_summary_data.product_address.product_state_name}} 
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_address.product_zip_code">   
+                                                    {{product.event_summary_data.product_address.product_zip_code}} 
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address.product_country_name"> {{product.event_summary_data.product_address.product_country_name}}
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_address_line1">  
+                                                    {{product.event_summary_data.product_address_line1}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address_line1">
+                                                <span ng-if="product.event_summary_data.product_address_line2">  
+                                                    {{product.event_summary_data.product_address_line2}},
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_address_line2">
+                                                <span ng-if="product.event_summary_data.product_city_name">
+                                                    {{product.event_summary_data.product_city_name}},
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_state_name"> 
+                                                    {{product.event_summary_data.product_state_name}} 
+                                                </span>
+                                                <span ng-if="product.event_summary_data.product_zip_code">   
+                                                    {{product.event_summary_data.product_zip_code}} 
+                                                </span>
+                                                <br ng-if="product.event_summary_data.product_country_name"> {{product.event_summary_data.product_country_name}}
+                                                </span>
                                             </div>
-                                            <div ng-if="product.event_summary_data.delivery_mode == 'delivery'">
-                                                Delivery
+                                        </div>
+                                        <div class="col-sm-2 col-xs-12 pad10-top">
+                                            <h4 class="event-heading visible-xs-inline-block text-left noPad"> <span>Booking # : </span></h4>
+                                            <div class="not-applicable visible-xs-inline-block">
+                                                {{product.booking_number}}
                                             </div>
                                         </div>
-                                    </div>
-
-
-                                    <div class="col-sm-1 col-xs-3 text-center padding-top-bottom">
-                                        <p class="row-pricing">
-                                            {{product.event_summary_data.currency_symbol}}{{formatPricing(product.product_price)}}
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-1 col-xs-3 text-center padding-top-bottom">
-                                        <div class="quantityPadd">{{product.event_summary_data.product_qty}}</div>
-                                    </div>
-                                    <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
-                                        <div class="not-applicable"> {{product.event_summary_data.currency_symbol}}{{formatPricing(product.delivery_cost)}}</div>
-                                    </div>
-                                    <div class="col-sm-1 col-xs-3 text-center padding-top-bottom">
-                                        <p class="row-pricing" ng-init="$parent.total1 = $parent.total1 + product.delivery_cost + product.total_price" >
-
-                                            {{product.event_summary_data.currency_symbol}}{{(product.delivery_cost + product.total_price) | number:2 }}
-
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
-                                        <div class="not-applicable">{{product.status_text}}</div>
+                                        <div class="col-sm-1 col-sm-6 col-xs-12">
+                                            <h4 class="event-heading visible-xs-inline-block">Delivery Options :</h4>
+                                            <div class="not-applicable visible-xs-inline-block" ng-if="product.event_summary_data.delivery_not_applicable == true">-NA-</div>
+                                            <div class="not-applicable visible-xs-inline-block" ng-if="product.event_summary_data.delivery_not_applicable == false">
+                                                <div ng-if="product.event_summary_data.delivery_mode == 'pickup'">
+                                                    Store Pickup
+                                                </div>
+                                                <div ng-if="product.event_summary_data.delivery_mode == 'delivery'">
+                                                    Delivery
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1 col-xs12">
+                                            <h4 class="event-heading visible-xs-inline-block">Unit Price :</h4>
+                                            <span class="row-pricing visible-xs-inline-block">
+                                                {{product.event_summary_data.currency_symbol}}{{formatPricing(product.product_price)}}
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-12">                                            
+                                            <h4 class="event-heading visible-xs-inline-block">Quantity :</h4>
+                                            <div class="quantityPadd visible-xs-inline-block">{{product.event_summary_data.product_qty}}</div>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-12">                                            
+                                            <h4 class="event-heading visible-xs-inline-block">SHIPPING PRICE :</h4>
+                                            <div class="not-applicable visible-xs-inline-block"> {{product.event_summary_data.currency_symbol}}{{formatPricing(product.delivery_cost)}}</div>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-12">                                            
+                                            <h4 class="event-heading visible-xs-inline-block">TOTAL :</h4>
+                                            <span class="row-pricing visible-xs-inline-block" ng-init="$parent.total1 = $parent.total1 + product.delivery_cost + product.total_price">
+                                                {{product.event_summary_data.currency_symbol}}{{(product.delivery_cost + product.total_price) | number:2 }}
+                                            </span>
+                                        </div>
+                                        <div class="col-sm-1 col-xs-12">                                            
+                                            <h4 class="event-heading visible-xs-inline-block">STATUS :</h4>
+                                            <div class="not-applicable visible-xs-inline-block">{{product.status_text}}</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
 
