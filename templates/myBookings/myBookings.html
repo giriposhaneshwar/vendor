@@ -149,8 +149,8 @@
                         <div class="my-booking-product-details col-xs-12 noPad" 
                              style="width:100%;border-bottom:1px #9e9e9e solid;border-top: 1px solid #e5e7eb;" 
                              ng-class="{'show-element' : $state.params.id == myBooking.event.event_id}">
-                            <div class="onlyWeb" ng-if="isWeb">
-                                <div class="col-xs-12 noPad" style="cursor:pointer;">
+                            <div class="onlyWeb" ng-if="isWeb && screenWidth > 1024">
+                                <div class="col-xs-12 col-sm-12 noPad">
                                     <div class="col-sm-12 noPad">
                                         <div class="col-sm-4 col-xs-hidden">&nbsp;</div>
                                         <div class="col-sm-2 col-xs-6">
@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="col-xs-12 noPad" ng-repeat="product in myBooking.products">
                                     <!-- <pre>{{product}}</pre> -->
-                                    <div class="col-sm-12 noPad" style="padding:10px">
+                                    <div class="col-sm-12 noPad">
                                         <div class="col-sm-2">
                                             <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
                                             <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
@@ -270,42 +270,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="onlyMobile" ng-if="!isWeb">
-                                <!--                                <div class="col-xs-12 noPad" style="cursor:pointer;">
-                                                                    <div class="col-sm-12 noPad">
-                                                                        <div class="col-sm-4 col-xs-hidden">&nbsp;</div>
-                                                                        <div class="col-sm-2 col-xs-6">
-                                                                            <h4 class="event-heading text-center"> <span>Booking #</span></h4>
-                                                                        </div>
-                                                                        <div class="col-sm-1 col-xs-6">
-                                                                            <h4 class="event-heading text-center">Delivery Options</h4>
-                                                                        </div>
-                                                                        <div class="col-sm-1 col-xs-6">
-                                                                            <h4 class="event-heading text-center">Unit Price</h4>
-                                                                        </div>
-                                                                        <div class="col-sm-1 col-xs-6">
-                                                                            <h4 class="event-heading text-center">Quantity</h4>
-                                                                        </div>
-                                                                        <div class="col-sm-1">
-                                                                            <h4 class="event-heading text-center">Shipping Price</h4>
-                                                                        </div>
-                                                                        <div class="col-sm-1">
-                                                                            <h4 class="event-heading text-center">Total</h4>
-                                                                        </div>
-                                                                        <div class="col-sm-1">
-                                                                            <h4 class="event-heading text-center">Status</h4>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>-->
+                            <div class="onlyMobile" ng-if="!isWeb || (isWeb && screenWidth < 1024)">
                                 <div class="col-xs-12 noPad" ng-repeat="product in myBooking.products">
                                     <!-- <pre>{{product}}</pre> -->
                                     <div class="col-sm-12 col-xs-12 noPad" style="padding:10px">
-                                        <div class="col-sm-2 col-xs-12">
+                                        <div class="col-sm-4 col-xs-12 pad2">
                                             <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
                                             <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
                                             <span class="event-heading" ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on cake:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span>
                                         </div>
-                                        <div class="col-sm-2 col-xs-12">
+                                        <div class="col-sm-8 col-xs-12 pad2">
                                             <div style="font-size:14px">{{getDecodedValue(product.event_summary_data.product_name)}}</div>
                                             <div class="event-row">{{getDecodedValue(product.event_summary_data.product_description)}}</div>
                                             <div><span style="color:#ff735a">{{product.event_summary_data.vendor_name}}</span></div>
@@ -351,16 +325,16 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2 col-xs-12 pad10-top">
-                                            <h4 class="event-heading visible-xs-inline-block text-left noPad"> <span>Booking # : </span></h4>
-                                            <div class="not-applicable visible-xs-inline-block">
+                                        <div class="col-sm-6 col-xs-12 pad2 pad10-top">
+                                            <h4 class="event-heading text-left noPad"> <span>Booking # : </span></h4>
+                                            <div class="not-applicable">
                                                 {{product.booking_number}}
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-sm-6 col-xs-12">
-                                            <h4 class="event-heading visible-xs-inline-block">Delivery Options :</h4>
-                                            <div class="not-applicable visible-xs-inline-block" ng-if="product.event_summary_data.delivery_not_applicable == true">-NA-</div>
-                                            <div class="not-applicable visible-xs-inline-block" ng-if="product.event_summary_data.delivery_not_applicable == false">
+                                        <div class="col-sm-6 col-sm-6 col-xs-12 pad2 pad10-top">
+                                            <h4 class="event-heading">Delivery Options :</h4>
+                                            <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == true">-NA-</div>
+                                            <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == false">
                                                 <div ng-if="product.event_summary_data.delivery_mode == 'pickup'">
                                                     Store Pickup
                                                 </div>
@@ -369,29 +343,29 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-xs12">
-                                            <h4 class="event-heading visible-xs-inline-block">Unit Price :</h4>
-                                            <span class="row-pricing visible-xs-inline-block">
+                                        <div class="col-sm-6 col-xs12 pad2 pad10-top">
+                                            <h4 class="event-heading">Unit Price :</h4>
+                                            <span class="row-pricing">
                                                 {{product.event_summary_data.currency_symbol}}{{formatPricing(product.product_price)}}
                                             </span>
                                         </div>
-                                        <div class="col-sm-1 col-xs-12">                                            
-                                            <h4 class="event-heading visible-xs-inline-block">Quantity :</h4>
-                                            <div class="quantityPadd visible-xs-inline-block">{{product.event_summary_data.product_qty}}</div>
+                                        <div class="col-sm-6 col-xs-12 pad2 pad10-top">                                            
+                                            <h4 class="event-heading">Quantity :</h4>
+                                            <div class="quantityPadd">{{product.event_summary_data.product_qty}}</div>
                                         </div>
-                                        <div class="col-sm-1 col-xs-12">                                            
-                                            <h4 class="event-heading visible-xs-inline-block">SHIPPING PRICE :</h4>
-                                            <div class="not-applicable visible-xs-inline-block"> {{product.event_summary_data.currency_symbol}}{{formatPricing(product.delivery_cost)}}</div>
+                                        <div class="col-sm-6 col-xs-12 pad2 pad10-top">                                            
+                                            <h4 class="event-heading">SHIPPING PRICE :</h4>
+                                            <div class="not-applicable"> {{product.event_summary_data.currency_symbol}}{{formatPricing(product.delivery_cost)}}</div>
                                         </div>
-                                        <div class="col-sm-1 col-xs-12">                                            
-                                            <h4 class="event-heading visible-xs-inline-block">TOTAL :</h4>
-                                            <span class="row-pricing visible-xs-inline-block" ng-init="$parent.total1 = $parent.total1 + product.delivery_cost + product.total_price">
+                                        <div class="col-sm-6 col-xs-12 pad2 pad10-top">                                            
+                                            <h4 class="event-heading">TOTAL :</h4>
+                                            <span class="row-pricing" ng-init="$parent.total1 = $parent.total1 + product.delivery_cost + product.total_price">
                                                 {{product.event_summary_data.currency_symbol}}{{(product.delivery_cost + product.total_price) | number:2 }}
                                             </span>
                                         </div>
-                                        <div class="col-sm-1 col-xs-12">                                            
-                                            <h4 class="event-heading visible-xs-inline-block">STATUS :</h4>
-                                            <div class="not-applicable visible-xs-inline-block">{{product.status_text}}</div>
+                                        <div class="col-sm-6 col-xs-12 pad2 pad10-top">                                            
+                                            <h4 class="event-heading">STATUS :</h4>
+                                            <div class="not-applicable">{{product.status_text}}</div>
                                         </div>
                                     </div>
                                 </div>
