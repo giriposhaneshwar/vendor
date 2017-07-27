@@ -5,8 +5,14 @@ app.run(function ($rootScope, $location, $state, $document, $stateParams, $ancho
     $rootScope.$state = $state;
     $rootScope.loadderUrl = 'img/loader-old.gif';
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
+        console.log("Curent Page ", $location.host());
         if ($state.params.id == '' || $state.params.id == undefined) {
             $('.mainContainer').animate({scrollTop: 0}, 500);
+        }
+        if ($location.host() == "arevea.com" || $location.host() == "https://www.arevea.com" || $location.host() == "www.arevea.com" || $location.host() == "prod.arevea.com") {
+            $rootScope.showFullCalendar = false;
+        } else {
+            $rootScope.showFullCalendar = true;
         }
         $rootScope.state_change($location.path());
     });
@@ -225,10 +231,10 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 controller: 'BusinessTimeController',
                 data: {pageTitle: 'My Calendar'}
             })
-            .state('calendar.availabilitycalendar', {
-                url: '/AvailabilityCalendar',
-                templateUrl: 'templates/calendarBusinessTime/availabelTimingCalendar.html',
-                controller: 'BusinessTimeController',
+            .state('calendar.calendarEvents', {
+                url: '/calendarEvents',
+                templateUrl: 'templates/fullCalendar/calendarEvents.html',
+                controller: 'calendarEventsController',
                 data: {pageTitle: 'My Calendar'}
             })
             .state('calendar.available_time_list', {

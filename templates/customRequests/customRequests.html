@@ -13,6 +13,7 @@
     }
     .customer-name-field {
         width: 13%;
+        padding-right: 5px;
     }
     .image-holder{
         margin-left: 10px;
@@ -395,7 +396,9 @@
                             {{img.name}} <span ng-click="removeImage($index)" class="fa fa-trash text-danger"></span>
                         </div>
                         <div class="modal-button text-center">
-                            <button class="btn theme-btn" ng-click="submitQuotation()" >Send Quote</button>
+                            <button class="btn theme-btn" 
+                                    ng-click="submitQuotation()" 
+                                    ng-disabled="isQuoteSubmited">Send Quote</button>
                         </div>
                     </div>
                     <!-- <div class="modal-footer">

@@ -1,9 +1,11 @@
 (function (angular) {
 
-    angular
-            .module('arevea')
+    angular.module('arevea')
             .directive('calendarAvailabilityDays', calendarAvailabilityDaysDir);
 
+    /*
+     * Calendar Availability Days Directive
+     */
     function calendarAvailabilityDaysDir() {
         var calDirective = {
             restrict: 'EA',
@@ -12,18 +14,15 @@
             templateUrl: 'templates/calendarBusinessTime/calendar.availability.directive.html',
             controller: calendarAvailbilityDirectiveController
         };
-
         return calDirective;
-
     }
 
     calendarAvailbilityDirectiveController.$inject = [
         '$scope'
     ];
 
-    function calendarAvailbilityDirectiveController(
-            $scope) {
-    }
+    function calendarAvailbilityDirectiveController($scope) {}
+
 })(window.angular);
 
 

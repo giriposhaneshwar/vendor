@@ -130,7 +130,11 @@
 //                }, 50);
 //            });
 
-            $('#startTime' + index).timepicker({'scrollDefault': 'now'});
+            $('#startTime' + index).timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'scrollDefault': 'now'
+            });
             $('#startTime' + index).focus();
 
         };
@@ -161,30 +165,43 @@
         };
 
         $scope.showEndTime = function (index) {
-            $("body").on("click", "#endTime" + index, function () {
-                $(this).datetimepicker({
-                    datepicker: false,
-                    format: 'H:i',
-                    step: 30,
-                    onShow: function () {
-                        var fromTime = $("#startTime" + index).val();
-                        var res = fromTime.split(":");
-                        var updatedTime = Number(res[0]);
-                        updatedTime = updatedTime + ":" + (Number(res[1]) + 30);
-                        this.setOptions({
-                            minTime: updatedTime
-                        });
-
-                    },
-                    onSelectTime: function (e) {
-                        var tm = new Date(e);
-                        var time = tm.getHours() + ":" + tm.getMinutes();
-                        $("#startTime" + index).datetimepicker({maxTime: time})
-                    }
-                });
-                setTimeout(function () {
-                    $("#endTime" + index).datetimepicker('show');
-                }, 50);
+//            $("body").on("click", "#endTime" + index, function () {
+//                $(this).datetimepicker({
+//                    datepicker: false,
+//                    format: 'H:i',
+//                    step: 30,
+//                    onShow: function () {
+//                        var fromTime = $("#startTime" + index).val();
+//                        var res = fromTime.split(":");
+//                        var updatedTime = Number(res[0]);
+//                        updatedTime = updatedTime + ":" + (Number(res[1]) + 30);
+//                        this.setOptions({
+//                            minTime: updatedTime
+//                        });
+//
+//                    },
+//                    onSelectTime: function (e) {
+//                        var tm = new Date(e);
+//                        var time = tm.getHours() + ":" + tm.getMinutes();
+//                        $("#startTime" + index).datetimepicker({maxTime: time})
+//                    }
+//                });
+//                setTimeout(function () {
+//                    $("#endTime" + index).datetimepicker('show');
+//                }, 50);
+//            });
+            $('#endTime' + index).timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'minTime': $('#startTime' + index).val(),
+                'maxTime': '23:45'
+            });
+            $('#endTime' + index).focus();
+            $('#startTime' + index).timepicker({
+                'timeFormat': 'H:i',
+                'step': 15,
+                'minTime': '00:00',
+                'maxTime': $('#endTime' + index).val()
             });
         };
         $scope.clearTime = function (index, type) {

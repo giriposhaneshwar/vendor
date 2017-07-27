@@ -3,7 +3,6 @@ var app = angular.module('arevea');
 app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fileUpload, $window, $timeout, $http, $location, $state, $uibModal, NgMap) {
     $scope.verifyVendorStatus();
     console.log("in location controller")
-    $scope.currentPage = 1;
     $scope.entryLimit = 10;
     $scope.maxSize = 5;
     var map;
@@ -128,7 +127,16 @@ app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fil
         }, function (res) {
             $scope.loader(false);
             $scope.getLocation = res;
+
+            var pageNo = ctrlComm.get('currentPage');
+            console.log("page no.......", pageNo)
+            $scope.currentPage = pageNo ? pageNo : 1;
         });
+    }
+    $scope.pageChanged = function (currentPage) {
+        alert(currentPage);
+//        $scope.currentPage = currentPage;
+        ctrlComm.put('currentPage', currentPage);
     }
     $scope.getVenderLocationById = function (id) {
         $scope.loader(true);
@@ -817,7 +825,9 @@ app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fil
                 $scope.isResponse = false;
                 if (response.status == 0) {
                     $scope.notification('Location Updated Successfully');
-                    $window.location.href = "#/vendorSettings/Location";
+//                    $state.go('vendorSettings.Location');
+                    $location.path("/vendorSettings/Location");
+//                    $window.location.href = "#/vendorSettings/Location";
                 } else {
                     $scope.notification(response.message, "danger")
                 }

@@ -126,6 +126,8 @@ html .fc,
 /* buttons edges butting together */
 .fc-header .fc-button {
     margin-right: -1px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .fc-header .fc-corner-right,  /* non-theme */
@@ -249,9 +251,9 @@ html .fc,
   borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
 */
 .fc-state-default {
-    background-color: #6ad2eb;
+    background-color: #ff735a;
     color: #ffffff;
-    border: 1px solid #1bbae1;
+    border: 1px solid #fff;
 }
 
 .fc-state-hover,
@@ -259,26 +261,26 @@ html .fc,
 .fc-state-active,
 .fc-state-disabled {
     color: #ffffff;
-    background-color: #1bbae1;
+    background-color: #ff735a;
 }
 
 .fc-state-hover {
     text-decoration: none;
-    background-color: #1bbae1;
+    background-color: #f96d54;
     color: #ffffff;
 }
 
 .fc-state-down,
 .fc-state-active {
-    background-color: #1bbae1;
-    border-color: #1593b3;
+    background-color: #ff735a;
+    border-color: #fff;
     color: #ffffff;
     outline: 0;
 }
 
 .fc-state-disabled {
     cursor: default;
-    background-color: #1bbae1;
+    background-color: #ff735a;
     opacity: 0.65;
     filter: alpha(opacity=65);
 }
@@ -414,7 +416,8 @@ table.fc-border-separate {
 thead th.fc-widget-header {
     padding: 12px 2px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 14px;
+    /* font-family: "gotham-medium"; */
 }
 
 .fc-grid th {

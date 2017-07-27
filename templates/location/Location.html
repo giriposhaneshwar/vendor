@@ -24,7 +24,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="getLoc in getLocation.slice(((currentPage-1)*entryLimit), ((currentPage)*entryLimit)) |orderBy:$index|limitTo:entryLimit">
+            <tbody ng-repeat="getLoc in getLocation.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))|orderBy:$index|limitTo:entryLimit">
                 <tr>
                     <td>{{getLoc.location_name}}</td>
                     <td>{{getLoc.location_description}}</td>
@@ -33,26 +33,26 @@
                     <td>{{getLoc.state}}</td>
                     <td>{{getLoc.country}}</td>
                     <td>{{getLoc.zip}}</th>
-                        <td style="width:100px">
-                            <!--  <i class="fa fa-pencil-square-o btn" aria-hidden="true" ng-click="editLocation(getLoc);" data-toggle="tooltip" title="Edit"></i>
+                    <td style="width:100px">
+                        <!--  <i class="fa fa-pencil-square-o btn" aria-hidden="true" ng-click="editLocation(getLoc);" data-toggle="tooltip" title="Edit"></i>
 
-    <i ng-show="getLoc.status ==0 " class="fa fa-times btn" aria-hidden="true" ng-click="deleteLocationConfirm(getLoc)" data-toggle="tooltip" title="Delete"></i>-->
+<i ng-show="getLoc.status ==0 " class="fa fa-times btn" aria-hidden="true" ng-click="deleteLocationConfirm(getLoc)" data-toggle="tooltip" title="Delete"></i>-->
 
-                            <ul class="list-inline">
-                                <li><span class="fa fa-pencil btn" aria-hidden="true" ng-click="editLocation(getLoc);" data-toggle="tooltip" title="Edit"></span></li>
-                                <li ng-show="getLoc.status ==0 " class="fa fa-trash-o btn" aria-hidden="true" ng-click="deleteLocationConfirm(getLoc)" data-toggle="tooltip" title="Delete"></li>
+                        <ul class="list-inline">
+                            <li><span class="fa fa-pencil btn" aria-hidden="true" ng-click="editLocation(getLoc);" data-toggle="tooltip" title="Edit"></span></li>
+                            <li ng-show="getLoc.status == 0" class="fa fa-trash-o btn" aria-hidden="true" ng-click="deleteLocationConfirm(getLoc)" data-toggle="tooltip" title="Delete"></li>
 
-                            </ul>
+                        </ul>
 
 
-                        </td>
+                    </td>
 
 
                 </tr>
             </tbody>
         </table>
         <div class="text-center " ng-show="getLocation.length > 10">
-            <uib-pagination total-items="getLocation.length" ng-model="currentPage" class="pagination pagination-sm" boundary-links="true" items-per-page="entryLimit" ng-click="getCurrentPage();">
+            <uib-pagination total-items="getLocation.length" ng-model="currentPage" class="pagination pagination-sm" boundary-links="true" items-per-page="entryLimit" ng-change="pageChanged(currentPage)">
             </uib-pagination>
             <!--max-size="maxSize" class="pagination-sm" boundary-links="true"-->
         </div>

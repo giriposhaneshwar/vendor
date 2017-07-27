@@ -172,8 +172,8 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
         console.log($scope.customRequestFiles);
         $scope.customRequestFiles.splice(index, 1);
     };
+    $scope.isQuoteSubmited = false;
     $scope.submitQuotation = function () {
-
         var quotationDescription = $("#quotationDescription").val();
         quotationDescription = quotationDescription.split("\n").join("<br>");
         var quotationPrice = $("#quotationPrice").val();
@@ -184,6 +184,7 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
             errorStr += "please enter quote description";
             $("#quotationDescriptionErr").html("Enter quote description");
         } else {
+            $scope.isQuoteSubmited = false;
             $("#quotationDescriptionErr").html("");
         }
 
@@ -191,6 +192,7 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
             errorStr += "please enter quotation price";
             $("#quotationPriceErr").html("Enter quote price");
         } else {
+            $scope.isQuoteSubmited = false;
             $("#quotationPriceErr").html("");
         }
 
@@ -198,12 +200,15 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
             errorStr += "please enter quotation description";
             $("#deliveryPriceErr").html("Enter delivery price (enter 0 if not applicable)");
         } else {
+            $scope.isQuoteSubmited = false;
             $("#deliveryPriceErr").html("");
         }
 
         if (errorStr != "") {
             return false;
         }
+
+        $scope.isQuoteSubmited = true;
 
         var media = {};
         media.image = [];
@@ -212,7 +217,7 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
         angular.forEach($scope.customRequestFiles, function (obj) {
             var temp = {};
             temp.name = obj.name;
-            media.image.push(temp)
+            media.image.push(temp);
             fd.append('crvimages', obj);
         });
 
@@ -231,6 +236,7 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
 
         var serviceURL = "//" + request.setup.servicehost + request.setup.port_seperator + request.setup.port + "/" + request.setup.prefix;
         var url = "/quotationSent";
+
         $http.post(serviceURL + url, fd, {
             transformRequest: angular.identity,
             headers: {
@@ -238,10 +244,12 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
             }
         })
                 .success(function (response) {
+                    $scope.isQuoteSubmited = false;
                     $scope.myCustomRequests($rootScope.argsCr);
                     $("#sendQuotation").modal("hide");
                 })
                 .error(function (response) {
+                    $scope.isQuoteSubmited = false;
                     $scope.notification(response.message);
                 });
     };

@@ -16,7 +16,7 @@
                     <th style="width: 10%">ACTION</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="getBsnessTime in getBusinessTime.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))|orderBy:$index|limitTo:entryLimit">
+            <tbody ng-repeat="getBsnessTime in getBusinessTime.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))| orderBy:$index | limitTo:entryLimit">
                 <tr>
                     <td  ng-repeat='week in week_number' ng-show="getBsnessTime.week_number == week.id" >{{week.name}}</td>
                     <td>{{getBsnessTime.category_name}}</td>
@@ -55,7 +55,7 @@
     <p class="text-center modal-delete">Are you sure you want to delete ?</p>
     </div>
     <div class="modal-footer" style="padding: 7px 15px 8px">
-    <button class="btn btn-primary  buttonBg pad15 pad20-lr" type="button" ng-click="ok()">Yes</button>
+    <button class="btn btn-primary  buttonBg pad15 pad20-lr" style="padding: 15px 35px" type="button" ng-click="ok()">Yes</button>
     <button class="btn btn-info buttonBg-white pad20-lr" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>

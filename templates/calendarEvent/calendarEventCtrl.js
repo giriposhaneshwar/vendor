@@ -265,9 +265,10 @@
                     fp.setDate(new Date(), true);
                     fp.config.minDate = new Date();
                 } else {
+                    fp.config.minDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
                     if ($scope.calendarEvent.scheduledEvent[key].toDate != undefined && $scope.calendarEvent.scheduledEvent[key].toDate != "") {
+
                     } else {
-                        fp.config.minDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
                         $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
                         fp.setDate($scope.calendarEvent.scheduledEvent[key].fromDate, true);
                     }
