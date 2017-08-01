@@ -45,7 +45,8 @@
                                         <div class="eventTypeHolder">
                                             <input type="text" name="eventType" class="form-control dropInput"
                                                    ng-model="eventType" id="eventType" autocomplete
-                                                   placeholder="Type to search" ng-change="filterMyBookings();" />
+                                                   placeholder="Type to search" ng-change="filterMyBookings();" 
+                                                   onfocus="javascript:$(this).autocomplete('search', '');"/>
                                         </div>
                                     </li>
                                 </ul>
@@ -123,7 +124,9 @@
                                                                         </div>  -->
                                             <div class="col-sm-2 booking-price-fields  pad2 pad10-top">
                                                 <span class="text-left bookingTitles "> PRICE</span>
-                                                <span class="text-center my-booking-data ">${{total1| number:2 }}</span>
+                                                <span class="text-center my-booking-data ">
+                                                    ${{myBooking.totalSumUnit| number:2 }}
+                                                </span>
                                             </div>
                                             <div class="col-sm-2 booking-customer-fields  pad2 pad10-top">
                                                 <span class="text-left bookingTitles">CUSTOMER NAME</span>

@@ -21,7 +21,7 @@
             // 'host': '192.168.2.185',
             // 'servicehost' : '192.168.2.185',
             // 'port': '8000',
-            //'host': '111.93.0.178:8881',  	//active
+//            'host': '111.93.0.178:8881', //active
 //            'host': '192.168.2.158:8080', //local - Giri Office Wifi
             'host': '192.168.3.118:8080', //local - Giri Office
 //            'host': '192.168.1.105:8080', //local - Giri Home
@@ -31,7 +31,9 @@
             'port': '8721',
             'port_seperator': ':',
             'vendor_portal': "/VendorV2",
+//            'vendor_portal': "/Arevea/VendorV2",
             'customer_portal': "/customerV2/dist/",
+//            'customer_portal': "/Arevea/customerV2",
             // QA Server settings
             /*
              * 'host': 'qa.arevea.com', 'servicehost' : 'qa.arevea.com',
@@ -121,7 +123,24 @@
                 checkVendorCalendar: '/checkVendorCalendar',
                 vendorGetLocationById: '/vendorGetLocationById',
                 vendorChangePassword: '/vendorChangePassword',
-                vendorPaymentsByEventID: '/vendorPaymentsByEventID'
+                vendorPaymentsByEventID: '/vendorPaymentsByEventID',
+                getTeams: '/getTeams',
+                deleteTeam: '/deleteTeam',
+                createTeam: '/createTeam',
+                updateTeam: '/updateTeam',
+                vendorGetLocations: '/vendorGetLocations',
+                vendorCategories: '/vendorCategories',
+                deleteUserFromTeam: '/deleteUserFromTeam',
+                assignTeamToUser: '/assignTeamToUser',
+                assignUserToTeam: '/assignUserToTeam',
+                getUsersToAssignTeam: '/getUsersToAssignTeam',
+                getTeamMembers: '/getTeamMembers',
+                updateTeamMember: '/updateTeamMember',
+                createTeamMember: '/createTeamMember',
+                deleteTeamMember: '/deleteTeamMember',
+                getTeamUsersByTeamID: '/getTeamUsersByTeamID',
+                downloadTeamMemberTemplate: '/downloadTeamMemberTemplate',
+                importTeamMemberTemplate: '/importTeamMemberTemplate'
             },
             'url': function (key) {
                 if (setup.paths.hasOwnProperty(key)) {
@@ -221,6 +240,21 @@
             return a - b;
         }
 
+        var parse = function (data) {
+            if (typeof data == 'string') {
+                try {
+                    data = JSON.parse(data)
+                    if (data.length >= 0) {
+                        data = {data: data};
+                    }
+                } catch (err) {
+                }
+                return data;
+            } else {
+                return data;
+            }
+        }
+
         return {
             'service': serviceCall,
             'setObj': setObj,
@@ -230,6 +264,7 @@
             'removeItem': removeItem,
             'setup': setup,
             'sort': sortNumber,
+            'parse': parse
         }
     }
     app.factory('request', ['$http', 'secure', request]);

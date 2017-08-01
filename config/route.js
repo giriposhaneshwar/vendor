@@ -1,5 +1,5 @@
 /*(function() {*/
-var app = angular.module('arevea', ["ui.router", "ui.bootstrap", "ngAnimate", "ngSanitize", "mgcrea.ngStrap", "ngMap", "textAngular", 'angularUtils.directives.dirPagination', 'ui.select', 'angular-flatpickr']);
+var app = angular.module('arevea', ["ui.router", "ngResource", "ui.bootstrap", "ngAnimate", "ngSanitize", "mgcrea.ngStrap", "ngMap", "textAngular", 'angularUtils.directives.dirPagination', 'ui.select', 'angular-flatpickr']);
 
 app.run(function ($rootScope, $location, $state, $document, $stateParams, $anchorScroll, $timeout, commonService) {
     $rootScope.$state = $state;
@@ -285,6 +285,36 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 templateUrl: 'templates/myMessages/myAccount.html',
                 controller: 'myMessagesCtrl',
                 data: {pageTitle: 'My Account'}
+            })
+            .state('teams', {
+                url: '/teams',
+                templateUrl: 'templates/myTeam/teams.html',
+                controller: 'teams_controller',
+                data: {pageTitle: 'Teams'}
+            })
+            .state('myTeam', {
+                url: '/myTeam',
+                templateUrl: 'templates/myTeam/teamForm.html',
+                controller: 'teams_controller',
+                data: {pageTitle: 'Team'}
+            })
+            .state('teamMembers', {
+                url: '/teamMembers',
+                templateUrl: 'templates/myTeam/teamMembers.html',
+                controller: 'teamMembers_controller',
+                data: {pageTitle: 'Team Members'}
+            })
+            .state('teamMember', {
+                url: '/teamMember',
+                templateUrl: 'templates/myTeam/teamMemberForm.html',
+                controller: 'teamMembers_controller',
+                data: {pageTitle: 'Team Member'}
+            })
+            .state('import', {
+                url: '/import',
+                templateUrl: 'templates/myTeam/importTeam.html',
+                controller: 'importTeamCtrl',
+                data: {pageTitle: 'Import Team Members'}
             });
 //    $anchorScrollProvider.disableAutoScrolling();
 });

@@ -132,6 +132,8 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                             //$("#eventType").hide();
                             $("#eventType").autocomplete({
                                 source: $scope.event_names,
+                                autoFocus: true,
+                                minLength: 0,
                                 appendTo: '.eventTypeHolder',
                                 select: function (event, ui) {
                                     $scope.eventType = ui.item.label;
@@ -194,11 +196,17 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                     $scope.myBookings[i].event.stDate = new Date($scope.myBookings[i].event.eventStartDate);
                     $scope.myBookings[i].event.edDate = new Date($scope.myBookings[i].event.eventEndDate);
 
-
+                    $scope.myBookings[i].totalSumUnit = 0;
                     for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
+                        $scope.myBookings[i].totalSumUnit = $scope.myBookings[i].totalSumUnit + (parseFloat($scope.myBookings[i].products[j].delivery_cost) + parseFloat($scope.myBookings[i].products[j].total_price));
                         $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
                         //console.log($scope.myBookings[i].products[j].event_summary_data)
                     }
+
+//                    for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
+//                        $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
+//                        //console.log($scope.myBookings[i].products[j].event_summary_data)
+//                    }
 
                 }
             } else if (response.status == 1) {

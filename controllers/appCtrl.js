@@ -77,6 +77,8 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
             if (response.status == 0) {
                 $scope.login.userToken = response.token;
                 $scope.login.userId = response.userid.toString();
+                window.localStorage.setItem('currUser', JSON.stringify(response));
+                $scope.currUser = response;
                 window.localStorage.setItem("Arevea_userToken", response.token);
                 window.localStorage.setItem("Arevea_userId", response.userid.toString());
                 request.service('verifyToken', 'post', $scope.login, function (response) {
@@ -177,6 +179,7 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
             $scope.verifyMail(request1);
         }
     } else {
+        $scope.currUser = window.localStorage.getItem('currUser');
         $scope.login.userToken = window.localStorage.getItem("Arevea_userToken");
         $scope.login.userId = window.localStorage.getItem("Arevea_userId");
         console.log($scope.login);
@@ -282,7 +285,7 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
 
             }
         }
-
+        window.localStorage.setItem('adminDetails', JSON.stringify($scope.admin));
     }
 
 
@@ -590,4 +593,29 @@ app.controller('saveConfirmCtrl', function ($scope, $uibModalInstance, data) {
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
-})
+});
+
+
+app.directive('myLength', [function () {
+        return {
+            restrict: 'A',
+            link: function (scope, elm, attr, ctrl) {
+                var maxlength = -1;
+                attr.$observe('myLength', function (value) {
+                    maxlength = value;
+                });
+                elm.bind('keypress', function (event) {
+                    if (event.charCode) {
+                        if (event.charCode < 48 || event.charCode > 57) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        if (elm[0].value.length > maxlength - 1) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                    }
+                })
+            }
+        };
+    }]);

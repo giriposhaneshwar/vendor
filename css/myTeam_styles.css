@@ -1,0 +1,503 @@
+.noPad{ padding: 0px; }
+.noPadL{ padding-left: 0px; }
+.noPadR{ padding-right: 0px; }
+.form-horizontal .form-group.noMar{ margin: 0px; }
+.noMar{ margin: 0px; }
+.float-left{ float: left; }
+.float-right{ float: right; }
+.marT10{ margin-top: 10px; }
+.marB20{ margin-bottom: 20px; }
+.padL20{ padding-left: 20px; }
+.padR20{ padding-right: 20px; }
+.myTeam-list {
+	height: 850px;
+	border-radius: 4px;
+	background-color: #ffffff;
+}
+.myTeam-filter-part{
+	height: 50px;
+	border-radius: 4px;
+	background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+	box-shadow: 0 1px 0 0 var(--pale-grey-two);
+}
+
+.Filter-Group {
+	/*min-width: 110px;*/
+    height: 50px;
+    font-family: gotham-medium;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 4.17;
+    letter-spacing: 0.9px;
+    color: #15171b;
+    float: left;
+    cursor: pointer;
+}
+.down-arrow{
+	width: 12px;
+    height: 50px;
+    font-family: Gotham;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 3.8;
+    letter-spacing: 0.9px;
+    color: #15171b;
+    float: left;
+	cursor: pointer;
+    margin-left: 5px;
+}
+.down-arrow.filter-clear{
+    line-height: 4;
+    margin-left: 5px;
+}
+
+.down-arrow img{
+	width: 12px;
+	height: 7px;
+}
+.Search-Contacts {
+	/*width: 146px;*/
+	height: 50px;
+	font-family: gotham-medium;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 4.17;
+	letter-spacing: 0.9px;
+	color: #15171b;
+	float: left;
+	cursor: pointer;
+}
+.Button-Value-White {
+	/*width: 290px;*/
+	height: 50px;
+}
+.teamMember-create{
+	height: 50px;
+	float: left;
+	margin-top: 20px;
+    font-weight: bold;
+}
+.teamMember-create-btn{
+    width: 130px;
+    height: 50px;
+    border-radius: 30px;
+    color: #fff;
+    background-image: linear-gradient(100deg, #ff8f2b, #fe5a84);
+    border: 0px;
+    line-height: 4.17;
+    letter-spacing: 0.9px;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    margin-left: 15px;
+}
+.teamMember-create-back{
+    width: 110px;
+    height: 50px;
+    background-color: #fff;
+    color: #000;
+    border-radius: 30px;
+    border: 0px;
+    line-height: 4.17;
+    letter-spacing: 0.9px;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    margin-left: 15px;
+}
+.create-new-contact {
+    /*width: 290px;*/
+    height: 50px;
+    border-radius: 30px;
+    color: #fff;
+    background-image: linear-gradient(100deg, #ff8f2b, #fe5a84);
+    border: 0px;
+	line-height: 4.17;
+	letter-spacing: 0.9px;
+	text-align: center;
+	cursor: pointer;
+    font-weight: bold;
+}
+
+.myTeam-list .dropdown-menu > li > a:hover{
+	background-color: #337ab7;
+	color: white;
+}
+
+.myTeam-filter-part span.filterOption.dropdown{
+	height: 50px;
+	display: block;
+	min-width: 135px;
+	padding: 0px 5px;
+	float: left;
+}
+.myTeam-filter-part span.searchOption.dropdown{
+	height: 50px;
+	display: block;
+	/*width: 178px;*/
+	padding: 0px 5px;
+	float: left;
+	margin-left: 30px;
+}
+.myTeam-filter-part span.dropdown.open{
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.myTeam-filter-part .dropdown-menu{
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	top: 50px;
+	left: 0px;
+	min-width: 300px;
+	border:none;
+    padding: 0px 15px;    
+}
+.myTeam-filter-part .dropdown-menu li {
+    border-bottom: 1px solid #e0e0e0;
+}
+.myTeam-filter-part .dropdown-menu li a{
+    font-size: 16px;
+    font-family: openSans-light;
+    padding: 6px 0px;
+}
+.myTeam-filter-part .dropdown-menu li a:hover{
+    background-color: #fff;
+    color: inherit;
+}
+.myTeam-filter-part .dropdown-menu li:last-child,.myTeam-filter-part .dropdown-menu li:first-child{
+    border-bottom: none;
+}
+.myTeam-filter-part .dropdown-menu li input{
+    border-top:none;
+    border-left:none;
+    border-right:none;
+	border-radius: 0px;
+    height: 34px !important;
+    padding: 0px;
+}
+
+
+/* Team Member list  =========================================================== */
+
+.team-member{
+    min-height: 50px;
+    padding: 0px 15px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding-left: 20px;
+}
+.team-member .member-photo{
+	width: 60px;
+}
+.team-member .member-photo img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;  
+}
+.team-member .member-name{
+    width: 160px;
+    min-height: 30px;
+    font-family: gotham-medium;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: left;
+    color: #15171b;
+    word-wrap: break-word;
+    padding: 15px 0px;
+}
+.team-member .member-email{
+    width: 260px;
+}
+.team-member .member-type{
+    width: 75px;
+    height: 50px;
+    font-family: gotham-medium;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 15px 0px;
+    letter-spacing: 0.9px;
+    text-align: left;
+    color: #15171b;
+}
+.team-member .member-btn{
+    height: 50px;
+    padding-top: 9px;
+}
+.team-member .member-btn .send-message{
+    padding: 0px 10px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: #ff735a;
+    line-height: 3;
+    color: #fff;
+    font-size: 10.5px;
+    text-align: center;
+    cursor: pointer;
+}
+.team-member .member-options{
+    width: 70px;
+    height: 50px;
+    text-align: center;
+    line-height: 3.5;
+    font-size: 14px;
+    cursor: pointer;
+}
+.team-member .member-options>div{
+    float: left;
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+    margin-left: 5px;
+    line-height: 2.2;
+}
+.add-teamMember-part{
+	background-color: #fff;
+	min-height: 400px;
+	padding-top: 10px;
+}
+.team-input-lable{
+    height: 30px;
+    font-family: gotham-medium;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #292c33;
+    padding-top: 8px;
+}
+.add-people{
+	/*width: 91px;*/
+    height: 50px;
+    font-family: gotham-medium;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 4.5;
+    letter-spacing: 0.9px;
+    color: #15171b;
+    float: left;
+    margin-left: 15px;
+}
+
+.add-people-search-part {
+	height: 50px;
+	background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+.search-icon{
+    height: 50px;
+    float: right;
+    line-height: 2.7;
+    font-size: 20px;
+    margin-right: 15px;
+}
+.search-icon i{
+    color: rgba(255, 115, 90, 0.7);
+}
+
+.search-field{
+	height: 50px;
+	background-color: #ffffff;
+	border-bottom:1px solid #d8d8d8;
+}
+.search-field input{
+	height: 40px;
+	background-color: rgba(0, 0, 0, 0);
+	border: solid 1px #b2b6bc;
+}
+.add-teamMember-field{
+
+}
+
+.activeClrOrange{
+    color: #ff735a;
+}
+.item-options li a{
+    font-family: gotham-medium;
+    letter-spacing: 0.9px;
+}
+.item-options{
+    top: 10px;
+}
+.team-member .add-member-name{
+    width: 100%
+}
+
+
+/* ============================================================================= */
+
+.Rectangle-1234 {
+
+    padding-bottom: 20px;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+.Event-Rectangle-12 {
+    /* width: 1130px;*/
+    height: auto;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+.pad0{
+    padding-right: 0px; 
+    padding-left: 0px;
+}
+.margin-left-right{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.Import-Contacts {
+    /*width: 138px;*/
+    height: 30px;
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    line-height: 2.5;
+    color: #292c33;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.custom-file-input {
+    color: #707276;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0 15px 0;
+    cursor: pointer;
+    border: 1px dashed #979797;
+    font-size: 14px;
+    position: relative;
+    height: 70px;
+    background-color: #ffffff;
+    font-family: openSans;
+    line-height: 2.14;
+}
+input.customized {
+    height: 30px;
+    font-family: openSans;
+    color: #707276;
+    font-weight: bold;
+    position: absolute;
+    font-size: 14px;
+    outline: none;
+    opacity: 0;
+    height: 1px;
+}
+.Or-use-your-social-m {
+
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    line-height: 2.5;
+    color: #292c33;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+
+.omb_btn-facebook {
+    height: 30px;
+    border-radius: 4px;
+    background-color: #3a5998;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 128px;
+    padding: 7px 7px;
+}
+
+.Facebook {
+    height: 20px;
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.omb_btn-google{
+    height: 30px;
+    border-radius: 4px;
+    background-color: #e94335;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 120px;
+    padding: 7px 7px;
+}
+
+.Google {
+    width: 52px;
+    height: 20px;
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.omb_btn-twitter{
+    height: 30px;
+    border-radius: 4px;
+    background-color: #0077b5;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 120px;
+    padding: 7px 7px;
+}
+
+.Linked-In {
+    width: 63px;
+    height: 20px;
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.contact-importbtn {
+    width: 77px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: #ff735a;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.Import {
+    width: 47px;
+    height: 20px;
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    line-height: 2;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 500;
+}
+.socialicons{
+    border: 1px solid #3A5998;
+    padding: 0px 5px 0 0px;
+    background: #3A5998;
+    font-size: 14px;
+    color: white;
+    border-radius: 4px;
+}
+
+.socialicons-link{
+    border: 1px solid #0077b5;
+    padding: 0px 0px 0 0px; 
+    background: #0077b5;
+    font-size: 14px;
+    color: white;
+    border-radius: 4px;
+}
+
+.socialicons-google{
+    border: 1px solid #e94335;
+    padding: 0px 0px 0 0px;
+    background: #e94335;
+    font-size: 14px;
+    color: white;
+    border-radius: 4px;
+}
+.mar_right10{
+    margin-right: 10px;
+}

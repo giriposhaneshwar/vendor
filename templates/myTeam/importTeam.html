@@ -1,0 +1,65 @@
+<style type="text/css">
+    .import-face-book-container{
+        padding-right: 0px;
+       /*margin-right: 5px;*/
+   }
+   .import-google-plus-container{
+    padding: 0px;
+    margin-right: 5px;
+   }
+</style>
+
+<div class="col-md-12 col-sm-12 Event-Rectangle-12 pad0">
+	 <div class="col-sm-12 Rectangle-1234 pad0">
+      <div class="row margin-left-right">
+      <div class="col-sm-12"> 
+        <h5 class="Import-Contacts">IMPORT TEAM MEMBERS</h5>
+      </div>
+      <form name="mainform">
+
+          <div class="col-sm-12">
+            <label class="custom-file-input">
+              <span class="icon-picture"></span> Click here to attach files or drop files here
+              <input class="customized" type="file" flow-btn id="ex_file" ng-model="bankfilepath" onchange="angular.element(this).scope().fileSelect(this)">
+            </label>
+            <div ng-show="fileDetails">
+                <p>{{fileDetails.name}}
+                    <i class="fa fa-trash-o pointer" aria-hidden="true" ng-click="deleteUploadImage(img);"></i>
+                </p>
+            </div>
+          </div>
+
+          <div class="col-sm-12" style="margin-top: 15px">
+            <span class="Or-use-your-social-m">OR USE YOUR SOCIAL MEDIA ACCOUNT TO IMPORT </span>
+          </div>
+<!-- 
+          <div class="container-fluid">
+            <div class="row">
+            <div class="col-lg-5 col-md-6 col-sm-8">
+              <div class="col-md-12 pad0">
+                <a href="javascript:void(0)" class="omb_btn-facebook mar_right10"> <i class="fa fa-facebook-official socialicons" aria-hidden="true"></i><span class="hidden-xs Facebook">FACEBOOK</span></a>
+                <a  class="omb_btn-google mar_right10">
+                  <i class="fa fa-google socialicons-google" aria-hidden="true"></i>
+                  <span class="hidden-xs Google">GOOGLE</span>
+                </a>
+                <a  class="omb_btn-twitter">
+                  <i class="fa fa-linkedin socialicons-link" aria-hidden="true"></i>
+                  <span class="hidden-xs Linked-In">LINKED IN</span>
+                </a>
+              </div>
+            </div>
+            </div>
+          </div>
+ -->
+          </div>  
+
+          <br>
+           
+          <div class="col-xs-4 col-sm-2">
+            <button ng-disabled="!fileDetails.name" id="import" class="btn btn-lg btn-block contact-importbtn" ng-click="importTeamMembers()" style="line-height:1">
+              <span class="Import">IMPORT</span>
+            </button>
+          </div>
+       </form>
+   </div>
+</div>

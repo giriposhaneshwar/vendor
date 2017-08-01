@@ -1,0 +1,74 @@
+<div class="col-xs-12 noPad">
+	<form class="form-horizontal" role="form" name="form" novalidate ng-submit="saveTeam(form);">
+		<div class="col-md-9 add-teamMember-part noPad">
+			<div class="col-xs-12 col-sm-6 marB20">
+				<div class="add-teamMember-field">
+					<div class="form-group noMar" ng-class="{'has-error':(formSubmited  && form.team_name.$error.required)}">
+						<div class="team-input-lable"><p class="noMar">TEAM NAME</p></div>
+						<input type="text" name="team_name" class="form-control" ng-model="team.team_name" required="true">
+					</div>
+				</div>
+				<div class="add-teamMember-field">
+					<div class="form-group noMar" ng-class="{'has-error':(formSubmited  && form.location_id.$error.required)}">
+						<div class="team-input-lable"><p class="noMar">LOCATION</p></div>
+						<select class="form-control" name="location_id" ng-model="team.location_id" ng-options="location.id as location.locationdesc for location in vendorLocations" required="true">
+							<option value="" disabled="true">Select Location</option>
+						</select>
+					</div>
+				</div>
+				<div class="add-teamMember-field">
+					<div class="form-group noMar" ng-class="{'has-error':(formSubmited  && form.category_id.$error.required)}">
+						<div class="team-input-lable"><p class="noMar">CATEGORY</p></div>
+						<select class="form-control" name="category_id" ng-model="team.category_id" ng-options="location.id as location.category_name for location in vendorCategories" required="true">
+							<option value="" disabled="true">Select Category</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 noPad" ng-show="team.id">
+				<div class="col-xs-12 noPad" ng-init="showSearchField=false;">
+					<div class="add-people-search-part">
+						<div class="add-people">
+							<span class="noMar">ADD PEOPLE</span>
+						</div>
+						<div class="search-icon" ng-click="showSearchField=!showSearchField;">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 noPad marT10" ng-show="showSearchField">
+					<div class="col-xs-12 noPad search-field">
+						<div class="col-xs-12 box-shadow">
+							<input type="text" name="" class="form-control" placeholder="Search Team Member" ng-model="selectedPerson" uib-typeahead="person as person.full_name for person in peopleListForTeam | filter:$viewValue | limitTo:8" typeahead-on-select="addPersonToTeam(selectedPerson)">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 noPad">
+					<div class="col-xs-12 noPad search-field">
+						<div class="add-people">
+							<span class="noMar">IN THE GROUP</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 noPad">
+					<div class="col-xs-12 noPad team-member" ng-repeat="person in allSelectedPersons">
+						<div class="col-xs-12 member-name add-member-name">
+							<div class="col-xs-1 noPad"> <i class="fa fa-trash-o" aria-hidden="true" role="button" ng-click="removePersonFromTeam(person)"></i> </div>
+							<div class="col-xs-11 noPad"> {{person.full_name}} </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 noPad">
+			<div class="col-xs-12 noPad">
+				<div class="teamMember-create">
+					<button type="submit" class="teamMember-create-btn" ng-click="formSubmited=true;">{{team.id ? 'UPDATE' : 'CREATE'}}</button>
+				</div>
+				<div class="teamMember-create">
+					<div class="teamMember-create-back" ng-click="back();">Back</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

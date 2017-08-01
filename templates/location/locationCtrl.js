@@ -134,7 +134,7 @@ app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fil
         });
     }
     $scope.pageChanged = function (currentPage) {
-        alert(currentPage);
+//        alert(currentPage);
 //        $scope.currentPage = currentPage;
         ctrlComm.put('currentPage', currentPage);
     }
