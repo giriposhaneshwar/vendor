@@ -406,6 +406,10 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         }, function (response) {
 //            debugger;
             ctrlComm.put('userObj1', response);
+            if(response.logo1!=null && response.logo!='')
+            {
+            $scope.admin.vendor.logo=response.logo;
+            }
             $scope.vendor = response;
             $scope.vendor.phone_number = $scope.vendor.phone_number;
             $scope.categori_display = response.category;
@@ -1848,6 +1852,10 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         } else {
             delete $scope.err2.expDate;
         }
+        delete $scope.err2.licenseNo;
+        delete $scope.err2.issuerName;
+        delete $scope.err2.expDate;
+        
         if (!$scope.vendor.online_vendor) {
             $scope.err2.online_vendor = true;
         } else {
@@ -1873,6 +1881,7 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         } else {
             console.log("getting null")
             $scope.err2.website = true;
+            delete $scope.err2.website;
             delete  $scope.err2.websitepattern;
         }
 

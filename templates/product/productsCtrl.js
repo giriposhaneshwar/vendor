@@ -30,7 +30,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
     $scope.checkattrname = false;
     $scope.currentPath = $location.path();
     console.log("$scope.currentPath", $scope.currentPath)
-
+    $scope.is_service="N";
     $scope.incrementBlock1 = function () {
         //$scope.block1.push({ 'location_id': '','tax_class_id':'' })
         $scope.block1.push({})
@@ -126,7 +126,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         $scope.block31.push(block3);
         $scope.block3.splice(index, 1);
     }
-
+    
     request.service('vendorGetLocations', 'post', {
         'vendor_id': $scope.admin.vendorid
     }, function (response) {
@@ -405,9 +405,28 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             $scope.attributesList = response;
             console.log($scope.attributesList)
         })
-
+        getTeams(category_id);
+    };
+    function getTeams(category_id){
+    request.service('getTeamsByCategory', 'post', {
+        'vendor_id': $scope.admin.vendorid,
+        'category_id':category_id
+    }, function (response) {
+        console.log(response)
+        $scope.teamsList = response.result;
+        $scope.is_service=response.is_service;
+        if(response.is_service=='N')
+        {
+        	$('#teamsdiv').hide();
+        	$('#teamsdiv1').hide();
+        }else{
+        	$('#teamsdiv').show();
+        	$('#teamsdiv1').show();
+        }
+        
+    })
     }
-    ;
+    
     function getAttributeValue(selectt, attribute_id, category_id, i) {
         var params = {};
         params.attribute_id = attribute_id;
@@ -603,6 +622,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         request.service('attributesByCategory', 'post', params, function (response) {
             $scope.attributesList = response;
         })
+        getTeams(category_id);
     }
 
     //addproduct
@@ -634,6 +654,11 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             var s = [];
             for (var i = 0; i < block1.length; i++) {
                 console.log("b", block1[i].location_id)
+                if($scope.is_service=='N')
+                {
+                block1[i].team_id = undefined;
+      		    block1[i].noofpersons = undefined;
+                }
                 s.push(block1[i].location_id)
             }
             //start of tag validation
@@ -1215,6 +1240,10 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         c = 0;
         d = 0;
         e = 0;
+        f = 0;
+        g = 0;
+        delete $scope.err.f;
+        delete $scope.err.g;
         for (var i = 0; i < $scope.block1.length; i++) {
 
 
@@ -1250,6 +1279,37 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             } else {
                 $scope.block1[i].costv = false;
             }
+            if($scope.is_service=='Y')
+      	  	{/*
+      	   if ($scope.block1[i].team_id == undefined) {
+                 f = f + 1;
+                 $scope.block1[i].team_idv = true;
+             } else {
+                 $scope.block1[i].team_idv = false;
+             }
+             if ($scope.block1[i].noofpersons == undefined) {
+                 g = g + 1;
+                 $scope.block1[i].percountv = true;
+             } else {
+                 $scope.block1[i].percountv = false;
+             }
+             
+             if (f > 0) {
+                 $scope.err.f = true;
+             } else {
+                 delete $scope.err.f;
+             }
+             if (g > 0) {
+                 $scope.err.g = true;
+             } else {
+                 delete $scope.err.g;
+             }
+      	  */}else{
+      		$scope.block1[i].team_id = undefined;
+      		$scope.block1[i].noofpersons = undefined;
+      	  }
+            
+            
             if (a > 0) {
                 $scope.err.a = true;
             } else {
@@ -1275,7 +1335,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             } else {
                 delete $scope.err.e;
             }
-
+           
 
 
         }

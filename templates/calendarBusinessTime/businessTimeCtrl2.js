@@ -259,6 +259,7 @@
 
 
         $scope.saveCalenderAvailability = function (e) {
+            debugger;
             e.preventDefault();
             var data = {
                 category: JSON.stringify($scope.calendar.category.category_id),

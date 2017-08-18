@@ -9,7 +9,7 @@ app.run(function ($rootScope, $location, $state, $document, $stateParams, $ancho
         if ($state.params.id == '' || $state.params.id == undefined) {
             $('.mainContainer').animate({scrollTop: 0}, 500);
         }
-        if ($location.host() == "arevea.com" || $location.host() == "https://www.arevea.com" || $location.host() == "www.arevea.com" || $location.host() == "prod.arevea.com") {
+        if ($location.host() == "arevea.com" || $location.host() == "https://www.arevea.com" || $location.host() == "www.arevea.com" ) {
             $rootScope.showFullCalendar = false;
         } else {
             $rootScope.showFullCalendar = true;
@@ -315,6 +315,12 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 templateUrl: 'templates/myTeam/importTeam.html',
                 controller: 'importTeamCtrl',
                 data: {pageTitle: 'Import Team Members'}
+            })
+            .state('assignmentView', {
+                url: '/assignmentView/:userId',
+                templateUrl: 'templates/myTeam/assignmentView.html',
+                controller: 'assignmentView_controller',
+                data: {pageTitle: 'User Assignments'}
             });
 //    $anchorScrollProvider.disableAutoScrolling();
 });

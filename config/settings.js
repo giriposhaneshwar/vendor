@@ -21,19 +21,25 @@
             // 'host': '192.168.2.185',
             // 'servicehost' : '192.168.2.185',
             // 'port': '8000',
-//            'host': '111.93.0.178:8881', //active
-//            'host': '192.168.2.158:8080', //local - Giri Office Wifi
-            'host': '192.168.3.118:8080', //local - Giri Office
+             
+            // 'host': '192.168.3.118:8080', //local - Giri Office
 //            'host': '192.168.1.105:8080', //local - Giri Home
             // 'host' : '192.168.1.104:8080',  		//local - Siri
 //            'host': '192.168.0.211',
+            
+            'host': '192.168.2.158:8080', //local - Giri Office Wifi
+            'vendor_portal': "/VendorV2",
+            'customer_portal': "/customerV2/dist/",
+
+//            'host': '111.93.0.178:8881', //active
+//            'vendor_portal': "/Arevea/VendorV2",
+//            'customer_portal': "/Arevea/customerV2",
+
+
             'servicehost': '111.93.0.178',
             'port': '8721',
             'port_seperator': ':',
-            'vendor_portal': "/VendorV2",
-//            'vendor_portal': "/Arevea/VendorV2",
-            'customer_portal': "/customerV2/dist/",
-//            'customer_portal': "/Arevea/customerV2",
+
             // QA Server settings
             /*
              * 'host': 'qa.arevea.com', 'servicehost' : 'qa.arevea.com',
@@ -60,6 +66,7 @@
                 vendorBank: '/vendorBank',
                 vendorMailconfirm: '/vendorMailconfirm',
                 vendorGetLocations: '/vendorGetLocations',
+                getTeamsByCategory: '/getTeamsByCategory',
                 vendorAddLocation: '/vendorAddLocation',
                 vendorUpdateLocation: '/vendorUpdateLocation',
                 vendorDeleteLocation: '/vendorDeleteLocation',
@@ -130,6 +137,7 @@
                 updateTeam: '/updateTeam',
                 vendorGetLocations: '/vendorGetLocations',
                 vendorCategories: '/vendorCategories',
+                vendorServiceCategories: '/vendorServiceCategories',
                 deleteUserFromTeam: '/deleteUserFromTeam',
                 assignTeamToUser: '/assignTeamToUser',
                 assignUserToTeam: '/assignUserToTeam',
@@ -140,7 +148,14 @@
                 deleteTeamMember: '/deleteTeamMember',
                 getTeamUsersByTeamID: '/getTeamUsersByTeamID',
                 downloadTeamMemberTemplate: '/downloadTeamMemberTemplate',
-                importTeamMemberTemplate: '/importTeamMemberTemplate'
+                importTeamMemberTemplate: '/importTeamMemberTemplate',
+                getTeamsByCatAndLoc: '/getTeamsByCatAndLoc',
+                getAvailableUsersByTeamID: '/getAvailableUsersByTeamID',
+                assignUsersToBooking: '/assignUsersToBooking',
+                getAssignedTeamUsersForBooking: '/getAssignedTeamUsersForBooking',
+                removeFromVendorAssignment: '/removeFromVendorAssignment',
+                getUserAssignments: '/getUserAssignments',
+                getTeamMembersByID: '/getTeamMembersByID'
             },
             'url': function (key) {
                 if (setup.paths.hasOwnProperty(key)) {

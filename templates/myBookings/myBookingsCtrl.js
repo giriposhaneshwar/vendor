@@ -1,7 +1,7 @@
 var app = angular.module('arevea');
 app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         request, ctrlComm, $filter, fileUpload, $timeout, $http, $window,
-        $state, NgMap, $stateParams, commonService) {
+        $state, NgMap, $stateParams, commonService, $uibModal) {
     console.log("in myBookings ctrl", $stateParams);
 //    $('#myBookingsDateRange').daterangepicker({
 //        'autoApply': true,
@@ -132,8 +132,6 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                             //$("#eventType").hide();
                             $("#eventType").autocomplete({
                                 source: $scope.event_names,
-                                autoFocus: true,
-                                minLength: 0,
                                 appendTo: '.eventTypeHolder',
                                 select: function (event, ui) {
                                     $scope.eventType = ui.item.label;
@@ -172,7 +170,6 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         request.service('myBookings', 'post', args, function (response) {
 
             if (response.status == 0) {
-//                debugger;
                 $scope.myBookings = response.events;
                 console.log("Bookings are", $scope.myBookings);
                 for (var i = 0; i < $scope.myBookings.length; i++) {
@@ -197,16 +194,18 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                     $scope.myBookings[i].event.edDate = new Date($scope.myBookings[i].event.eventEndDate);
 
                     $scope.myBookings[i].totalSumUnit = 0;
-                    for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
-                        $scope.myBookings[i].totalSumUnit = $scope.myBookings[i].totalSumUnit + (parseFloat($scope.myBookings[i].products[j].delivery_cost) + parseFloat($scope.myBookings[i].products[j].total_price));
-                        $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
-                        //console.log($scope.myBookings[i].products[j].event_summary_data)
+                    if($scope.myBookings[i].products){
+                        for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
+                            $scope.myBookings[i].totalSumUnit = $scope.myBookings[i].totalSumUnit + (parseFloat($scope.myBookings[i].products[j].delivery_cost) + parseFloat($scope.myBookings[i].products[j].total_price));
+                            $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
+                            //console.log($scope.myBookings[i].products[j].event_summary_data)
+                        }
                     }
 
-//                    for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
-//                        $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
-//                        //console.log($scope.myBookings[i].products[j].event_summary_data)
-//                    }
+                    // for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
+                    //     $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
+                    // //console.log($scope.myBookings[i].products[j].event_summary_data)
+                    // }
 
                 }
             } else if (response.status == 1) {
@@ -217,6 +216,24 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
 
     };
 
+    $scope.assingTeamMembers = function(product){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'templates/myBookings/assign.html',
+            controller: 'assign_controller',
+            resolve:{
+                items: function(){
+                    return product;
+                }
+            }
+        });
+        modalInstance.result.then(function(data){
+            $scope.notification(data.message);
+            console.log("CLOSE.................");
+        },function(){
+            console.log("DISMISS....................");
+        });
+    }
 
     $scope.getDecodedValue = function (str) {
         return unescape(str);

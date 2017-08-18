@@ -45,8 +45,7 @@
                                         <div class="eventTypeHolder">
                                             <input type="text" name="eventType" class="form-control dropInput"
                                                    ng-model="eventType" id="eventType" autocomplete
-                                                   placeholder="Type to search" ng-change="filterMyBookings();" 
-                                                   onfocus="javascript:$(this).autocomplete('search', '');"/>
+                                                   placeholder="Type to search" ng-change="filterMyBookings();" />
                                         </div>
                                     </li>
                                 </ul>
@@ -78,7 +77,7 @@
                                 <img src="images/glasses-brindis-with-a-heart.png" class="glasses-brindis-with-a-heart">
                                 <span class="eventName col-md-12 noPad">{{myBooking.event.event_name}}</span>
                                 <span class="personDetails col-md-12 noPad">{{myBooking.event.name_of_person}}<span ng-if="myBooking.event.name2 != '' && myBooking.event.name2 != null"> &amp; {{myBooking.event.name2}}</span><span ng-if="myBooking.event.age != '' && myBooking.event.age != 0">, {{myBooking.event.age}} years</span><span ng-if="myBooking.event.no_of_years != '' && myBooking.event.no_of_years != 0">, {{myBooking.event.no_of_years}} years</span>
-                                    <div class="col-sm-12 noPad" style="font-size:12px;padding-top:20px;padding-bottom:40px;border-radius:4px">
+                                    <div class="col-sm-12 noPad" style="font-size:12px;padding-top:20px;padding-bottom:20px;border-radius:4px">
                                         <div class="col-xs-12 noPad">
                                             <!-- <pre>{{myBooking.event}}</pre> -->
                                             <!-- <pre>{{myBooking.bookinfo}}</pre>  -->
@@ -186,7 +185,10 @@
                                             <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
                                             <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
                                             <span class="event-heading" ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on cake:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span>
-                                        </div>
+                                            <div class="col-xs-12 noPad text-center marT20" ng-if="product.is_service=='Y'">
+                                                <a href='javascript:void(0);' class="btn theme-btn" ng-click="assingTeamMembers(product);">Assign</a>
+                                            </div>
+                                       </div>
                                         <div class="col-sm-2">
                                             <a></a>
                                             <div style="font-size:14px">{{getDecodedValue(product.event_summary_data.product_name)}}</div>

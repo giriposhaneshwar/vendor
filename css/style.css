@@ -960,7 +960,8 @@ ul#listItems li {
     display: block;
     /* padding: 20px 15px; */
     width: 200px;
-    height: 100px;
+    max-height: 100px;
+    /* height: 100px; */
     text-align: center;
     /* margin: 0px auto; */
     line-height: 120px;

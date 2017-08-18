@@ -206,6 +206,33 @@
                             </div>
                         </div>
                     </div>
+                 <div id="teamsdiv" style="display: none;" class="col-xs-6 pad5">
+                    <div class="" ng-class="(tax.team_idv == true) ? 'has-error' : 'has-primary'">
+                            <label class="labelName" for="name">Teams</label>
+                            <div>
+                            <select ng-if="page.type == 'post'" class="form-control" ng-model="tax.team_id" ng-focus="tax.team_idv = false;">
+                                    <option value="" hidden>Select</option>
+                                    <option ng-repeat="team in teamsList" value={{team.team_id}}>{{team.team_name}}</option>
+                                </select>
+                                <select ng-if="page.type == 'put'" class="form-control" ng-model="tax.team_id" ng-options='team.team_id as team.team_name for team in teamsList' ng-focus="tax.team_idv = false;">
+                                </select>
+                            </div>
+                            <div>
+                                <span class="text-danger" ng-show="tax.team_idv">Please select Teams</span>
+                            </div>
+                        </div>
+                    </div>
+                      <div  id="teamsdiv1"  style="display: none;" class="col-xs-6 pad5">
+                        <div class="" ng-class="(tax.percountv == true) ? 'has-error' : 'has-primary'">
+                            <label  class="labelName" for="noofpersons">persons count</label>
+                            <div>
+                                <input type="text" placeholder="persons count" ng-focus="tax.percountv = false;" class="form-control" name="noofpersons" ng-change="checkcost(tax.cost, $index)" ng-model="tax.noofpersons" currency-input size="30" required>
+                            </div>
+                            <div>
+                                <span class="text-danger" ng-show="tax.percountv">Please enter persons count</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xs-2 pad20-top">
                     <button type="button" class="btn btn-default btn-circle roundButtonBg buttonBg" ng-click="incrementBlock1()" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-plus"></i></button>

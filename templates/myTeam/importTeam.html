@@ -20,7 +20,7 @@
           <div class="col-sm-12">
             <label class="custom-file-input">
               <span class="icon-picture"></span> Click here to attach files or drop files here
-              <input class="customized" type="file" flow-btn id="ex_file" ng-model="bankfilepath" onchange="angular.element(this).scope().fileSelect(this)">
+              <input class="customized" type="file" flow-btn id="bankfilepath" ng-model="bankfilepath" onchange="angular.element(this).scope().fileSelect(this)">
             </label>
             <div ng-show="fileDetails">
                 <p>{{fileDetails.name}}
@@ -29,10 +29,10 @@
             </div>
           </div>
 
+<!-- 
           <div class="col-sm-12" style="margin-top: 15px">
             <span class="Or-use-your-social-m">OR USE YOUR SOCIAL MEDIA ACCOUNT TO IMPORT </span>
           </div>
-<!-- 
           <div class="container-fluid">
             <div class="row">
             <div class="col-lg-5 col-md-6 col-sm-8">

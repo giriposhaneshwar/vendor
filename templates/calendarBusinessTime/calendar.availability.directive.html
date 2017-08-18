@@ -1,5 +1,5 @@
 <div class="calendar-availability-sides">
-    <div class="col-sm-3 pad10 custom-ui-select">
+    <div class="pad10 custom-ui-select" ng-class="{'col-sm-4': add_status == '0', 'col-sm-6': add_status != '0'}">
         <p class="labelName" style="margin: 0 0 5px !important">Weekday</p>
         <ui-select ng-model="calendar.scheduled[$index].weekDay" ng-change="end_time(calendar, $index)" theme="bootstrap" required>
             <ui-select-match placeholder="Select weekday">{{$select.selected.name}}</ui-select-match>

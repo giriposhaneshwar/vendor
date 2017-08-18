@@ -43,7 +43,6 @@
                 eventSources: [defaultEvents],
                 dayRender: function (date, cell) {
                     // Get all events                        var timeStart = moment(event.start);
-debugger;
                     var events = $('#calendar').fullCalendar('clientEvents').length ? $('#calendar').fullCalendar('clientEvents') : defaultEvents;
                     // Start of a day timestamp
                     var dateTimestamp = date.hour(0).minutes(0);
@@ -123,6 +122,28 @@ debugger;
                     $scope.events.push(obj);
 //                    $('#fullCalendar').fullCalendar('renderEvent', obj, true);
                 });
+                request.service('vendorGetBusinessTimes', 'post', data, function (response) {
+                    console.log("Getting Vendor Working Hours List", response);
+                    var workingHours = [];
+                    angular.forEach(response, function (n, i) {
+                        var obj = {
+                            start: n.start_time,
+                            end: n.end_time,
+                            title: n.category_name + ", " + n.location_name,
+                            color: '#ff735a',
+                            dow: [1, 4],
+                            ranges: [{//repeating events are only displayed if they are within one of the following ranges.
+                                    start: moment().startOf('week'), //next two weeks
+                                    end: moment().endOf('week').add(7, 'd'),
+                                }, {
+                                    start: moment('2017-06-01', 'YYYY-MM-DD'), //all of february
+                                    end: moment('2017-06-01', 'YYYY-MM-DD').endOf('month'),
+                                }],
+                        };
+                        $scope.events.push(obj);
+//                        $('#fullCalendar').fullCalendar('renderEvent', obj, true);
+                    });
+                });
                 console.log("Object Formation after is ", $scope.events);
 //                    $scope.events = obj;
             });
@@ -130,38 +151,7 @@ debugger;
         $scope.getWorkingHours = function () {
             var data = {
                 'vendor_id': window.localStorage.vendorid
-            };
-            request.service('vendorGetBusinessTimes', 'post', data, function (response) {
-                console.log("Getting Vendor Working Hours List", response);
-                var workingHours = [];
-                angular.forEach(response, function (n, i) {
-                    var obj = {
-                        start: n.start_time,
-                        end: n.end_time,
-                        title: n.category_name + ", " + n.location_name,
-                        color: '#ff735a',
-                        dow: [1, 4],
-                        ranges: [{//repeating events are only displayed if they are within one of the following ranges.
-                                start: moment().startOf('week'), //next two weeks
-                                end: moment().endOf('week').add(7, 'd'),
-                            }, {
-                                start: moment('2017-06-01', 'YYYY-MM-DD'), //all of february
-                                end: moment('2017-06-01', 'YYYY-MM-DD').endOf('month'),
-                            }],
-                    };
-
-                    $scope.events.push(obj);
-                    $('#fullCalendar').fullCalendar('renderEvent', obj, true);
-
-
-//                    angular.forEach(Arevea_Constant.week_days, function (a, b) {
-//                        if (n.week_number == a.id) {
-//                            n.weekName = a.name;
-//                        }
-//                    });
-                });
-
-            });
+            }
         }
 
         $scope.findDaysUsingWeekInMonth = function (data, curMonth) {

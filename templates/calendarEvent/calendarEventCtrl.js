@@ -244,7 +244,7 @@
                         if ($state.current.name === 'calendar.updatecalendarEvent') {
 
                         } else {
-                            $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate
+                            $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
                         }
                         if ($scope.calendarEvent.scheduledEvent[key].fromDate != undefined && $scope.calendarEvent.scheduledEvent[key].fromDate != '') {
                         }
@@ -257,6 +257,7 @@
             enableTime: false,
             time_24hr: true,
             onOpen: function () {
+//                debugger;
                 var fp = this;
                 var ele = this.element;
                 var key = $(ele).attr('data-eleindex');
@@ -265,11 +266,26 @@
                     fp.setDate(new Date(), true);
                     fp.config.minDate = new Date();
                 } else {
-                    fp.config.minDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-                    if ($scope.calendarEvent.scheduledEvent[key].toDate != undefined && $scope.calendarEvent.scheduledEvent[key].toDate != "") {
 
-                    } else {
+//                    var eTime = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
+//                    $('.endToTime').timepicker({
+//                        'step': 15,
+//                        'timeFormat': 'H:i',
+//                        'minTime': eTime[1],
+//                        'maxTime': '23:45'
+//                    });
+                    if ($scope.calendarEvent.scheduledEvent[key].toDate != undefined && $scope.calendarEvent.scheduledEvent[key].toDate != "") {
+                        var eTime = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
+                        $('.endToTime').timepicker('setTime', new Date($scope.calendarEvent.scheduledEvent[key].toDate));
+//                        $('.endToTime').timepicker({
+//                            'step': 15,
+//                            'timeFormat': 'H:i',
+//                            'minTime': eTime[1],
+//                            'maxTime': '23:45'
+//                        });
                         $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
+                    } else {
+                        fp.config.minDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
                         fp.setDate($scope.calendarEvent.scheduledEvent[key].fromDate, true);
                     }
                 }
@@ -279,8 +295,14 @@
                 var fp = this;
                 var ele = this.element;
                 var key = $(ele).attr('data-eleindex');
-                if ($scope.calendarEvent.scheduledEvent[key].toDate == "") {
+//                if ($scope.calendarEvent.scheduledEvent[key].toDate == "") {
+//                    $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
+//                }
+//                debugger;
+                if ($scope.calendarEvent.scheduledEvent[key].toDate != undefined && $scope.calendarEvent.scheduledEvent[key].toDate != "") {
                     $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
+                    fp.setDate($scope.calendarEvent.scheduledEvent[key].fromDate, true);
+                } else {
                 }
                 var eTime = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
                 $('.endToTime').timepicker({

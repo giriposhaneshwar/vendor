@@ -779,6 +779,7 @@ body .myBookingStyle{
 .myBookingStyle .my-booking-product-details{
     display: none;
     padding-top: 10px;
+    padding-bottom: 20px;
 }
 .myBookingStyle .my-booking-wrapper{
     width: 100%;

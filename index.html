@@ -183,16 +183,15 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li ng-hide="admin.bankStatus == false" ng-class="{ active1: activePath == '/teams' || activePath == '/myTeam' || activePath == '/teamMembers' || activePath == '/teamMember' }">
+                                    <li ng-hide="admin.bankStatus == false" ng-class="{ active1: activePath == '/teams' || activePath == '/myTeam' || activePath == '/teamMembers' || activePath == '/teamMember' || activePath == '/import' || activePath.indexOf('assignmentView') != '-1' }">
                                         <a href="#/teams" class="sel"> My Team  </a>
                                         <ul>
                                             <li ng-class="{ active: (activePath == '/teams' || activePath == '/myTeam') }"><a href="#/teams">Teams</a></li>
                                             <li ng-class="{ active: (activePath == '/teamMembers' || activePath == '/teamMember') }"><a href="#/teamMembers">Team Members</a></li>
-                                            <li ng-class="{ active: activePath == '/import'  }"><a href="#/import">Import</a></li>
+                                            <li ng-class="{ active: activePath == '/import' }"><a href="#/import">Import</a></li>
                                             <li><a href="{{downloadTeamDataDocumentURL}}">Download</a></li>
                                         </ul>
                                     </li>
-
                                 </ul>
 
                                 <span class="menuSeperator">Settings</span>
@@ -293,6 +292,8 @@
         <script type="text/javascript" src="templates/product/productsCtrl.js"></script>
         <script type="text/javascript" src="templates/dashboard/dashboardCtrl.js"></script>
         <script type="text/javascript" src="templates/myBookings/myBookingsCtrl.js"></script>
+        <script type="text/javascript" src="templates/myBookings/mybooking_factory.js"></script>
+        <script type="text/javascript" src="templates/myBookings/assign_controller.js"></script>
         <script src="templates/myPayments/myPaymentsCtrl.js" type="text/javascript"></script>
         <script type="text/javascript" src="templates/customRequests/customRequestsCtrl.js"></script>
         <script type="text/javascript" src="templates/calendarBusinessTime/businessTimeCtrl.js"></script> 
@@ -313,6 +314,7 @@
         <script type="text/javascript" src="controllers/myTeam/teams_controller.js"></script>
         <script type="text/javascript" src="controllers/myTeam/teamMembers_controller.js"></script>
         <script type="text/javascript" src="controllers/myTeam/importTeam_controller.js"></script>
+        <script type="text/javascript" src="controllers/myTeam/assignmentView_controller.js"></script>
 
         <script type="text/javascript">
                                         //                                                var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();

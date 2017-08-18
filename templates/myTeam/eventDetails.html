@@ -1,0 +1,51 @@
+<div class="modal-content col-xs-12">
+	<div class="modal-header col-xs-12 ">
+		<h4>Event Details</h4>
+	</div>
+	<div class="modal-body col-xs-12">
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Event name:</div>
+			<div class="col-xs-7">{{eventDetails.event_name}}</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Event Date:</div>
+			<div class="col-xs-7">{{eventDetails.eventdate}}</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Event Time:</div>
+			<div class="col-xs-7">{{eventDetails.eventtime}}</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Event Address:</div>
+			<div class="col-xs-7">
+				<span ng-show="eventDetails.address_line1">{{eventDetails.address_line1}}<br></span>
+				<span ng-show="eventDetails.address_line2">{{eventDetails.address_line2}}<br></span>
+				<span ng-show="eventDetails.name">{{eventDetails.name}}<br></span>
+				<span ng-show="eventDetails.zipcode">zip - {{eventDetails.zipcode}}</span>
+			</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Product / Service Name:</div>
+			<div class="col-xs-7">{{eventDetails.event_summary_data.product_name}}</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Product / Service Category:</div>
+			<div class="col-xs-7">{{eventDetails.event_summary_data.product_category}}</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Product / Service Quantity:</div>
+			<div class="col-xs-7">{{eventDetails.event_summary_data.product_qty}}</div>
+		</div>
+		<div class="col-xs-12 noPad marB5">
+			<div class="col-xs-5">Product / Service Image:</div>
+			<div class="col-xs-7">
+				<img alt="Product / Service Image" ng-src="{{eventDetails.event_summary_data.product_imgpath}}{{eventDetails.event_summary_data.product_img}}" width="100%" style="max-width:350px;">
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer col-xs-12">
+		<div class="col-xs-12 noPad text-center marT20">
+			<button class="btn theme-btn theme-cancel-btn" ng-click="close();">Cancel</button>
+		</div>
+	</div>
+</div>

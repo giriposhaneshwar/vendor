@@ -37,6 +37,10 @@ app.controller('myPaymentsCtrl', function ($scope, $rootScope, $location,
             var endDate = new Date(data.end_date);
             var stMonth = startDate.getMonth();
             var etMonth = endDate.getMonth();
+
+            var stYear = startDate.getFullYear();
+            var etYear = endDate.getFullYear();
+
             var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
                 "Aug", "Sep", "Oct", "Nov", "Dec"];
             var stDay = (startDate.getDate() > 9) ? startDate.getDate() : "0" + startDate.getDate();
@@ -44,6 +48,8 @@ app.controller('myPaymentsCtrl', function ($scope, $rootScope, $location,
             if (stMonth == etMonth) {
                 // same month
                 $scope.renderDateRange = stDay + " - " + etDay + " " + monthNames[endDate.getMonth()] + " " + endDate.getFullYear();
+            } else if (stYear == etYear) {
+                $scope.renderDateRange = stDay + " " + monthNames[startDate.getMonth()] + " - " + etDay + " " + monthNames[endDate.getMonth()] + " " + endDate.getFullYear();
             } else {
                 // diff month
                 $scope.renderDateRange = stDay + " " + monthNames[startDate.getMonth()] + " " + startDate.getFullYear() + " - " + etDay + " " + monthNames[endDate.getMonth()] + " " + endDate.getFullYear();

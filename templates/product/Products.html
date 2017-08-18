@@ -73,7 +73,7 @@
             <tbody ng-repeat="product in productsList.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))| orderBy:$index | limitTo:entryLimit | filter:searchProd">
                 <tr>
                     <td>{{product.category_name}}</td>
-                    <td style="width: 190px;">{{product.product_name}}</td>
+                    <td style="width: 190px;">{{product.product_name}} <span ng-if="product.product_upc_ean_code != null"> ({{product.product_upc_ean_code}})</span></td>
                     <!--  <td>{{product.product_upc_ean_code}}</td> -->
                     <td>{{product.productLocation}}</td>
                     <td style="max-width:175px; word-wrap:break-word;" ng-bind-html="product.short_description"></td>

@@ -25,4 +25,8 @@ app.controller('importTeamCtrl', [ '$scope', '$rootScope', '$location', 'request
 			})
 		}
 
+		$scope.deleteUploadImage = function(){
+			$('bankfilepath').val('');
+			$scope.fileDetails = '';
+		}
 }]);

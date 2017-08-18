@@ -9,7 +9,7 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
     $scope.loginStatus = false;
     $scope.defaultLogo = './images/arevea-logo.png';
     $scope.defaultUser = "./images/defaultUser.png";
-
+    $scope.downloadTeamDataDocumentURL = request.setup.url('downloadTeamMemberTemplate');
     $rootScope.state_change = function (active_path) {
         $scope.activePath = active_path;
         console.log("$scope.activePath", $scope.activePath);
@@ -596,26 +596,41 @@ app.controller('saveConfirmCtrl', function ($scope, $uibModalInstance, data) {
 });
 
 
-app.directive('myLength', [function () {
-        return {
-            restrict: 'A',
-            link: function (scope, elm, attr, ctrl) {
-                var maxlength = -1;
-                attr.$observe('myLength', function (value) {
-                    maxlength = value;
-                });
-                elm.bind('keypress', function (event) {
-                    if (event.charCode) {
-                        if (event.charCode < 48 || event.charCode > 57) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        if (elm[0].value.length > maxlength - 1) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
+
+app.directive('teamPhone', [function () {
+    return {
+        restrict: 'A',
+        link: function (scope, elm, attr, ctrl) {
+            var maxlength = -1;
+            attr.$observe('teamPhone', function (value) {
+                maxlength = value;
+            });
+            elm.bind('keypress', function (event) {
+                if (event.charCode) {
+                    if((elm[0].value.indexOf('+1')!=-1) && event.charCode ==43){
+                        event.preventDefault();
+                        event.stopPropagation();
                     }
-                })
-            }
-        };
-    }]);
+                    if ((event.charCode < 48 || event.charCode > 57) && (event.charCode !=43)) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    if (elm[0].value.length > maxlength - 1) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                }
+            });
+            elm.bind("keyup",function(e) {
+                elm[0].value = (elm[0].value===''||elm[0].value==='+') ? '+1' : elm[0].value;
+            });
+            elm.bind("cut copy paste",function(e) {
+                e.preventDefault();
+            });
+            elm.bind('focus',function(event){
+                elm[0].value = elm[0].value ? elm[0].value : '+1'
+            });
+        }
+    };
+}]);
+
