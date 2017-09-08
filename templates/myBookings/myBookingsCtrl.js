@@ -2,10 +2,17 @@ var app = angular.module('arevea');
 app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         request, ctrlComm, $filter, fileUpload, $timeout, $http, $window,
         $state, NgMap, $stateParams, commonService, $uibModal) {
+
     console.log("in myBookings ctrl", $stateParams);
-//    $('#myBookingsDateRange').daterangepicker({
-//        'autoApply': true,
-//    });
+
+    $scope.entryLimit = 10;
+    var pageNo = ctrlComm.get('currentPage');
+    $scope.currentPage = pageNo ? pageNo : 1;
+
+    $scope.pageChanged = function (currentPage) {
+        ctrlComm.put('currentPage', currentPage);
+        // console.log('Page changed to: ' ,currentPage);
+    };
     $('#myBookingsDateRange').flatpickr({
         mode: "range",
         enableTime: false,
@@ -65,7 +72,6 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
 //    $scope.typeFlag = false;
     /*$(document).on("click", "#page-container", function(){*/
     $('body').on("click", function (e) {
-        //alert(1)
         if ($(".evtDate1").hasClass("open")) {
             $scope.showFilterDate = false;
             commonService.safeApply($scope);
@@ -115,30 +121,29 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
 
         $scope.event_names = [];
         $scope.eventTypeObj = {};
-        request
-                .service(
-                        'eventsList',
-                        'get',
-                        {},
-                        function (response) {
-                            console.log("eventsList response:", response)
-                            $scope.eventsList = response;
-                            for (i = 0; i < response.length; i++) {
-                                $scope.event_names
-                                        .push(response[i].event_type);
-                                $scope.eventTypeObj[response[i].event_type] = response[i].id;
+        request.service(
+                'eventsList',
+                'get',
+                {},
+                function (response) {
+                    console.log("eventsList response:", response)
+                    $scope.eventsList = response;
+                    for (i = 0; i < response.length; i++) {
+                        $scope.event_names
+                                .push(response[i].event_type);
+                        $scope.eventTypeObj[response[i].event_type] = response[i].id;
 
-                            }
-                            //$("#eventType").hide();
-                            $("#eventType").autocomplete({
-                                source: $scope.event_names,
-                                appendTo: '.eventTypeHolder',
-                                select: function (event, ui) {
-                                    $scope.eventType = ui.item.label;
-                                    $scope.$apply();
-                                }
-                            });
-                        });
+                    }
+                    //$("#eventType").hide();
+                    $("#eventType").autocomplete({
+                        source: $scope.event_names,
+                        appendTo: '.eventTypeHolder',
+                        select: function (event, ui) {
+                            $scope.eventType = ui.item.label;
+                            $scope.$apply();
+                        }
+                    });
+                });
 
         var displayId = "";
         $scope.$on('bookingProdId', function (event, data) {
@@ -165,12 +170,27 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         $scope.BookingUrl = $scope.siteUrl + request.setup.customer_portal + '/#/bookingConfirmation?bookid=' + bookingId;
         window.open($scope.BookingUrl, '_blank');
     };
-
+    $scope.safeApply = function (fn) {
+        console.warn('safeApply');
+        var phase = this.$root.$$phase;
+        if (phase == '$apply' || phase == '$digest') {
+            if (fn && (typeof (fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
+    $scope.loader = false;
     $scope.getMyBookings = function (args) {
+        $scope.loader = true;
         request.service('myBookings', 'post', args, function (response) {
-
             if (response.status == 0) {
+                $scope.myBookings = [];
                 $scope.myBookings = response.events;
+                $scope.loader = false;
+//                $scope.safeApply(function () {
+//                });
                 console.log("Bookings are", $scope.myBookings);
                 for (var i = 0; i < $scope.myBookings.length; i++) {
                     $scope.myBookings[i].booking_total_price = $scope.myBookings[i].event.booking_total_price.toFixed(2);
@@ -194,7 +214,7 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                     $scope.myBookings[i].event.edDate = new Date($scope.myBookings[i].event.eventEndDate);
 
                     $scope.myBookings[i].totalSumUnit = 0;
-                    if($scope.myBookings[i].products){
+                    if ($scope.myBookings[i].products) {
                         for (var j = 0; j < $scope.myBookings[i].products.length; j++) {
                             $scope.myBookings[i].totalSumUnit = $scope.myBookings[i].totalSumUnit + (parseFloat($scope.myBookings[i].products[j].delivery_cost) + parseFloat($scope.myBookings[i].products[j].total_price));
                             $scope.myBookings[i].products[j].event_summary_data = JSON.parse($scope.myBookings[i].products[j].event_summary_data);
@@ -210,27 +230,28 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                 }
             } else if (response.status == 1) {
                 $scope.myBookings = [];
+                $scope.loader = false;
             }
 
         });
 
     };
 
-    $scope.assingTeamMembers = function(product){
+    $scope.assingTeamMembers = function (product) {
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'templates/myBookings/assign.html',
             controller: 'assign_controller',
-            resolve:{
-                items: function(){
+            resolve: {
+                items: function () {
                     return product;
                 }
             }
         });
-        modalInstance.result.then(function(data){
+        modalInstance.result.then(function (data) {
             $scope.notification(data.message);
             console.log("CLOSE.................");
-        },function(){
+        }, function () {
             console.log("DISMISS....................");
         });
     }
@@ -356,10 +377,6 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         }
     }, true);
     $scope.$watch('typeFlag', function (n, o) {
-        // do something here
-        /*$scope.n = n;
-         $scope.o= o;
-         $scope.count += 1;*/
         if (n == true) {
             $scope.showEvtType = true;
             $scope.eventStatus = $("#eventStatus").val();
@@ -393,6 +410,9 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                 var stMonth = startDate.getMonth();
                 var etMonth = endDate.getMonth();
 
+                var stYear = startDate.getFullYear();
+                var etYear = endDate.getFullYear();
+
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
                     "Aug", "Sep", "Oct", "Nov", "Dec"];
 //                debugger;
@@ -402,6 +422,8 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
                     // same month
 //                    console.log("Diff Date", stMonth, etMonth);
                     $scope.renderDateRange = stDay + " - " + etDay + " " + monthNames[endDate.getMonth()] + " " + endDate.getFullYear();
+                } else if (stYear == etYear) {
+                    $scope.renderDateRange = stDay + " " + monthNames[startDate.getMonth()] + " - " + etDay + " " + monthNames[endDate.getMonth()] + " " + endDate.getFullYear();
                 } else {
                     // diff month
                     $scope.renderDateRange = stDay + " " + monthNames[startDate.getMonth()] + " " + startDate.getFullYear() + " - " + etDay + " " + monthNames[endDate.getMonth()] + " " + endDate.getFullYear();
@@ -488,7 +510,10 @@ app.controller('myBookingsCtrl', function ($scope, $rootScope, $location,
         $scope.scrollPosToElement();
     })
     $scope.$watch('$state.current.url', function (n, o) {
-        $scope.init();
+        $timeout(function () {
+            console.info("Url changed", n, o);
+            $scope.init();
+        }, 400);
     })
 
     $scope.filterBookingsType = function (eventStatus) {

@@ -43,15 +43,17 @@ app.controller('teams_controller', ['$scope', '$rootScope', '$location', 'reques
 
         if (!ctrlComm.get('vendorCategories')) {
             getVendorCategories(function () {
-                getVendorLocations();
             });
         } else {
             $scope.vendorCategories = ctrlComm.get('vendorCategories');
             console.log("$scope.vendorCategories :: ", $scope.vendorCategories);
+        }
+        if (!ctrlComm.get('vendorLocations')) {
+                 getVendorLocations();
+        } else {
             $scope.vendorLocations = ctrlComm.get('vendorLocations');
             console.log("$scope.vendorLocations :: ", $scope.vendorLocations);
         }
-
         function getVendorCategories(cb) {
             var response = myTeamFactory.vendorCategories.get({"vendor_id": $scope.currUser.vendorid});
             response.$promise.then(function successCB(data) {
@@ -214,12 +216,15 @@ app.controller('teams_controller', ['$scope', '$rootScope', '$location', 'reques
             var response = myTeamFactory.deleteUserFromTeam.remove(input);
             response.$promise.then(function successCB(data) {
                 $scope.notification(response.message);
+                if(response.status==0)
+                {
                 angular.forEach($scope.allSelectedPersons, function (obj, key) {
                     if (obj.id == person.id) {
                         $scope.allSelectedPersons.splice(key, 1);
                         $scope.peopleListForTeam.push(person);
                     }
                 });
+                }
                 console.log("DATA :: ", data);
             }, function errorCB(err) {
                 console.log("ERROR :: ", err);

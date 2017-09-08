@@ -35,7 +35,7 @@
 					}
 				}
 			}),
-			vendorCategories: $resource(request.setup.url('vendorServiceCategories'),{},{
+			vendorCategories: $resource(request.setup.url('vendorCategories'),{},{
 				get: {
 					method: 'POST',
 					transformResponse: function(data, header){

@@ -1,8 +1,8 @@
 <div class="col-xs-12 noPad" ng-init="getTeamList()">
     <form class="form-horizontal" role="form" name="form" novalidate ng-submit="saveTeamMember(form);" autocomplete="off">
-        <div class="col-md-9 add-teamMember-part noPad">
+        <div class="col-md-8 add-teamMember-part noPad" style="min-height: 100vh">
             <div class="col-xs-12 col-sm-12 noPad marB20">
-                
+
                 <div class="col-sm-12 noPad">
                     <div class="col-sm-6 field add-teamMember-field">
                         <div class="form-group noMar" ng-class="{'has-error':(formSubmited && form.first_name.$error.required)}">
@@ -40,8 +40,8 @@
                                 <span class="text-danger" ng-show="!!form.$error.pattern">
                                     Please enter valid email
                                 </span>
-    <!--                            {{form.$error | json}}<br>
-                                myForm.$error.pattern = {{!!form.$error.pattern}}-->
+                                <!--                            {{form.$error | json}}<br>
+                                                            myForm.$error.pattern = {{!!form.$error.pattern}}-->
                             </div>
                         </div>
                     </div>
@@ -86,51 +86,52 @@
                 </div>
 
             </div>
-            <div class="col-xs-12 noPad" ng-show="teamMember.id">
-                <div class="col-xs-12 noPad" ng-init="showSearchField = false;">
-                    <div class="add-people-search-part">
-                        <div class="add-people">
-                            <span class="noMar">ADD PEOPLE</span>
-                        </div>
-                        <div class="search-icon" ng-click="showSearchField = !showSearchField;">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 noPad marT10" ng-show="showSearchField">
-                    <div class="col-xs-12 noPad search-field">
-                        <div class="col-xs-12 box-shadow">
-                            <input type="text" name="" class="form-control" placeholder="Search Team" ng-model="selectedTeam" uib-typeahead="team as team.team_name for team in teamList | filter:$viewValue | limitTo:8" typeahead-on-select="addTeamToPerson(selectedTeam);">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 noPad">
-                    <div class="col-xs-12 noPad search-field">
-                        <div class="add-people">
-                            <span class="noMar">IN THE TEAM</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 noPad">
-                    <div class="col-xs-12 noPad team-member" ng-repeat="team in allSelectedTeams">
-                        <div class="col-xs-12 member-name add-member-name">
-                            <div class="col-xs-12 ">
-                                <span>
-                                    <i class="fa fa-trash-o" aria-hidden="true" role="button" ng-click="removeTeamFromPerson(team)"></i> &nbsp; {{team.team_name}} 
-                                </span>
+            <!--            <div class="col-xs-12 noPad" ng-show="teamMember.id">
+                            <div class="col-xs-12 noPad" ng-init="showSearchField = false;">
+                                <div class="add-people-search-part">
+                                    <div class="add-people">
+                                        <span class="noMar">ADD PEOPLE</span>
+                                    </div>
+                                    <div class="search-icon" ng-click="showSearchField = !showSearchField;">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="col-xs-12 noPad marT10" ng-show="showSearchField">
+                                <div class="col-xs-12 noPad search-field">
+                                    <div class="col-xs-12 box-shadow">
+                                        <input type="text" name="" class="form-control" placeholder="Search Team" ng-model="selectedTeam" uib-typeahead="team as team.team_name for team in teamList | filter:$viewValue | limitTo:8" typeahead-on-select="addTeamToPerson(selectedTeam);">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <div class="col-xs-12 noPad search-field">
+                                    <div class="add-people">
+                                        <span class="noMar">IN THE TEAM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 noPad">
+                                <div class="col-xs-12 noPad team-member" ng-repeat="team in allSelectedTeams">
+                                    <div class="col-xs-12 member-name add-member-name">
+                                        <div class="col-xs-12 ">
+                                            <span>
+                                                <i class="fa fa-trash-o" aria-hidden="true" role="button" ng-click="removeTeamFromPerson(team)"></i> &nbsp; {{team.team_name}} 
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
         </div>
-        <div class="col-md-3 noPad">
+        <div class="col-md-4 noPad" style="background-color: #f1f1f1;
+             min-height: 100vh;">
             <div class="col-xs-12 noPad">
-                <div class="col-xs-7 teamMember-create">
+                <div class="col-xs-6 teamMember-create">
                     <button type="submit" class="teamMember-create-btn" ng-click="formSubmited = true;">{{teamMember.id ? 'UPDATE' :  'CREATE'}}</button>
                 </div>
-                <div class="col-xs-5 teamMember-create">
-                    <div class="teamMember-create-back" ng-click="back();">BACK</div>
+                <div class="col-xs-6 teamMember-create">
+                    <button class="teamMember-create-back" ng-click="back();">BACK</button>
                 </div>
             </div>
         </div>

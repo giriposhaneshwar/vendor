@@ -1,5 +1,114 @@
-<div class="bgWhite col-sm-12 pad20-top" ng-init="init()">
-    <!--<pre>   {{events| json}}</pre>-->
+<div class="bgWhite col-sm-12 fullCalendarContainer" ng-init="init()">
+    <div class="row noPad" style="padding-bottom: 0px;border-bottom: 1px solid #E6E7EC;">
+        <div class="col-sm-12">
+            <div class="filterContainer pad5-lr doNotClose">
+                <h5 ng-show="!category_show" 
+                    class="Event-type-page dropdown-toggle" 
+                    data-toggle="dropdown">
+                    <a ng-click="category_filter = !category_filter; filter_TYPE = false;teamMember_filter = false;" class="teams">
+                        FILTER
+                        <span class="event-drop-layer">
+                            <img ng-src="resources/dop.png"  ng-if="team_filter == false">
+                            <img ng-src="resources/upparr.png" ng-if="team_filter == true">
+                        </span>
+                    </a>
+                </h5>
+                <h5 ng-show="category_show" 
+                    class="Event-type-page dropdown-toggle profile-img-over-rev1">
+                    <a class="event22"
+                       ng-click="category_filter = !category_filter; filter_TYPE = false;teamMember_filter = false;">{{category_show| uppercase}} </a>
+                    <span class="event-drop-layer">
+                        <i class="fa fa-times" ng-click="filterCategories()"></i>
+                    </span>
+                </h5>
+                <ul class="dropdownsingle dropfilt" ng-show="category_filter">
+                    <li class="dropfiltsub">
+                        <!--<input id="event_type" type="text" placeholder="Type to search" ng-model="selectedItem">-->
+                        <div class="custom-event-dp calendarFilterMenu">
+                            <p class="Anniversary-Party1" 
+                               ng-repeat="item in categoriesList"  
+                               ng-click="filterCategories(item);">
+                                <span role='button'>
+                                    {{item.name}}
+                                </span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="filterContainer pad5-lr doNotClose" ng-show="showTeamFilters">
+                <h5 ng-show="!teams_show" 
+                    class="Event-type-page dropdown-toggle" 
+                    data-toggle="dropdown">
+                    <a ng-click="team_filter = !team_filter; filter_TYPE = false;teamMember_filter = false;" class="teams">
+                        TEAMS
+                        <span class="event-drop-layer">
+                            <img ng-src="resources/dop.png"  ng-if="team_filter == false">
+                            <img ng-src="resources/upparr.png" ng-if="team_filter == true">
+                        </span>
+                    </a>
+                </h5>
+                <h5 ng-show="teams_show" class="Event-type-page dropdown-toggle profile-img-over-rev1">
+                    <a class="event22">{{teams_show| uppercase}} </a>
+                    <span class="event-drop-layer">
+                        <i class="fa fa-times" ng-click="filterTeams(selectedItem)"></i>
+                    </span>
+                </h5>
+                <ul class="dropdownsingle dropfilt" ng-show="team_filter">
+                    <li class="dropfiltsub">
+                        <input id="event_type" type="text" placeholder="Type to search" ng-model="teamsSelectedItem">
+                        <div class="custom-event-dp">
+                            <p class="Anniversary-Party1" ng-repeat="item in teamsList| filter : teamsSelectedItem"  ng-click="filterTeams(item);">
+                                <span role='button'>
+                                    {{item.team_name}}
+                                </span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="filterContainer pad5-lr doNotClose" ng-show="showTeamFilters" ng-init="teamMember_filter = false;">
+                <h5 ng-show="!teamMember_show" 
+                    class="Event-type-page dropdown-toggle" 
+                    data-toggle="dropdown">
+                    <a ng-click="teamMember_filter = !teamMember_filter; filter_TYPE = false;team_filter = false;" class="teams">
+                        TEAM MEMBERS
+                        <span class="event-drop-layer">
+                            <img ng-src="resources/dop.png"  ng-if="teamMember_filter == false">
+                            <img ng-src="resources/upparr.png" ng-if="teamMember_filter == true">
+                        </span>
+                    </a>
+                </h5>
+                <h5 ng-show="teamMember_show" class="Event-type-page dropdown-toggle profile-img-over-rev1">
+                    <a class="event22">{{teamMember_show| uppercase}} </a>
+                    <span class="event-drop-layer">
+                        <i class="fa fa-times" ng-click="filterTeamMembers(selectedItem)"></i>
+                    </span>
+                </h5>
+                <ul class="dropdownsingle dropfilt" ng-show="teamMember_filter">
+                    <li class="dropfiltsub">
+                        <input id="event_type" type="text" placeholder="Type to search" ng-model="selectedItem">
+                        <div class="custom-event-dp">
+                            <p class="Anniversary-Party1" ng-repeat="item in teamMembersList| filter : selectedItem" ng-click="filterTeamMembers(item);">
+                                <span role='button' ng-click="filterTeamMembers(item); getMsgTypeByFeature('filter', item)">
+                                    {{item.full_name}}
+                                </span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--            <div class="filterContainer pad5-lr doNotClose testButtons">
+                            <button class="btn btn-default" ng-click="renderCalendarData(selectedFilter)">Add</button>
+                            <button class="btn btn-default" ng-click="clearCalendar()">Clear</button>
+                        </div>-->
+        </div>
+    </div>
+    <!--    <div>
+            MyBookings: {{myBookings.length}} | 
+            unAvailabletimeSclots: {{unAvailabletimeSclots.length}} | 
+            Teams : {{bookedEvents.length}} | SelectedFilter: {{selectedFilter.name}}
+        </div>-->
     <div id="fullCalendar" class="col-sm-12 noPad"></div>
     <!--<calendar-event ng-model="events"></calendar-event>-->
     <div id="fullCalendarModal" class="modal fade" tabindex="-1" role="dialog">

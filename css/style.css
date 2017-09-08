@@ -47,7 +47,9 @@ body {
     color: #565a5c;
     -webkit-font-smoothing: antialiased;
 }
-
+.p-10 {
+    padding: 10px;
+}
 #main-container.fullScreen {
     margin-left: 0px;
 }
@@ -970,20 +972,17 @@ ul#listItems li {
     padding-top: 30px;
 }
 .logoSection .profileImage{
-    display: block;
-    /* height: 120px; */
-    margin-top: 35px;
-    text-align: right;
+    padding-top: 30px;
 }
 .logoSection .profileImage>a{
     display: block;
     padding: 8px;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     position: absolute;
     right: 40px;
-    top: 0px;
+
 }
 .logoSection .profileImage>a+ul{
     display: none;
@@ -996,7 +995,7 @@ ul#listItems li {
     display: block;
     /*width: 50%;*/
     float: right;
-    margin-top : 15px;
+    margin-top : 26px;
 }
 .logoSection .profileImage>a+ul>li>a{
     display: block;
@@ -1133,6 +1132,9 @@ table tbody tr {
 table tbody tr {
     border-left: 10px solid #fff;
     border-right: 10px solid #fff;
+}
+#fullCalendar table tbody tr {
+    border: none;
 }
 
 ul#listElement {
@@ -1293,7 +1295,7 @@ input.productImg {
 }
 
 .custom-file-upload {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ff735a;*/
     display: inline-block;
     padding: 10px 15px;
     cursor: pointer;
@@ -1302,6 +1304,8 @@ input.productImg {
     border-radius: 5px;
     font-size: 10px;
     letter-spacing: 1px;
+    font-family: "gotham-light";
+    font-weight: 600px;
 }
 
 #viewImage {
@@ -1429,6 +1433,14 @@ input.productImg {
 .my-booking-product-details.show-element{
     display: block !important;
 }
+.my-booking-product-details .productList{
+    display: block;
+    padding-bottom: 25px;
+}
+.my-booking-product-details .productList:last-child{
+    display: block;
+    padding-bottom: 0px;
+}
 .padding-30-sides {
     padding-left: 30px;
     padding-right: 30px;
@@ -1544,7 +1556,7 @@ input.productImg {
 }
 .glyphicon-menu-down, .glyphicon-menu-up {
     cursor: pointer;
-    z-index: 999;
+  z-index: 4;
 }
 .modal-body .custom-req-details{
     display: block;
@@ -1608,14 +1620,12 @@ input.customized {
     text-transform: uppercase;
 }
 .theme-btn{
-    /* background: #e71e80;
-    color: #FFF; */
+
     height: 30px;
-    width: 133px;
+    min-width: 133px;
     background-color: #ff735a;
     font-family: gotham-light;
     font-size: 10px;
-    /* font-weight: 500; */
     line-height: 2;
     letter-spacing: 1px;
     border-radius: 4px;
@@ -1676,23 +1686,17 @@ input.customized {
     }
     .theme-btn, .theme-btn:hover, .theme-btn:focus {
         color: #FFFFFF;
-        /* background-color: #E71E80;
-        border-color: #E71E80;
-        border-radius: 0;
-        padding: 10px 20px 10px 20px;
-        font-size: 12px; */
         background-color: #ff735a;
-        font-family: gotham-medium;
+        font-family: gotham-light;
         font-size: 10px;
-        /* font-weight: bold; */
         line-height: 2;
         letter-spacing: 1px;
         height: 30px;
-        width: 133px;
         border-radius: 4px;
         border: none;
         background-color: #ff735a;
         padding: 6px 10px 6px 10px;
+        font-weight: 600;
     }
 
     .theme-btn1 {
@@ -1906,6 +1910,10 @@ div.ta-html, div.ta-text{
     margin-top: 15px;
     margin-right: -14px;
 } */
+
+.attributeValueHolder select[multiple] {
+    height: auto !important;
+}
 .product-cancel-btn{
     margin-left: 25px;
 }
@@ -2196,9 +2204,11 @@ table td>ul.list-inline>li.btn{
     color: #394263;
     font-weight: normal;
     opacity: 0.6;  
+    font-size: 16px;
 }
 .phoneNumberHolder>input.code{
-    padding-left: 20px;    
+    padding-left: 25px;
+    font-size: 16px;   
 }
 
 .fa-star{
@@ -2346,4 +2356,482 @@ li>i.star1{
 }
 .modal-open{
     overflow: auto;
+}
+
+/*----------------- Dashboard left menu start --------------------*/
+
+.Dashboard-Leftmenu {
+
+}
+.Dashboard-Leftmenu  .panel-default {
+    border-color: #ddd;
+    border: 0px;
+    box-shadow: none;
+    background-color: transparent;
+}
+.Dashboard-Leftmenu .panel-default > .panel-heading {
+    background-color: transparent;
+    font-family: openSans;
+    color: #707276;
+    font-size: 18px;
+    padding: 0px;
+}
+.Dashboard-Leftmenu  a {
+    font-family: openSans;
+    color: #707276;
+    font-size: 15.4px;
+    font-weight: normal;
+    padding: 12px 5px 12px 20px;
+    display: block;
+}
+.Dashboard-Leftmenu  a.active, .Dashboard-Leftmenu  .panel-open a {
+    border-left: 3px solid #ff735a;
+    background-color: #ffffff;
+    border-radius: 0px;
+    padding-left: 20px;
+    color: #292c33;
+}
+.Dashboard-Leftmenu .panel-collapse > .panel-body {
+    border-top-color: #ddd;
+    background-color: #fff;
+    padding-left: 25px;
+}
+.Dashboard-Leftmenu .panel-collapse > .panel-body a {
+    font-family: gotham-medium;
+    color: #707276;
+    font-size: 12px;
+    font-weight: 500;
+    display:block;
+    text-transform: uppercase;
+    padding: 8px 0px;
+    border-left: 0px solid #ff735a;
+}
+.Dashboard-Leftmenu .panel-collapse > .panel-body a.active {
+    color: #ff735a 
+}
+.Dashboard-Leftmenu .Mystuff {
+    font-stretch: normal;
+    font-family: gotham-medium;
+    letter-spacing: 1px;
+    font-style: normal;
+    color: #b2b5bc;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 30px 0 14px 25px;
+    text-transform: uppercase;
+}
+.Dashboard-Leftmenu  a.active,
+.Dashboard-Leftmenu .active a,
+.Dashboard-Leftmenu  .panel-open a {
+    border-left: 3px solid #ff735a;
+    background-color: #ffffff;
+    border-radius: 0px;
+    padding-left: 18px;
+    color: #292c33;
+}
+
+/*----------------- Dashboard left menu end --------------------*/
+
+/*----------------- Full Calendar Styles --------------------*/
+#fullCalendar{
+    margin-top: 20px;
+}
+.fullCalendarContainer .fc-header td {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+}
+.fullCalendarContainer .fc-header .fc-button {
+    margin-bottom: 0px;
+    vertical-align: middle;
+}
+.fullCalendarContainer .fc-header-title h2{
+    margin: 0px;
+}
+.fullCalendarContainer .profile-img-over-rev1{
+    margin: 0px;
+}
+.fullCalendarContainer .Event-type-page a.event22,
+.fullCalendarContainer .Event-type-page span.event-drop-layer{
+    line-height: 3.17;
+    padding: 0px;
+    cursor: pointer;
+}
+.fullCalendarContainer ul.dropfilt{
+    left: 0;
+}
+
+.filterContainer{
+    display: inline-block;
+    margin-right: 15px;
+}
+.teamAssigniesModal,
+productListTable{
+    display: table;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+.teamAssigniesModal>tbody,
+.productListTable>tbody{
+    padding: 0px;
+    background-color: transparent;
+}
+.productListTable>tbody>tr,
+.teamAssigniesModal>tbody>tr{
+    background-color: transparent;
+}
+.productListTable tbody:nth-child(odd),
+.teamAssigniesModal tbody:nth-child(odd){
+    background-color: transparent;
+    padding: 0px;
+}
+table.productListTable tbody tr{
+    border: none;
+}
+.productListTable{
+    border: none;
+    margin: 0px;
+}
+.productListTable th{
+    font-weight: bold;
+}
+.teamAssigniesModal th{
+    background-color: #ff735a;
+    color: #fff;
+    text-transform: uppercase;
+}
+.modal-header.teamMemberHeading{
+    border: none;
+}
+.modal-body .productsList{
+    display: block;
+    margin-top: 25px;
+}
+.modal-body .productsList .productItem{
+    display: block;
+    border: 1px solid #ccc;
+    margin-top: -1px;
+}
+.modal-body .productsList .productItem .seperator{
+    display: inline-block;
+    /* position: relative; */
+    vertical-align: middle;
+    padding: 15px;
+    min-width: 150px;
+    max-width: 200px;
+    min-height: 100px;
+}
+.modal-body .productsList .productItem .seperator:first-child{
+    min-width: 150px;
+    max-width: 170px;
+    text-align: center;
+}
+.modal-body .productsList .productItem .seperator:nth-child(2):after{
+    content: " ";
+    position: absolute;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 0px;
+    padding: 1px;
+    min-height: 100px;
+    max-height: 150px;
+    display: block;
+    border-right: 1px solid #ccc;
+}
+.unAvailableModal .row{
+    padding-bottom: 10px;
+}
+.unAvailableModal .row>div:first-child{
+    text-transform: uppercase;
+}
+.modal-header h4,
+.modal-header .close{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+}
+.modal-header .close{
+    padding: 5px;
+}
+.eventInfoSection{
+    display: block;
+}
+.eventInfoSection .party-heading{
+    font-family: OpenSans;
+    font-size: 18px;
+    line-height: 1.67;
+    color: #000000;
+    margin: 0px;
+}
+.eventInfoSection .personDetails{
+    font-family: OpenSans;
+    font-size: 14px;
+    color: #707276;
+}
+.eventInfoSection .event-dateImg-container label,
+.eventInfoSection .event-time-container label{
+    font-family: gotham-medium;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.67;
+    letter-spacing: 1px;
+    color: #292c33;
+}
+.eventInfoSection .event-dateImg-container p, 
+.eventInfoSection .event-time-container p {
+    font-family: "gotham-medium";
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.67;
+    color: #707276;
+    padding-top: 0px;
+}
+.custom-event-dp.calendarFilterMenu{
+    height: auto;
+}
+
+
+.modal-body .productDetials{
+    display: block;
+    margin-top: 15px;
+    overflow-y: scroll;
+    height: 350px;
+}
+.modal-body .productDetials .productImage{
+    display: block;
+    text-align: right;
+}
+.modal-body .productDetials .productImage>img{
+    height: 120px;
+    margin-top: 50px;
+}
+.modal-body .productDetials .productInfo{
+    display: block;
+}
+.modal-body .productDetials .productInfo .productHeading{
+    display: block;
+}
+.modal-body .productDetials .productInfo .productHeading>img{
+    float: left;
+    margin-left: -25px;
+    margin-top: 5px;
+    padding-right: 5px;
+}
+.modal-body .productDetials .productInfo .productHeading h4{
+    display: block;
+    margin: 0px;
+    font-family: OpenSans;
+    font-size: 18px;
+    line-height: 1.67;
+    color: #ff735a;
+    font-weight: 500;
+}
+.modal-body .productDetials .productInfo .productHeading span{
+    font-family: OpenSans;
+    font-size: 14px;
+    line-height: 1.43;
+    color: #707276;
+}
+.modal-body .productDetials .productInfo .vendorDetails{
+    display: block;
+    margin-bottom: 15px;
+}
+.modal-body .productDetials .productInfo .vendorDetails>span:first-child{
+    display: block;
+    font-weight: 500;
+    font-family: gotham-medium;
+    color: #ff735a;
+    font-size: 14px;
+}
+.modal-body .productDetials .productInfo .vendorDetails>span:last-child{
+    font-family: OpenSans;
+    font-size: 14px;
+    line-height: 1.71;
+    color: #000000;
+    padding: 8px;
+    margin-top: -10px;
+}
+.modal-body .productDetials .productInfo{
+    margin-top: 15px;
+    padding-top: 15px;
+    border: 0;
+    padding-left: 25px;
+    border-top: 1px solid #eee;
+}
+/*.modal-body .productDetials .productSpecifications{
+    margin-top: 15px;
+    padding-top: 15px;
+    border: 0;
+    border-top: 1px solid #eee;
+}*/
+.modal-body .productDetials .productSpecifications .productItem>span{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.modal-body .productDetials .productSpecifications .productItem>span:first-child{
+    font-family: gotham-medium;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.67;
+    letter-spacing: 1px;
+    color: #292c33;
+    text-transform: uppercase;
+}
+.modal-body .productDetials .productSpecifications .productItem>span:last-child{
+    display: inline-block;
+    float: right;
+}
+/*----------------- Full Calendar Styles end --------------------*/
+/*----------------- Vender Header Mobile view start --------------------*/
+.header-hr {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.Header-main-hed {
+    padding: 10px 0px;
+    background-color: #fff;
+}
+
+.Header-main-hed .HMH-list{
+display: none;
+}
+.Header-main-hed .HMH-btn:hover .HMH-list{
+ display: block;
+}
+.Header-main-hed .HMH-list {
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 0 10px;
+    font-family: OpenSans;
+    color: #707276;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.Header-main-hed .HMH-list .HMH-row {
+       padding: 10px 0;
+    cursor: pointer;
+    font-size: 18px;
+    color: #292C33;
+    font-family: OpenSans;
+}
+.Header-main-hed .HMH-list .HMH-row.active{
+    color: #FF735A;
+}
+.Header-main-hed .Head-select-btn {
+    font-size: 24px;
+    color: #292C33;
+    font-family: OpenSans;
+    margin: 0px;
+    font-weight: 600;
+    text-transform: none;
+    background-color: transparent;
+        padding-left: 8px;
+        webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.125) !important;
+    box-shadow: inset 0 0px 0px rgba(0,0,0,.125) !important;
+}
+
+.HM-MS {
+    font-size: 12px;
+    color: #FF735A;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: gotham-medium;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.HM-MS span {
+    font-family: OpenSans;
+    float: right;
+    background-color: #ff735a;
+    border-radius: 14px;
+    font-weight: normal;
+    min-width: 30px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.HM-MS i {
+    color: #292C33;
+    font-size: 23px;
+    margin-left: 4px;
+}
+
+.HM-MS-list {
+    display: none;
+}
+
+.HM-MS:hover .HM-MS-list {
+    display: block;
+}
+
+.HM-MS-list {
+    position: absolute;
+    width: 100%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 0 10px;
+    font-family: OpenSans;
+    color: #707276;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.HM-MS-list .HM-MS-row {
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: gotham-medium;
+    font-weight: 500;
+}
+.HM-MS-list .HM-MS-row.active{
+    color: #FF735A;
+}
+.HM-MS-list .HM-MS-row.active span{
+    background-color: #FF735A;
+    color: #fff;
+}
+
+.HM-MS-list span {
+    font-family: OpenSans;
+    float: none;
+    background-color: #e5e6eb;
+    border-radius: 14px;
+    font-weight: normal;
+    min-width: 30px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: #2b2c31;
+    margin-left: 10px;
+    display: inline-block;
+}
+/*----------------- Vender Header Mobile view start --------------------*/
+.Dash-booking .DB-VP-btn{
+    text-align: right;
+}
+@media (max-width: 600px) {
+    #page-content {
+        padding: 0px;
+        background-color: #F8F8F8;
+    }
+    .dashboardLeftSection {
+
+        padding-right: 0px !important;
+    }
+    .Dash-booking .DB-VP-btn{
+        text-align: center;
+    }
 }

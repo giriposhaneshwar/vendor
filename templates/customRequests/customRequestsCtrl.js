@@ -20,6 +20,14 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
     //        $(this).parent().parent().parent().parent().find(".custom-req-details").hide();
     //        $(this).parent().parent().parent().parent().find(".glyphicon-menu-up").addClass("glyphicon-menu-down").removeClass("glyphicon-menu-up");
     //    });
+    $scope.entryLimit = 10;
+    var pageNo = ctrlComm.get('currentPage');
+    $scope.currentPage = pageNo ? pageNo : 1;
+
+    $scope.pageChanged = function (currentPage) {
+        ctrlComm.put('currentPage', currentPage);
+        // console.log('Page changed to: ' ,currentPage);
+    };
 
     $scope.getFileDetails = function (e) {
         console.log("eeee" + e);
@@ -283,6 +291,11 @@ app.controller('customRequestsCtrl', function ($scope, $rootScope, $location,
 
                     response.requests[i].customerMedia = [];
                     response.requests[i].vendorMedia = [];
+
+                    // converting \n to <br> for response.requests[i].req_desc
+                    var reqDesc = response.requests[i].req_desc.split('\n');
+                    response.requests[i].req_desc = reqDesc.join('<br>');
+
                     $scope.cvimagepath = response.requests[i].cvimagepath;
                     $scope.imagepath = response.requests[i].imagepath;
 

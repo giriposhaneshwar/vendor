@@ -36,6 +36,7 @@
     color: #15171b;
     float: left;
     cursor: pointer;
+    text-transform: uppercase;
 }
 .down-arrow{
     width: 12px;
@@ -85,38 +86,32 @@
     font-family: gotham-medium;
 }
 .teamMember-create-btn{
-    /*width: 130px;*/
     width: 100%;
     height: 50px;
     border-radius: 30px;
     color: #fff;
     background-image: linear-gradient(100deg, #ff8f2b, #fe5a84);
     border: 0px;
-    line-height: 4.17;
-    letter-spacing: 0.9px;
     text-align: center;
     cursor: pointer;
-    font-family: gotham-medium;
-    /*float: left;*/
-    /*margin-left: 15px;*/
+    font-family: gotham-light;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 14px;
 }
 .teamMember-create-back{
-    padding-left: 8px;
-    padding-right: 8px;
-    /*width: 110px;*/
-    width: 100%;
     height: 50px;
     background-color: #fff;
     color: #000;
     border-radius: 30px;
     border: 0px;
-    line-height: 4.17;
-    letter-spacing: 0.9px;
     text-align: center;
     cursor: pointer;
-    float: left;
-    font-family: gotham-medium;
-    /*margin-left: 15px;*/
+    font-family: gotham-light;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 14px;
+    width: 100%;
 }
 .create-new-contact {
     /*width: 290px;*/
@@ -188,16 +183,23 @@
     padding: 0px;
     border-color: #ff736e;
 }
-
+input:placeholder-shown {
+    font-family:'openSans-light';
+    font-size: 13px;
+    line-height: 20px;
+    color: rgb(178, 181, 188);
+    font-weight: 300;
+    padding-left: 0px;
+    padding-left: 11px;
+}
 
 /* Team Member list  =========================================================== */
 
 .team-member{
     min-height: 50px;
-    padding: 0px 15px;
+    padding: 10px 20px;
     background-color: #ffffff;
     border-bottom: 1px solid #e5e7eb;
-    padding-left: 20px;
 }
 .team-member .member-photo{
     width: 60px;
@@ -210,14 +212,15 @@
 .team-member .member-name{
     width: 20%;
     min-height: 30px;
-    font-family: gotham-light;
+    font-family: openSans;
     font-size: 14px;
     font-weight: normal;
     letter-spacing: 1px;
     text-align: left;
     color: #15171b;
     word-wrap: break-word;
-    padding: 15px 5px 15px 0px;
+    padding-right: 5px;
+    padding-top: 4px;
 }
 .team-member .member-category{
     width: 250px;
@@ -246,7 +249,7 @@
 .team-member .member-btn{
     /*height: 50px;*/
     /* padding-top: 9px; */
-    float: left;
+    /*float: left;*/
 }
 .team-member .member-btn .send-message{
     padding: 0px 10px;
@@ -261,7 +264,6 @@
 }
 .team-member .member-options{
     width: 60px;
-    height: 37px;
     text-align: center;
     line-height: 3.5;
     font-size: 14px;
@@ -544,6 +546,7 @@ input.customized {
     width: 100%;
     margin-bottom: 10px;
     padding: 5px;
+    min-height: 100px;
 }
 .assign-checkbox,.assign-user-details{
     float: left;
@@ -576,4 +579,7 @@ input.customized {
 .search-field .dropdown-menu > .active > a{
     color: #000;
     background-color: #EEE;
+}
+.modal-footer{
+    background-color: transparent;
 }

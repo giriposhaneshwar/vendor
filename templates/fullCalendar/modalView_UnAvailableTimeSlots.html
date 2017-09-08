@@ -1,0 +1,57 @@
+<div class="modal-content col-xs-12">
+    <!--{{data| json}}-->
+    <div class="modal-header col-xs-12 ">
+        <h4>Unavailable Timeslots</h4>
+    </div>
+    <div class="modal-body col-xs-12 unAvailableModal">
+        <div class="row">
+            <div class="col-xs-5">Category </div>
+            <div class="col-xs-7">
+                <span>{{data.category_name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Location </div>
+            <div class="col-xs-7">
+                <span>{{data.location_name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Product </div>
+            <div class="col-xs-7">
+                <span>{{data.product_name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Event Name </div>
+            <div class="col-xs-7">
+                <span>{{data.event_name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Booking Dates </div>
+            <div class="col-xs-7">
+                <div class="dateDisplay dateRange" ng-if="data.dayDiff > 0">
+                    <div><span>From</span><span>: {{data.homeFromDate| date:"dd MMM yyyy, HH:mm"}}</span></div>
+                    <div><span>To</span><span>: {{data.homeToDate| date:"dd MMM yyyy, HH:mm"}}</span></div>
+                </div>
+                <div class="dateDisplay oneDay" ng-if="data.dayDiff == 0">
+                    <div>
+                        {{data.homeFromDate| date:"dd MMM yyyy"}}, 
+                        {{data.homeFromDate| date:"HH:mm"}} -
+                        {{data.homeToDate| date:"HH:mm"}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">Event Description </div>
+            <div class="col-xs-7">
+                <span>{{data.event_description}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer col-xs-12 text-center" style="text-align: center;">
+        <button class="btn theme-btn theme-cancel-btn" ng-click="close();">Close</button>
+    </div>
+</div>

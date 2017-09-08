@@ -1,41 +1,41 @@
 <div class="modal-content col-xs-12" ng-init="getTeamsByCatAndLoc()">
-	<div class="modal-header col-xs-12 ">
-		<h4>Assign Team Members</h4>
-	</div>
-	<div class="modal-body col-xs-12">
-		<form class="form-horizontal" role="form" name="form" novalidate ng-submit="saveTeam(form);">
-			<!-- <div class="col-xs-8 col-md-6 marB20">
-				<div class="form-group noMar" ng-class="{'has-error':(formSubmited  && form.teamId.$error.required)}">
-					<div class="team-input-lable"><p class="noMar">Select Team</p></div>
-					<select class="form-control" name="teamId" ng-model="teamId" ng-options="team.id as team.team_name for team in teams" required="true" ng-change="getAvailableUsers(teamId)">
-						<option value="" disabled="true">Select Team</option>
-					</select>
-				</div>
-			</div> -->
-			<div class="col-xs-12 noPad marB20">
-				<div class="col-xs-12 marB5" ng-show="availableUsers.length>0">
-					<div class="team-input-lable"><p class="noMar">Available Users</p></div>
-				</div>
-				<div class="col-xs-6" ng-repeat="user in availableUsers">
-					<div class="assign-panel">
-						<div class="assign-checkbox">
-							<input type="checkbox" name="assign" ng-model="user.selection" ng-change="userSelectionChange(user);"/>
-						</div>
-						<div class="assign-user-details">
-							<p class="marB5">{{user.first_name}} {{user.last_name}}</p>
-							<p class="marB5">{{user.email}}</p>
-							<p class="marB5">{{user.phone_number}}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-            <div class="col-xs-12 noPad text-center marT20">
-                <button class="btn theme-btn" ng-show="availableUsers.length>0" ng-disabled="selectedUsers.length==0" ng-click="saveSelectedTeamMembers();">Assign Users</button>
+    <div class="modal-header col-xs-12 ">
+        <h4>Assign Team Members</h4>
+    </div>
+    <div class="modal-body col-xs-12 noPad">
+        <form class="form-horizontal" role="form" name="form" novalidate ng-submit="saveTeam(form);">
+            <!-- <div class="col-xs-8 col-md-6 marB20">
+                    <div class="form-group noMar" ng-class="{'has-error':(formSubmited  && form.teamId.$error.required)}">
+                            <div class="team-input-lable"><p class="noMar">Select Team</p></div>
+                            <select class="form-control" name="teamId" ng-model="teamId" ng-options="team.id as team.team_name for team in teams" required="true" ng-change="getAvailableUsers(teamId)">
+                                    <option value="" disabled="true">Select Team</option>
+                            </select>
+                    </div>
+            </div> -->
+            <div class="col-xs-12 noPad marB20">
+                <div class="col-xs-12 marB5" ng-show="availableUsers.length > 0">
+                    <div class="team-input-lable"><p class="noMar">Available Team Members</p></div>
+                </div>
+                <div class="col-xs-6" ng-repeat="user in availableUsers">
+                    <div class="assign-panel">
+                        <div class="assign-checkbox">
+                            <input type="checkbox" name="assign" ng-model="user.selection" ng-change="userSelectionChange(user);"/>
+                        </div>
+                        <div class="assign-user-details">
+                            <p class="marB5">{{user.first_name}} {{user.last_name}}</p>
+                            <p class="marB5">{{user.email}}</p>
+                            <p class="marB5">{{user.phone_number}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 noPad text-center marT20 marB20">
+                <button class="btn theme-btn" ng-show="availableUsers.length > 0" ng-disabled="selectedUsers.length == 0" ng-click="saveSelectedTeamMembers();">Assign Team Member</button>
                 <button class="btn theme-btn theme-cancel-btn" ng-click="close();">Cancel</button>
             </div>
-		</form>
-	</div>
-	<div class="modal-footer col-xs-12">
-		
-	</div>
+        </form>
+    </div>
+    <div class="modal-footer col-xs-12">
+
+    </div>
 </div>

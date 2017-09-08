@@ -91,17 +91,26 @@
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 noPad">
             <div class="col-sm-6 col-xs-12 pad10">
-                <a href="#/calendar/available_time_list"
-                   ng-disabled="add_status != '1' || isResponse" 
-                   class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
-                   ng-click="saveCalenderAvailability($event)" 
-                   ng-if="$state.current.name == 'calendar.availability'">Add</a>
-                <a href="#/calendar/available_time_list"
-                   class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
-                   style="height: 50px;" ng-click="updateCalenderAvailability($event)" 
-                   ng-disabled="add_status != '1' || isResponse"
-                   ng-if="$state.current.name == 'calendar.update_available_time'" >
-                    Update</a>
+                <!--                <a href="#/calendar/available_time_list"
+                                   ng-disabled="add_status != '1' || isResponse" 
+                                   class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
+                                   ng-click="saveCalenderAvailability($event)" 
+                                   ng-if="$state.current.name == 'calendar.availability'">Add</a>
+                                <a href="#/calendar/available_time_list"
+                                   class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
+                                   style="height: 50px;" ng-click="updateCalenderAvailability($event)" 
+                                   ng-disabled="add_status != '1' || isResponse"
+                                   ng-if="$state.current.name == 'calendar.update_available_time'" >
+                                    Update</a>-->
+                <button ng-disabled="add_status == '1' || isResponse" 
+                        class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
+                        ng-click="saveCalenderAvailability($event)" 
+                        ng-if="$state.current.name == 'calendar.availability'">Add</button>
+                <button  class="col-xs-12 mar20-top pad10 btn btn-primary loginButton buttonBg anchorButton height50 anchorButton" 
+                         style="height: 50px;" ng-click="updateCalenderAvailability($event)" 
+                         ng-disabled="add_status == '1' || isResponse"
+                         ng-if="$state.current.name == 'calendar.update_available_time'" >
+                    Update</button>
             </div>
             <div class="col-sm-6 col-xs-12 pad10">
                 <!--ui-sref="calendar.available_time_list"-->

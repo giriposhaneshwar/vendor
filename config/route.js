@@ -41,61 +41,61 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 url: '/My-Account',
                 templateUrl: 'templates/myAccount.html',
                 controller: 'myAccountCtrl',
-                data: {pageTitle: 'My Account'}
+                data: {pageTitle: 'Account'}
             })
             .state('myBookings', {
                 url: '/myBookings',
                 templateUrl: 'templates/myBookings/myBookings.html',
                 controller: 'myBookingsCtrl', //mybookings controller
-                data: {pageTitle: 'My Bookings'}
+                data: {pageTitle: 'Bookings'}
             })
             .state('myBookings.all', {
                 url: '/all/:id',
                 templateUrl: 'templates/myBookings/myBookings.html',
                 controller: 'myBookingsCtrl', //mybookings controller
-                data: {pageTitle: 'My Bookings'}
+                data: {pageTitle: 'Bookings'}
             })
             .state('myBookings.scheduled', {
                 url: '/scheduled/:id',
                 templateUrl: 'templates/myBookings/myBookings.html',
                 controller: 'myBookingsCtrl', //mybookings controller
-                data: {pageTitle: 'My Bookings'}
+                data: {pageTitle: 'Bookings'}
             })
             .state('myBookings.completed', {
                 url: '/completed/:id',
                 templateUrl: 'templates/myBookings/myBookings.html',
                 controller: 'myBookingsCtrl', //mybookings controller
-                data: {pageTitle: 'My Bookings'}
+                data: {pageTitle: 'Bookings'}
             })
             .state('myPayments', {
                 url: '/myPayments',
                 templateUrl: 'templates/myPayments/myPayments.html',
                 controller: 'myPaymentsCtrl', //mybookings controller
-                data: {pageTitle: 'My Payments'}
+                data: {pageTitle: 'Payments'}
             })
             .state('customRequests', {
                 url: '/customRequests',
                 templateUrl: 'templates/customRequests/customRequests.html',
                 controller: 'customRequestsCtrl',
-                data: {pageTitle: 'My Bookings'}
+                data: {pageTitle: 'Bookings'}
             })
             .state('customRequests.all', {
                 url: '/all/:id',
                 templateUrl: 'templates/customRequests/customRequests.html',
                 controller: 'customRequestsCtrl',
-                data: {pageTitle: 'My Custom Requests'}
+                data: {pageTitle: 'Custom Requests'}
             })
             .state('customRequests.completed', {
                 url: '/completed/:id',
                 templateUrl: 'templates/customRequests/customRequests.html',
                 controller: 'customRequestsCtrl',
-                data: {pageTitle: 'My Custom Requests'}
+                data: {pageTitle: 'Custom Requests'}
             })
             .state('customRequests.pending', {
                 url: '/pending/:id',
                 templateUrl: 'templates/customRequests/customRequests.html',
                 controller: 'customRequestsCtrl',
-                data: {pageTitle: 'My Custom Requests'}
+                data: {pageTitle: 'Custom Requests'}
             })
 
             .state('/Verification', {
@@ -107,31 +107,31 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
             .state('product_service_catalog', {
                 url: '/product_service_catalog',
                 templateUrl: 'templates/product/product_service_catalog.html',
-                data: {pageTitle: 'My Products & Services'}
+                data: {pageTitle: 'Products & Services'}
             })
             .state('product_service_catalog.Products', {
                 url: '/Products',
                 templateUrl: 'templates/product/Products.html',
                 controller: 'productsCtrl',
-                data: {pageTitle: 'My Products & Services'}
+                data: {pageTitle: 'Products & Services'}
             })
             .state('product_service_catalog.addProduct', {
                 url: '/addProduct',
                 templateUrl: 'templates/product/productForm.html',
                 controller: 'productsCtrl',
-                data: {pageTitle: 'My Products & Services'}
+                data: {pageTitle: 'Products & Services'}
             })
             .state('product_service_catalog.updateProduct', {
                 url: '/updateProduct',
                 templateUrl: 'templates/product/productForm.html',
                 controller: 'productsCtrl',
-                data: {pageTitle: 'My Products & Services'}
+                data: {pageTitle: 'Products & Services'}
             })
             .state('Products.paragraph', {
                 url: '/addProduct',
                 templateUrl: 'templates/test2.html',
                 controller: 'productsCtrl',
-                data: {pageTitle: 'My Products & Services'}
+                data: {pageTitle: 'Products & Services'}
             })
             .state('Sample', {
                 url: '/Sample',
@@ -150,7 +150,7 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 url: '/My-Account',
                 templateUrl: 'templates/myAccount.html',
                 controller: 'myAccountCtrl',
-                data: {pageTitle: 'My Account'}
+                data: {pageTitle: 'Account'}
             })
             .state('vendorSettings.subscription', {
                 url: '/subscription',
@@ -164,7 +164,7 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 url: '/basicInfo',
                 templateUrl: 'templates/myAccounts/basicInfo.html',
                 controller: 'myAccountCtrl',
-                data: {pageTitle: 'My Account'}
+                data: {pageTitle: 'Account'}
             })
 
             .state('vendorSettings.My-Account.tab2', {
@@ -223,68 +223,68 @@ app.config(function ($stateProvider, $urlRouterProvider, uiSelectConfig) {
                 url: '/AvailabilityTiming2',
                 templateUrl: 'templates/calendarBusinessTime/calendar_availability.html',
                 controller: 'businessTimeCtrl',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
             .state('calendar.availability', {
                 url: '/AvailabilityTiming',
                 templateUrl: 'templates/calendarBusinessTime/calendar_availability2.html',
                 controller: 'BusinessTimeController',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
             .state('calendar.calendarEvents', {
                 url: '/calendarEvents',
                 templateUrl: 'templates/fullCalendar/calendarEvents.html',
                 controller: 'calendarEventsController',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Calendar'}
             })
             .state('calendar.available_time_list', {
                 url: '/available_time_list',
                 templateUrl: 'templates/calendarBusinessTime/calendarAvlbTimeList.html',
                 controller: 'businessTimeCtrl',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
             .state('calendar.update_available_time', {
                 url: '/update_available_time/:id',
                 templateUrl: 'templates/calendarBusinessTime/calendar_availability2.html',
                 controller: 'BusinessTimeController',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
             .state('calendar.addcalendarEvent', {
                 url: '/addcalendarEvent',
                 templateUrl: 'templates/calendarEvent/calendarEventForm.html',
                 controller: 'calendarEventCtrl',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
             .state('calendar.updatecalendarEvent', {
                 url: '/updatecalendarEvent/:id',
                 templateUrl: 'templates/calendarEvent/calendarEventForm.html',
                 controller: 'calendarEventCtrl',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
 
             .state('calendar.calendarEventList', {
                 url: '/calendarEventList',
                 templateUrl: 'templates/calendarEvent/calendarEventList.html',
                 controller: 'calendarEventCtrl',
-                data: {pageTitle: 'My Calendar'}
+                data: {pageTitle: 'Availability'}
             })
             .state('myMessages', {
                 url: '/myMessages',
                 templateUrl: 'templates/myMessages/myInquiries.html',
                 controller: 'myMessagesCtrl',
-                data: {pageTitle: 'My Messages'}
+                data: {pageTitle: 'Messages'}
             })
             .state('mySupport', {
                 url: '/mySupport',
                 templateUrl: 'templates/myMessages/mySupport.html',
                 controller: 'myMessagesCtrl',
-                data: {pageTitle: 'My Support'}
+                data: {pageTitle: 'Support'}
             })
             .state('myAccount', {
                 url: '/myAccount',
                 templateUrl: 'templates/myMessages/myAccount.html',
                 controller: 'myMessagesCtrl',
-                data: {pageTitle: 'My Account'}
+                data: {pageTitle: 'Account'}
             })
             .state('teams', {
                 url: '/teams',

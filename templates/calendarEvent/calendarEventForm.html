@@ -83,71 +83,10 @@
                 </div>
             </div>
             <div class="clearfix" ng-repeat="scheduledEvent in calendarEvent.scheduledEvent">
-                <div class="col-md-5 col-sm-5 col-xs-5 pad10">
-                    <label class="labelName">
-                        Booking Start Date &amp; Time
-                        <!--{{calendarEvent.scheduledEvent[$index].fromDate| json}}-->
-                    </label>
-                    <span class="dateTimePickerHolder startFrom">
-                        <!--                        <input type="text"
-                                                       class="form-control form-margin datePickerEle from startFromResult"
-                                                       ng-model="calendarEvent.scheduledEvent[$index].fromDate" />-->
-                        <!--                        <input ng-flatpickr 
-                                                       fp-opts="dateOptsStart" 
-                                                       fp-on-setup="getEventStart(fpItem, $index, 'from')" 
-                                                       ng-model="calendarEvent.scheduledEvent[$index].startFromDate" 
-                                                       data-eleIndex ='{{$index}}'
-                                                       data-eleType ='from'
-                                                       class="form-control form-margin datePickerEle ele{{$index}} from">-->
-                        <input ng-flatpickr 
-                               fp-opts="dateOptsStart" 
-                               fp-on-setup="getEventStart(fpItem, $index, 'from')" 
-                               ng-model="calendarEvent.scheduledEvent[$index].fromDate" 
-                               data-eleIndex ='{{$index}}'
-                               data-eleType ='from'
-                               class="form-control form-margin datePickerEle ele{{$index}} from">
-                        <input type="text" 
-                               class="form-control form-margin datePickerEle ele{{$index}} startFromTime"
-                               ng-model="calendarEvent.scheduledEvent[$index].fromTime">
-                    </span>
-                    {{calendarEvent.scheduledEvent[$index].startFromDate| json}}
-                    <div class="text-danger" id="EventFromDateMsg" ng-hide="calendarEvent.scheduledEvent[$index].fromDate" ng-if="calendarEvent.scheduledEvent[$index].fromDateErrorMsg">
-                        {{calendarEvent.scheduledEvent[$index].fromDateErrorMsg}}
-                    </div>
+                <div class="col-md-10 col-sm-10  noPad">
+                    <div date-range rowid="{{$index}}"></div>
                 </div>
-                <div class="col-md-5 col-sm-5 col-xs-5 pad10" >
-                    <label class="labelName">
-                        Booking End Date &amp; Time
-                        <!--{{calendarEvent.scheduledEvent[$index].toDate| json}}-->
-                    </label>
-                    <span class="dateTimePickerHolder endTo">
-                        {{calendarEvent.scheduledEvent[$index].toDate| json}}
-                        <!--                        <input type="text" 
-                                                       class="form-control form-margin datePickerEle to endToResult"
-                                                       ng-model="calendarEvent.scheduledEvent[$index].toDate" />-->
-                        <!--                        <input ng-flatpickr 
-                                                       fp-opts="dateOptsEnd" 
-                                                       fp-on-setup="getEventEnd(fpItem, $index, 'to')"  
-                                                       ng-model="calendarEvent.scheduledEvent[$index].endToDate" 
-                                                       data-eleIndex ='{{$index}}'
-                                                       data-eleType ='to'
-                                                       class="form-control form-margin datePickerEle ele{{$index}} to">-->
-                        <input ng-flatpickr 
-                               fp-opts="dateOptsEnd" 
-                               fp-on-setup="getEventEnd(fpItem, $index, 'to')"  
-                               ng-model="calendarEvent.scheduledEvent[$index].toDate" 
-                               data-eleIndex ='{{$index}}'
-                               data-eleType ='to'
-                               class="form-control form-margin datePickerEle ele{{$index}} to">
-                        <input type="text" 
-                               class="form-control form-margin datePickerEle ele{{$index}} endToTime"
-                               ng-model="calendarEvent.scheduledEvent[$index].toTime">
-                    </span>
-                    <div class="text-danger" id="EventToDateMsg" ng-hide="calendarEvent.scheduledEvent[$index].toDate" ng-if="calendarEvent.scheduledEvent[$index].toDateErrorMsg">
-                        {{calendarEvent.scheduledEvent[$index].toDateErrorMsg}}
-                    </div>
-                </div>
-                <div ng-show="add_status == '0'" ng-if="$state.current.name == 'calendar.addcalendarEvent'" class="col-md-2 col-sm-2 col-xs-2 pad10" style="margin-top:32px">
+                <div ng-show="add_status == '0'" ng-if="$state.current.name == 'calendar.addcalendarEvent'" class="col-md-2 col-sm-2 pad10" style="margin-top:32px">
                     <button type="button" class="btn btn-default buttonBg btn-circle" ng-click="add()" style="border-radius: 22px;position:relative;"><i class="glyphicon glyphicon-plus" style="font-size: 12px;left: 1px;"></i></button>
                     <button type="button" class="btn btn-default deleteButton btn-circle" ng-if="!$first" ng-click="delete($index)" style="border-radius: 22px; position: relative;"><i class="glyphicon glyphicon-trash"></i></button>
                 </div>

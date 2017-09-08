@@ -72,16 +72,19 @@ app.controller('teamMembers_controller', ['$scope', '$rootScope', '$location', '
             };
             var response = teamMemberFactory.teamMembersByID.getData(data);
             response.$promise.then(function successCB(data) {
+                if (data.status == "0") {
+                    var obj = data.result[0];
+                    obj.teams = [];
 
-                var obj = data.result[0];
-                obj.teams = [];
+                    angular.forEach(data.teams, function (n, i) {
+                        obj.teams.push(n.id);
+                    });
 
-                angular.forEach(data.teams, function (n, i) {
-                    obj.teams.push(n.id);
-                });
-
-                ctrlComm.put('updateTeamMember', obj);
-                $state.go('teamMember');
+                    ctrlComm.put('updateTeamMember', obj);
+                    $state.go('teamMember');
+                } else {
+                    $scope.notification(data.message);
+                }
             }, function errorCB(err) {
                 console.log("ERROR ::");
             });
@@ -177,7 +180,8 @@ app.controller('teamMembers_controller', ['$scope', '$rootScope', '$location', '
         $scope.deleteTeamMember = function (member) {
             var response = teamMemberFactory.deleteTeamMember.delete({id: member.id});
             response.$promise.then(function successCB(data) {
-                $scope.notification('Team member deleted successfully');
+                $scope.notification(data.message);
+                //$scope.notification('Team member deleted successfully');
                 $scope.getTeamMembersList();
             }, function errorCB(err) {
                 console.log("ERROR ::")

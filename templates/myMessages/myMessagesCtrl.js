@@ -9,6 +9,20 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
     $scope.replay_user1 = [];
     $scope.readArchive = false;
     $scope.showFilter = false;
+
+
+    $scope.entryLimit = 10;
+    var pageNo = ctrlComm.get('currentPage');
+    $scope.currentPage = pageNo ? pageNo : 1;
+
+    $scope.pageChanged = function (currentPage) {
+        ctrlComm.put('currentPage', currentPage);
+        $scope.currentPage = currentPage;
+//        console.info('Page changed to: ', currentPage);
+    };
+
+
+
     $('.hide-conv-btn').hide();
     $(".reply-conv-btn").hide();
     $(".reply-form-data").hide();
@@ -25,15 +39,6 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
         msgType: '',
         categoryType: '',
         messageType: ''
-    };
-    var pag_index;
-    $scope.itemsPerPage = 5;
-    $scope.currentPage = 1;
-
-    $scope.pageChanged = function (currentPage) {
-        ctrlComm.put('currentPage', currentPage);
-
-        // console.log('Page changed to: ' ,currentPage);
     };
     $scope.getMessageRequestData = function () {
         $scope.err1 = {};
@@ -124,15 +129,20 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
                 angular.forEach(response.result, function (val, key) {
                     val.messages_archived = 'false';
                     val.customerProfile = response.customer_image_path + val.profile_pic_path;
+
+                    val.viewDetails = false;
                     console.log("listi is ", key, val);
                 })
                 if (currentMenu == "#/myMessages")
                     $scope.inquiries = response.result;
+                
                 window.localStorage.setItem("inquiries", JSON.stringify(response));
                 $rootScope.readStatus = response.readstatus;
                 $rootScope.messages_starred = response.messages_starred;
+                
                 if (currentMenu == "#/mySupport")
                     $scope.supports = response.result;
+                
                 window.localStorage.setItem("supports", JSON.stringify(response));
                 $rootScope.readStatus = response.readstatus;
                 $rootScope.messages_starred = response.messages_starred;
@@ -238,7 +248,7 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
             $("#buttons_" + index).find(".hide-conv-btn").hide();
             $("#buttons_" + index).find(".reply-conv-btn").hide();
             $('.reply-form-data').slideUp('slow');
-        }, 100);
+        }, 10);
     };
     $scope.getReplyMessage = function (index, id) {
         $timeout(function () {
@@ -352,7 +362,7 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
         //options.message_type=window.location.hash;
         console.log("options------------------------", options);
         request.service('getMessagesByType', 'post', options, function (response) {
-           // debugger;
+            // debugger;
             console.log("$$$$ response $$$$$", response);
             if (response.status == "0") {
                 //                  console.log("message type", response.result)
@@ -360,6 +370,7 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
 
                 angular.forEach(response.result, function (n, i) {
                     console.log("each record is ", i, n);
+                    n.viewDetails = false;
                 });
                 if (options.message_type == "#/myMessages")
                     $scope.inquiries = response.result;
@@ -420,7 +431,7 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
         $rootScope.messages_archived = data.messages_archived;
         $scope.loading = true;
         request.service('getMessagesByType', 'post', data, function (response) {
-         //   debugger;
+            //   debugger;
             console.log(response);
             $scope.loading = false;
             if (response.status == 0) {
@@ -868,7 +879,7 @@ app.controller('myMessagesCtrl', function ($scope, $rootScope, $location,
         console.log("options", options);
 
         request.service('getMessagesByType', 'post', options, function (response) {
-          //  debugger;
+            //  debugger;
             console.log("$$$$ response $$$$$", response);
             if (response.status == "0") {
                 angular.forEach(response.result, function (val, key) {

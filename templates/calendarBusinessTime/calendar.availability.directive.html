@@ -23,6 +23,7 @@
                    ng-model="calendar.scheduled[$index].startTime" 
                    ng-click="showStartTime($index)" 
                    id="startTime{{$index}}" 
+                   autocomplete="false"
                    required >
             <!--<span ng-if="calendar.scheduled[$index].startTime !== ''" class="calendar-clear-input clearInputField" ng-click="clearTime($index, 'start');">&times;</span>-->
             <div class="text-danger" id="selectstartTimeMsg" ng-hide="calendar.scheduled[$index].startTime" ng-if="calendar.scheduled[$index].startTimeErrorMsg">
@@ -43,6 +44,7 @@
                    ng-model="calendar.scheduled[$index].endTime" 
                    ng-click="showEndTime($index)" 
                    ng-disabled="calendar.scheduled[$index].startTime == ''" 
+                   autocomplete="false"
                    required >
             <!--<span ng-if="calendar.scheduled[$index].endTime !== ''" class="calendar-clear-input clearInputField" ng-click="clearTime($index, 'end');">&times;</span>-->
             <div class="text-danger" id="selectendTimeMsg" ng-hide="calendar.scheduled[$index].endTime" ng-if="calendar.scheduled[$index].endTimeErrorMsg">

@@ -132,7 +132,6 @@
 
             $('#startTime' + index).timepicker({
                 'timeFormat': 'H:i',
-                'step': 15,
                 'scrollDefault': 'now'
             });
             $('#startTime' + index).focus();
@@ -192,14 +191,12 @@
 //            });
             $('#endTime' + index).timepicker({
                 'timeFormat': 'H:i',
-                'step': 15,
                 'minTime': $('#startTime' + index).val(),
-                'maxTime': '23:45'
+                'maxTime': '23:30'
             });
             $('#endTime' + index).focus();
             $('#startTime' + index).timepicker({
                 'timeFormat': 'H:i',
-                'step': 15,
                 'minTime': '00:00',
                 'maxTime': $('#endTime' + index).val()
             });
@@ -259,7 +256,6 @@
 
 
         $scope.saveCalenderAvailability = function (e) {
-            debugger;
             e.preventDefault();
             var data = {
                 category: JSON.stringify($scope.calendar.category.category_id),
@@ -358,7 +354,6 @@
             return((hrs * 60 * 60 + min * 60 + sec) * 1000);
         }
         $scope.updateCalenderAvailability = function (e) {
-
             if (($scope.add_status === undefined || $scope.add_status == '0') && !$scope.isResponse) {
                 $scope.isResponse = true;
                 e.preventDefault();
@@ -389,18 +384,6 @@
                 e.preventDefault();
             }
         };
-
-        $scope.events = [
-            {id: 1, text: "Task A-12458",
-                start_date: new Date(2017, 6, 12),
-                end_date: new Date(2017, 6, 14)},
-            {id: 2, text: "Task A-83473",
-                start_date: new Date(2017, 6, 22),
-                end_date: new Date(2017, 6, 24)}
-        ];
-
-        $scope.scheduler = {date: new Date()};
-
     }
 
 })(window.angular);

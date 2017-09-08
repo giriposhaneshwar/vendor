@@ -131,7 +131,7 @@
         $scope.$watch('calendarEvent.scheduledEvent', function (n, o) {
 //            debugger;
             console.log("scope change\n New\n", JSON.stringify(n), "\n Old\n", JSON.stringify(o));
-            commonService.safeApply($scope);
+//            commonService.safeApply($scope);
         });
         $scope.getProductDetails = function () {
             var product = {
@@ -192,139 +192,6 @@
         $scope.delete = function (index) {
             $scope.calendarEvent.scheduledEvent.splice(index, 1);
         };
-
-
-
-        $('.startFromTime').timepicker({'step': 15});
-        $('.endToTime').timepicker({'step': 15});
-
-        $scope.dateOptsStart = {
-            dateFormat: 'm-d-Y H:i',
-            enableTime: false,
-            time_24hr: true,
-            onOpen: function () {
-                var fp = this;
-                var ele = this.element;
-                var key = $(ele).attr('data-eleindex');
-                if ($scope.calendarEvent.scheduledEvent[key].fromDate == "") {
-                    fp.setDate(new Date(), true);
-                    fp.config.minDate = new Date();
-                } else {
-//                    fp.setDate($scope.calendarEvent.scheduledEvent[key].fromDate, true);
-                    fp.set('defaultDate', $scope.calendarEvent.scheduledEvent[key].fromDate);
-                    fp.minDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-                }
-            },
-            onClose: function () {
-                var ele = this.element;
-                var fp = this;
-                var key = $(ele).attr('data-eleindex');
-                if ($scope.calendarEvent.scheduledEvent[key].fromDate !== "") {
-                    $('.startFromTime').timepicker({'step': 15, 'timeFormat': 'H:i'});
-                    $('.startFromTime.ele' + key).focus();
-                    $('.startFromTime.ele' + key).on('changeTime', function (e) {
-                        var cdArr = $scope.calendarEvent.scheduledEvent[key].fromDate.split(' ');
-                        cdArr[1] = $('.startFromTime.ele' + key).val();
-                        $scope.calendarEvent.scheduledEvent[key].fromDate = cdArr.join(' ');
-                        if (key !== '{{$index}}') {
-                            if ($state.current.name === 'calendar.addcalendarEvent') {
-                                $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate
-                            }
-                        }
-                        console.log("time changed", $scope.calendarEvent.scheduledEvent[key], cdArr);
-                    });
-                }
-            },
-            onChange: function () {
-                var ele = this.element;
-                var fp = this;
-                $timeout(function () {
-                    var key = $(ele).attr('data-eleindex');
-                    if (key !== '{{$index}}') {
-                        if ($state.current.name === 'calendar.updatecalendarEvent') {
-
-                        } else {
-                            $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-                        }
-                        if ($scope.calendarEvent.scheduledEvent[key].fromDate != undefined && $scope.calendarEvent.scheduledEvent[key].fromDate != '') {
-                        }
-                    }
-                }, 10);
-            }
-        }
-        $scope.dateOptsEnd = {
-            dateFormat: 'm-d-Y H:i',
-            enableTime: false,
-            time_24hr: true,
-            onOpen: function () {
-//                debugger;
-                var fp = this;
-                var ele = this.element;
-                var key = $(ele).attr('data-eleindex');
-//                debugger;
-                if ($scope.calendarEvent.scheduledEvent[key].fromDate == "") {
-                    fp.setDate(new Date(), true);
-                    fp.config.minDate = new Date();
-                } else {
-
-//                    var eTime = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
-//                    $('.endToTime').timepicker({
-//                        'step': 15,
-//                        'timeFormat': 'H:i',
-//                        'minTime': eTime[1],
-//                        'maxTime': '23:45'
-//                    });
-                    if ($scope.calendarEvent.scheduledEvent[key].toDate != undefined && $scope.calendarEvent.scheduledEvent[key].toDate != "") {
-                        var eTime = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
-                        $('.endToTime').timepicker('setTime', new Date($scope.calendarEvent.scheduledEvent[key].toDate));
-//                        $('.endToTime').timepicker({
-//                            'step': 15,
-//                            'timeFormat': 'H:i',
-//                            'minTime': eTime[1],
-//                            'maxTime': '23:45'
-//                        });
-                        $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-                    } else {
-                        fp.config.minDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-                        fp.setDate($scope.calendarEvent.scheduledEvent[key].fromDate, true);
-                    }
-                }
-            },
-            onClose: function () {
-//                debugger;
-                var fp = this;
-                var ele = this.element;
-                var key = $(ele).attr('data-eleindex');
-//                if ($scope.calendarEvent.scheduledEvent[key].toDate == "") {
-//                    $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-//                }
-//                debugger;
-                if ($scope.calendarEvent.scheduledEvent[key].toDate != undefined && $scope.calendarEvent.scheduledEvent[key].toDate != "") {
-                    $scope.calendarEvent.scheduledEvent[key].toDate = $scope.calendarEvent.scheduledEvent[key].fromDate;
-                    fp.setDate($scope.calendarEvent.scheduledEvent[key].fromDate, true);
-                } else {
-                }
-                var eTime = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
-                $('.endToTime').timepicker({
-                    'step': 15,
-                    'timeFormat': 'H:i',
-                    'minTime': eTime[1],
-                    'maxTime': '23:45'
-                });
-                $('.endToTime.ele' + key).focus();
-                $('.endToTime.ele' + key).on('changeTime', function (e) {
-                    var cdArr = $scope.calendarEvent.scheduledEvent[key].toDate.split(' ');
-                    cdArr[1] = $('.endToTime.ele' + key).val();
-                    $scope.calendarEvent.scheduledEvent[key].toDate = cdArr.join(' ');
-
-                    console.log("time changed", $scope.calendarEvent.scheduledEvent[key], cdArr);
-                });
-            },
-            onChange: function () {
-                console.log("Start Time Chagned", this);
-
-            }
-        }
 
         $scope.getEventStart = function (fp, key, t) {
             if ($scope.calendarEvent.scheduledEvent[key].fromDate == "") {

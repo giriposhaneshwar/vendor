@@ -1,22 +1,23 @@
-<div ng-init="init()" class="myBookingStyle">
+<div class="spinner" ng-if="loader">
+    <img ng-src="{{loadderUrl}}" alt="loading"/>
+</div>
+<div class="myBookingStyle bgWhite">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPad">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 vendor-main-content noPad">
             <div class="my-events-filter pad10-lr col-xs-12" style="border-bottom: 1px solid #e5e7eb;">
                 <div class="col-xs-12 noPad">
-                    <div class="col-sm-4 col-xs-6 pad10-lr">
+                    <div class="col-md-3 col-sm-4 col-xs-6 pad10-lr">
                         <div class="col-xs-12 noPad dropdown">
-                            <div class="evtDate1" ng-show="!showEvtDate" ng-class="{
-                                    'open' : showFilterDate}">
+                            <div class="evtDate1" ng-show="!showEvtDate" ng-class="{'open' : showFilterDate}">
                                 <div class="col-sm-12 noPad dropdown-toggle" id="menu1" data-toggle="dropdown" ng-click="showFilterDate = !showFilterDate">
                                     <label class="dropdowns" style="cursor: pointer;">SELECT DATE RANGE</label>
-                                    <span class="glyphicon" ng-class="{
-                                            'glyphicon-menu- up': showFilterDate, 'glyphicon-menu-down': !showFilterDate}"></span>
+                                    <span class="glyphicon" ng-class="{'glyphicon-menu-up': showFilterDate, 'glyphicon-menu-down': !showFilterDate}"></span>
                                 </div>
 
                                 <ul class="dropdown-menu dropFilter" role="menu" aria-labelledby="menu1">
                                     <li role="presentation">
-                                        <input type="text" class="form-control dropInput" name="SELECT DATE RANGE" 
-                                               id="myBookingsDateRange" ng-model="myBookingsDateRange" readonly placeholder="Type to search" />
+                                        <input type="text" class="form-control dropInput" name="SELECTDATERANGE" 
+                                               id="myBookingsDateRange" ng-model="myBookingsDateRange" readonly placeholder="Select date range" />
                                     </li>
                                 </ul>
                             </div>
@@ -31,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-xs-6 pad10-lr">
+                    <div class="col-md-3 col-sm-4 col-xs-6 pad10-lr">
                         <div class="col-xs-12 noPad dropdown"> 
                             <div class="evtType1" ng-hide="showEvtType" ng-class="{
                                     'open' : showFilterType}">
@@ -71,13 +72,16 @@
                 </div>
 
                 <div class="">
-                    <div class="my-booking-wrapper" dir-paginate="myBooking in myBookings | itemsPerPage:5 | filter:eventType" id="{{myBooking.event.event_id}}">
+                    <div class="my-booking-wrapper" 
+                         ng-repeat="myBooking in myBookings.slice(((currentPage - 1) * entryLimit), ((currentPage) * entryLimit))| orderBy:$index | limitTo:entryLimit | filter:eventType"
+                         id="{{myBooking.event.event_id}}">
                         <div class="col-md-12 col-xs-12 noPad">
                             <div class="col-sm-12 noPad bookingListHolder">
-                                <img src="images/glasses-brindis-with-a-heart.png" class="glasses-brindis-with-a-heart">
+                                <img style="width:24px;height:24px;" class="glasses-brindis-with-a-heart" aria-hidden="true" src="{{replaceLandingCategoryWithHyphen(myBooking.event.landing_category)}}" />
+                                <!--<img src="images/glasses-brindis-with-a-heart.png" class="glasses-brindis-with-a-heart">-->
                                 <span class="eventName col-md-12 noPad">{{myBooking.event.event_name}}</span>
                                 <span class="personDetails col-md-12 noPad">{{myBooking.event.name_of_person}}<span ng-if="myBooking.event.name2 != '' && myBooking.event.name2 != null"> &amp; {{myBooking.event.name2}}</span><span ng-if="myBooking.event.age != '' && myBooking.event.age != 0">, {{myBooking.event.age}} years</span><span ng-if="myBooking.event.no_of_years != '' && myBooking.event.no_of_years != 0">, {{myBooking.event.no_of_years}} years</span>
-                                    <div class="col-sm-12 noPad" style="font-size:12px;padding-top:20px;padding-bottom:20px;border-radius:4px">
+                                    <div class="col-sm-12 noPad" style="font-size:12px;padding-top:10px;padding-bottom:20px;border-radius:4px">
                                         <div class="col-xs-12 noPad">
                                             <!-- <pre>{{myBooking.event}}</pre> -->
                                             <!-- <pre>{{myBooking.bookinfo}}</pre>  -->
@@ -86,8 +90,8 @@
                                                 <div class="" ng-if="myBooking.event.displayformat == 1">
                                                     <!-- <pre>{{myBooking.event.formattedFromDate}}</pre> -->
                                                     <div class="col-sm-12 my-booking-data noPad">
-                                                        <div>{{myBooking.event.formattedFromDate}} -</div>
-                                                        <div ng-if="myBooking.event.daysDiff >= 1"> {{myBooking.event.formattedToDate}}</div>
+                                                        <div>{{myBooking.event.formattedFromDate}} </div>
+                                                        <div ng-if="myBooking.event.daysDiff >= 1">- {{myBooking.event.formattedToDate}}</div>
                                                         <!--   {{myBooking.event.eventdate}} - -->
                                                     </div>
                                                     <!-- <div class="col-sm-12 my-booking-dates">  
@@ -178,17 +182,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 noPad" ng-repeat="product in myBooking.products">
+                                <div class="col-xs-12 noPad productList" ng-repeat="product in myBooking.products">
                                     <!-- <pre>{{product}}</pre> -->
                                     <div class="col-sm-12 noPad">
                                         <div class="col-sm-2">
                                             <img src="{{product.event_summary_data.product_imgpath}}{{product.event_summary_data.product_img}}" width="150" height="80" alt="Image" ng-if="product.event_summary_data.product_img" />
                                             <img src="img/default-img.png" height="80" alt="Image" ng-if="!product.event_summary_data.product_img" />
-                                            <span class="event-heading" ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on cake:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span>
-                                            <div class="col-xs-12 noPad text-center marT20" ng-if="product.is_service=='Y'">
+                                            <span class="event-heading" ng-if="product.event_summary_data.custom_text != null && product.event_summary_data.custom_text != ''" class="bookingTitles"><h4>Text on {{product.category_name}}:</h4><p ng-bind-html="product.event_summary_data.custom_text"></p></span>
+                                            <div class="col-xs-12 noPad text-center marT20" ng-if="product.is_service == 'Y'">
                                                 <a href='javascript:void(0);' class="btn theme-btn" ng-click="assingTeamMembers(product);">Assign</a>
                                             </div>
-                                       </div>
+                                        </div>
                                         <div class="col-sm-2">
                                             <a></a>
                                             <div style="font-size:14px">{{getDecodedValue(product.event_summary_data.product_name)}}</div>
@@ -243,8 +247,8 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-1 col-sm-6 text-center padding-top-bottom">
-                                            <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == true">-NA-</div>
-                                            <div class="not-applicable" ng-if="product.event_summary_data.delivery_not_applicable == false">
+                                            <div class="not-applicable" ng-if="product.event_summary_data.isItDelivered == 'false'">-NA-</div>
+                                            <div class="not-applicable" ng-if="product.event_summary_data.isItDelivered == 'true'">
                                                 <div ng-if="product.event_summary_data.delivery_mode == 'pickup'">
                                                     Store Pickup
                                                 </div>
@@ -379,11 +383,13 @@
                     </div>
 
                     <div class="text-center" ng-show="myBookings.length > 10">
-                        <dir-pagination-controls
-                            max-size="10"
-                            direction-links="true"
-                            boundary-links="true" >
-                        </dir-pagination-controls>
+                        <uib-pagination class="pagination pagination-sm" 
+                                        total-items="myBookings.length" 
+                                        ng-model="currentPage" 
+                                        boundary-links="true" 
+                                        items-per-page="entryLimit" 
+                                        ng-change="pageChanged(currentPage)">
+                        </uib-pagination>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,15 @@ app.controller('myPaymentsCtrl', function ($scope, $rootScope, $location,
         request, ctrlComm, $filter, fileUpload, $timeout, $http, $window,
         $state, NgMap, $stateParams, commonService) {
 
+    $scope.entryLimit = 10;
+    var pageNo = ctrlComm.get('currentPage');
+    $scope.currentPage = pageNo ? pageNo : 1;
+
+    $scope.pageChanged = function (currentPage) {
+        ctrlComm.put('currentPage', currentPage);
+        // console.log('Page changed to: ' ,currentPage);
+    };
+
     /*
      * Initalizing Controller on on ready state
      */
@@ -80,6 +89,7 @@ app.controller('myPaymentsCtrl', function ($scope, $rootScope, $location,
                 $scope.bookingNumbers = [];
                 angular.forEach($scope.myPayments, function (n, i) {
                     $scope.bookingNumbers.push(n.booking_number);
+                    n.event_start_date = new Date(n.event_start_date);
                 });
                 $("#eventType").autocomplete({
                     source: $scope.bookingNumbers,

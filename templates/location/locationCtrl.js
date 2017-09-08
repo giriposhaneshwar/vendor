@@ -222,6 +222,7 @@ app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fil
                 response = JSON.parse(response)
             }
             if (response.status == '0') {
+            	ctrlComm.del('vendorLocations');
                 getVenderLocation(function () {
                     $scope.notification("Location Deleted Successfully");
                     $state.go('vendorSettings.Location');
@@ -776,6 +777,7 @@ app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fil
                 $scope.loader(false);
                 $scope.isResponse = false;
                 if (res.status == 0) {
+                	ctrlComm.del('vendorLocations');
                     $scope.notification(res.message);
                     $state.go('vendorSettings.Location');
                 } else {
@@ -824,6 +826,7 @@ app.controller('locationCtrl', function ($scope, request, ctrlComm, $filter, fil
             request.service('vendorUpdateLocation', 'post', params, function (response) {
                 $scope.isResponse = false;
                 if (response.status == 0) {
+                	ctrlComm.del('vendorLocations');
                     $scope.notification('Location Updated Successfully');
 //                    $state.go('vendorSettings.Location');
                     $location.path("/vendorSettings/Location");

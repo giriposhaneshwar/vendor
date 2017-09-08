@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="arevea">
+
     <head>
         <meta charset="utf-8">
         <title>Arevea Vendor Portal</title>
@@ -13,8 +14,8 @@
         <link rel="stylesheet" href="css/fontFamily.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
-        <link href="css/flatpickr.css" rel="stylesheet" type="text/css"/>
-        <link href="js/dhtmlxScheduler/skins/dhtmlxscheduler.css" rel="stylesheet" type="text/css"/>
+        <link href="css/flatpickr.css" rel="stylesheet" type="text/css" />
+        <link href="js/dhtmlxScheduler/skins/dhtmlxscheduler.css" rel="stylesheet" type="text/css" />
         <!-- <link rel="stylesheet" href="css/bootstrap-datetimepicker.css"> -->
         <link rel="stylesheet" type="text/css" href="js/datetime/jquery.datetimepicker.css">
         <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -22,10 +23,9 @@
         <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
         <!--<script src="https://maps.google.com/maps/api/js?v=3&key=AIzaSyCHby0Z1W5twfyARhTqyvSJfOkMPs3DEwo&libraries=geometry,places&region=IN&language=en&sensor=true"></script>-->
         <link rel="stylesheet" href="css/texteditcss/textAngular.css" type="text/css">
-        <link href="css/select.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/select.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="css/components-font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" type="text/css" href="css/myTeam_styles.css">
-
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/styleLayout.css">
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
@@ -38,32 +38,61 @@
             }
         </style>
     </head>
-    <body ng-controller="mainCtrl" ng-init="init()" resize>   
+
+    <body ng-controller="mainCtrl" ng-init="init()" resize>
         <div id="page-container" class="mainContainer catalog sidebar-partial sidebar-visible-lg sidebar-no-animations clearfix">
-            <div class="logoSection container-fluid noPad" ng-show="loginStatus">
-                <div class="logoContainer col-sm-3 col-md-2 col-lg-2 col-xs-12 noPad">
-                    <a href="#/dashboard">
-                        <img ng-src="{{admin.vendor.logo}}" class="img-responsive">
-                    </a>
-                </div>
-                <div class="col-sm-9 col-md-10 col-lg-10 col-xs-12 noPad">
-                    <!--<div class="col-sm-6 pageTitle">{{pageHeading[1]| uppercase}}</div>-->
-                    <div class="col-sm-8 col-xs-8 pageTitle">
+            <div class="logoSection container-fluid" ng-show="loginStatus">
+                <div class="row">
+                    <div class="logoContainer col-sm-3 col-md-2 col-lg-2 col-xs-8 ">
+                        <a href="#/dashboard" class="logo">
+                            <img ng-src="{{admin.vendor.logo}}" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="col-sm-7 col-md-8 pageTitle hidden-xs">
                         <span class="ng-cloak">
                             {{$state.current.data.pageTitle}}
                         </span>
-
-                        <!--123 - {{admin.vendor.profile_pic_path| json}}-->
                     </div>
-                    <div class="col-sm-4 col-xs-4 profileImage">
-                        <a href="javascript:void(0)" 
-                           class="profileIcon"
-                           ng-style="{'background': 'url('+admin.vendor.profile_pic_path+') center center', 'background-size':'cover'}"></a>
+                    <div class="col-sm-2 col-xs-4  profileImage">
+                        <a href="javascript:void(0)" class="profileIcon" ng-style="{'background': 'url('+admin.vendor.profile_pic_path+') center center', 'background-size':'cover'}"></a>
                         <ul class="profileNav">
                             <li><a href="javascript:void(0)" ng-click="signout();">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <hr class="visible-xs header-hr">
+            <div class="Header-main-hed visible-xs">
+                <div class="HMH-btn">
+                    <button class="btn Head-select-btn" aria-label="Event Name">Dashboard <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+                    <div class="HMH-list">
+                        <div class="HMH-row">
+                            My Bookings
+                        </div>
+                        <div class="HMH-row active">
+                            My Calendar
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="visible-xs header-hr">
+            <div class="HM-MS visible-xs">
+                <div class="container-fluid">
+                    <div class="row p-10">
+                        <div class="col-xs-10" style="    padding-left: 0px; padding-top: 4px;">
+                            All
+                        </div>
+                        <div class="col-xs-2 text-right">
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="HM-MS-list">
+                    <hr class="header-hr">
+                    <div class="HM-MS-row ">All Tasks</div>
+                    <div class="HM-MS-row active">All Tasks</div>
+                </div>
+
             </div>
             <div class="bodyContainer container-fluid noPad">
                 <div class="leftNavSection mainNav col-sm-3 col-md-2 col-lg-2 col-xs-12 noPad" ng-class="{'open': openMainMenu}">
@@ -79,161 +108,108 @@
                         <!-- navbar-static-top container -->
                         <div class="navHolder">
                             <!--                            <div class="navbar-header">
-                                                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                                                <span class="sr-only">Toggle navigation</span>
-                                                                <span class="icon-bar"></span>
-                                                                <span class="icon-bar"></span>
-                                                                <span class="icon-bar"></span>
-                                                            </button>
-                                                        </div>-->
+                                                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                                                        <span class="sr-only">Toggle navigation</span>
+                                                                        <span class="icon-bar"></span>
+                                                                        <span class="icon-bar"></span>
+                                                                        <span class="icon-bar"></span>
+                                                                    </button>
+                                                                </div>-->
                             <div id="navbar" class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav" ng-hide="admin.bankStatus == false">
-                                    <li ng-class="{active1: activePath == '/dashboard' }">
-                                        <a href="#/dashboard" class="sel" >Dashboard </a>
-                                    </li>
-                                </ul>
-                                <span class="menuSeperator" ng-hide="admin.bankStatus == false">My Stuff</span>
-                                <ul class="nav navbar-nav" ng-hide="admin.emailStatus == false">
-                                    <li ng-class="{ active1: ($state.current.name == 'myBookings') || ($state.current.name == 'myBookings.payments') || ($state.current.name == 'myBookings.all') || ($state.current.name == 'myBookings.scheduled') || ($state.current.name == 'myBookings.completed') }" ng-hide="admin.bankStatus == false">
-                                        <a class="sel" href="#/myBookings/all/"> My Bookings</a>
-                                        <ul>
-                                            <li ng-class="{active: $state.current.name == 'myBookings' || $state.current.name == 'myBookings.all' || $state.current.name == 'myBookings.payments'}"><a   href="#/myBookings/all/">All</a>
-                                            </li>
-                                            <li ng-class="{active: $state.current.name == 'myBookings.scheduled'}"><a ui-sref="myBookings.scheduled">Scheduled</a>
-                                            </li>
-                                            <li ng-class="{active: $state.current.name == 'myBookings.completed'}"><a ui-sref="myBookings.completed">Completed</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li ng-class="{ active1: ($state.current.name == 'myPayments')}" ng-hide="admin.bankStatus == false">
-                                        <a class="sel" href="#/myPayments"> My Payments</a>
-                                        <!--                                        <ul>
-                                                                                    <li ng-class="{active: $state.current.name == 'myBookings' || $state.current.name == 'myBookings.all' || $state.current.name == 'myBookings.payments'}"><a   href="#/myBookings/all/">All</a>
-                                                                                    </li>
-                                                                                    <li ng-class="{active: $state.current.name == 'myBookings.scheduled'}"><a ui-sref="myBookings.scheduled">Scheduled</a>
-                                                                                    </li>
-                                                                                    <li ng-class="{active: $state.current.name == 'myBookings.completed'}"><a ui-sref="myBookings.completed">Completed</a>
-                                                                                    </li>
-                                                                                </ul>-->
-                                    </li>
-                                    <li ng-hide="admin.bankStatus == false" 
-                                        ng-class="{active1: activePath == '/calendar/calendarEvents' || activePath == '/calendar/AvailabilityTiming' || activePath == '/calendar/available_time_list' || activePath == '/calendar/addcalendarEvent' || activePath == '/calendar/calendarEventList' || activePath == '/calendar/update_available_time' || $state.current.name == 'calendar.updatecalendarEvent' || $state.current.name == 'calendar.update_available_time'}">
-                                        <a class="sel" href="#/calendar/AvailabilityTiming">
-                                            My Calendar 
-                                            <!--- {{activePath | json}} - {{$state.current.name | json}}-->
-                                        </a>
-                                        <ul>
-                                            <li ng-class="{active: activePath == '/calendar/AvailabilityTiming'}">
-                                                <a href="#/calendar/AvailabilityTiming">Maintain Working Hours</a>
-                                            </li>
-                                            <li ng-class="{active: activePath == '/calendar/available_time_list' || $state.current.name == 'calendar.update_available_time'}">
-                                                <a href="#/calendar/available_time_list">Working Hours</a>
-                                            </li>
-                                            <li ng-class="{active: activePath == '/calendar/addcalendarEvent'}">
-                                                <a href="#/calendar/addcalendarEvent">Add Unavailable Timeslots</a>
-                                            </li>
-                                            <li ng-class="{active: activePath == '/calendar/calendarEventList' || $state.current.name == 'calendar.updatecalendarEvent'}">
-                                                <a href="#/calendar/calendarEventList">Unavailable Timeslots</a>
-                                            </li>
-                                            <li ng-if="showFullCalendar" ng-class="{active: activePath == '/calendar/calendarEvents' || $state.current.name == 'calendar.update_available_time'}">
-                                                <a href="#/calendar/calendarEvents">Calendar Events</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li ng-class="{ active1: activePath == '/product_service_catalog/Products' || activePath == '/product_service_catalog/addProduct' || activePath == '/product_service_catalog/updateProduct' }" ng-hide="admin.bankStatus == false" ui-sref-active="active">
-                                        <a class="sel"  href="#/product_service_catalog/Products">My Products &amp; Services</a>
-                                        <ul>
-                                            <li ng-class="{active: activePath == '/product_service_catalog/Products'}">
-                                                <a href="#/product_service_catalog/Products">All</a>
-                                            </li>
-                                            <li ng-class="{active: activePath == '/product_service_catalog/addProduct' }">
-                                                <a href="#/product_service_catalog/addProduct">Add New</a>
-                                            </li>
-                                            <!--                                            <li ng-class="{active: activePath == '/product_service_catalog/uploadDownload' }">
-                                                                                            <a href="javascript:void(0)">Upload/Download</a>
-                                                                                        </li>-->
-                                        </ul>
-                                    </li>
-                                    <li ng-hide="admin.bankStatus == false" ng-class="{'active1': $state.current.name == 'customRequests.all' || $state.current.name == 'customRequests.completed' || $state.current.name == 'customRequests.pending' }">
-                                        <a class="sel" 
-                                           ui-sref="customRequests.all">My Custom Requests</a>
-                                        <!--href="#/customRequests/all/"-->
-                                        <ul>
-                                            <li ng-class="{ 'active': $state.current.name == 'customRequests.all'}">
-                                                <a href="#" ui-sref="customRequests.all({'id':$state.params.id})">All</a>
-                                            </li>
-                                            <li ng-class="{ 'active' : $state.current.name == 'customRequests.pending'}">
-                                                <a href="#" ui-sref="customRequests.pending">Manage Requests </a>
-                                            </li>
-                                            <li ng-class="{ 'active' : $state.current.name == 'customRequests.completed'}">
-                                                <a href="#" ui-sref="customRequests.completed">Completed Requests</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li ng-hide="admin.bankStatus == false" ng-class="{ active1: activePath == '/myMessages' || activePath == '/myAccount' || activePath == '/mySupport' }">
-                                        <a href="#/myMessages" class="sel"> My Messages  </a>
-                                        <ul>
-                                            <!--                                        <li><a href="#/myMessages">All</a>
-                                                </li>-->
-                                            <li ng-class="{ active: activePath == '/myMessages'}"><a href="#/myMessages">Inquiries </a>
-                                            </li>
-                                            <li ng-class="{ active: activePath == '/mySupport'}"><a href="#/mySupport">Support </a>
-                                            </li>
-                                            <li ng-class="{ active: activePath == '/myAccount'}"><a href="#/myAccount">Account</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li ng-hide="admin.bankStatus == false" ng-class="{ active1: activePath == '/teams' || activePath == '/myTeam' || activePath == '/teamMembers' || activePath == '/teamMember' || activePath == '/import' || activePath.indexOf('assignmentView') != '-1' }">
-                                        <a href="#/teams" class="sel"> My Team  </a>
-                                        <ul>
-                                            <li ng-class="{ active: (activePath == '/teams' || activePath == '/myTeam') }"><a href="#/teams">Teams</a></li>
-                                            <li ng-class="{ active: (activePath == '/teamMembers' || activePath == '/teamMember') }"><a href="#/teamMembers">Team Members</a></li>
-                                            <li ng-class="{ active: activePath == '/import' }"><a href="#/import">Import</a></li>
-                                            <li><a href="{{downloadTeamDataDocumentURL}}">Download</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-
-                                <span class="menuSeperator">Settings</span>
-                                <ul class="nav navbar-nav">
-                                    <!--ui-sref="vendorSettings.Location"-->
-                                    <li ng-class="{'active1' : activePath == '/vendorSettings/Location' || activePath == '/vendorSettings/addLocation' || activePath == '/vendorSettings/updateLocation/' || activePath == '/vendorSettings/updateLocation/' + $state.params.id}" ng-hide="admin.bankStatus == false">
-                                        <a  href="#/vendorSettings/Location">Location</a>
-                                        <ul>
-                                            <li ng-class="{ 'active' : activePath == '/vendorSettings/Location' || activePath == '/vendorSettings/updateLocation/' + $state.params.id}">
-                                                <a href="#/vendorSettings/Location">All </a>
-                                            </li>
-                                            <li ng-class="{ 'active': activePath == '/vendorSettings/addLocation'}">
-                                                <a href="#/vendorSettings/addLocation">Add New</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li ng-class="{active1: activePath == '/vendorSettings/My-Account/basicInfo'}" ui-sref-active="active"><a  href="#/vendorSettings/My-Account/basicInfo" ng-click="tabaction('1')">Account</a></li>
-                                    <li ng-class="{active1: activePath == '/vendorSettings/My-Account/businessInfo'}" ui-sref-active="active"><a  href="#/vendorSettings/My-Account/businessInfo" ng-click="tabaction('2')">Business Info</a></li>
-                                    <li ui-sref-active="active1"><a href="javascript:void(0)">Security</a></li>
-                                    <li ng-class="{active1: activePath == '/vendorSettings/My-Account/bankInfotab'}" ui-sref-active="active"><a ng-click="tabaction('3')" href="#/vendorSettings/My-Account/bankInfotab">Bank Details</a></li>
-                                    <li ng-class="{active1: activePath == '/vendorSettings/My-Account/subscription'}" ui-sref-active="active"><a href="" ui-sref="vendorSettings.subscription">Subscription</a></li>
-                                </ul>
-                                <!--                                <ul class="nav navbar-nav">                                 
-                                                                    <li ng-class="{active1: activePath == '/vendorSettings/My-Account/basicInfo' || activePath == '/vendorSettings/My-Account/businessInfo' || activePath == '/vendorSettings/My-Account/bankInfotab' || activePath == '/vendorSettings/Location' || activePath == '/vendorSettings/updateLocation' || activePath == '/vendorSettings/subscription' }">
-                                                                        <a href="#/vendorSettings/My-Account/basicInfo" ng-click="tabaction('1')">Settings  </a>
-                                
-                                                                    </li>
-                                                                </ul>-->
+                                <uib-accordion close-others="oneAtATime" class="Dashboard-Leftmenu">
+                                    <a href="#/dashboard" ng-click="dropdown('Dashboard')" ng-hide="admin.bankStatus == false" ng-class="{active: activePath == '/dashboard' }">Dashboard</a>
+                                    <div class="Mystuff" ng-hide="admin.bankStatus == false">My Stuff</div>
+                                    <div ng-hide="admin.emailStatus == false">
+                                        <div uib-accordion-group class="panel-default" ng-click="dropdown('MyBookings')" is-open="status.isCustomHeaderOpen" template-url="group-template.html" ng-class="{active: $state.current.name == 'myBookings' || $state.current.name == 'myBookings.payments' || $state.current.name == 'myBookings.all' || $state.current.name == 'myBookings.scheduled' || $state.current.name == 'myBookings.completed'}" ng-hide="admin.bankStatus == false">
+                                            <uib-accordion-heading>
+                                                Bookings <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isCustomHeaderOpen, 'fa fa-angle-right': !status.isCustomHeaderOpen}"></i>
+                                            </uib-accordion-heading>
+                                            <a ng-class="{active: $state.current.name == 'myBookings' || $state.current.name == 'myBookings.all' || $state.current.name == 'myBookings.payments'}" href="#/myBookings/all/">All</a>
+                                            <a ng-class="{active: $state.current.name == 'myBookings.scheduled'}" href="#/myBookings/scheduled/">Scheduled</a>
+                                            <a ng-class="{active: $state.current.name == 'myBookings.completed'}" href="#/myBookings/completed/">Completed</a>
+                                        </div>
+                                        <a ng-class="{active: activePath == '/calendar/calendarEvents' || $state.current.name == 'calendar.update_available_time'}" ng-click="dropdown('MyCalendar')" href="#/calendar/calendarEvents" ng-hide="admin.bankStatus == false">Calendar</a>
+                                        <div uib-accordion-group class="panel-default" ng-click="dropdown('MyCustomRequests')" is-open="status.isRequestHeaderOpen" template-url="group-template.html" ng-hide="admin.bankStatus == false" ng-class="{active: $state.current.name == 'customRequests.all' || $state.current.name == 'customRequests.completed' || $state.current.name == 'customRequests.pending'}">
+                                            <uib-accordion-heading>
+                                                Custom Requests <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isRequestHeaderOpen, 'fa fa-angle-right': !status.isRequestHeaderOpen}"></i>
+                                            </uib-accordion-heading>
+                                            <a ng-class="{active: $state.current.name == 'customRequests.all'}" ui-sref="customRequests.all({'id':$state.params.id})">All</a>
+                                            <a ng-class="{active: $state.current.name == 'customRequests.pending'}" ui-sref="customRequests.pending">Manage Requests</a>
+                                            <a ng-class="{active: $state.current.name == 'customRequests.completed'}" ui-sref="customRequests.completed">Completed Requests</a>
+                                        </div>
+                                        <div uib-accordion-group class="panel-default" ng-click="dropdown('MyMessages')" is-open="status.isMessageHeaderOpen" template-url="group-template.html" ng-hide="admin.bankStatus == false" ng-class="{active: activePath == '/myMessages' || activePath == '/myAccount' || activePath == '/mySupport'}">
+                                            <uib-accordion-heading>
+                                                Messages <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isMessageHeaderOpen, 'fa fa-angle-right': !status.isMessageHeaderOpen}"></i>
+                                            </uib-accordion-heading>
+                                            <a ng-class="{active: activePath == '/myMessages'}" href="#/myMessages">Inquiries</a>
+                                            <a ng-class="{active: activePath == '/mySupport'}" href="#/mySupport">Support</a>
+                                            <a ng-class="{active: activePath == '/myAccount'}" href="#/myAccount">Account</a>
+                                        </div>
+                                        <div uib-accordion-group class="panel-default" ng-click="dropdown('MyProducts')" is-open="status.isProductHeaderOpen" template-url="group-template.html" ng-class="{active: activePath == '/product_service_catalog/Products' || activePath == '/product_service_catalog/addProduct' || activePath == '/product_service_catalog/updateProduct' }" ng-hide="admin.bankStatus == false">
+                                            <uib-accordion-heading>
+                                                Products &amp; Services <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isProductHeaderOpen, 'fa fa-angle-right': !status.isProductHeaderOpen}"></i>
+                                            </uib-accordion-heading>
+                                            <a ng-class="{active: activePath == '/product_service_catalog/Products'}" href="#/product_service_catalog/Products">All</a>
+                                            <a ng-class="{active: activePath == '/product_service_catalog/addProduct'}" href="#/product_service_catalog/addProduct">Add New</a>
+                                        </div>
+                                        <div uib-accordion-group class="panel-default" ng-click="dropdown('MyAvailability')" is-open="status.isHeaderOpen" template-url="group-template.html" ng-hide="admin.bankStatus == false" ng-class="{active: activePath == '/calendar/AvailabilityTiming' || activePath == '/calendar/available_time_list' || activePath == '/calendar/addcalendarEvent' || activePath == '/calendar/calendarEventList' || activePath == '/calendar/update_available_time' || $state.current.name == 'calendar.updatecalendarEvent' || $state.current.name == 'calendar.update_available_time'}">
+                                            <uib-accordion-heading>
+                                                Availability <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isHeaderOpen, 'fa fa-angle-right': !status.isHeaderOpen}"></i>
+                                            </uib-accordion-heading>
+                                            <a ng-class="{active: activePath == '/calendar/AvailabilityTiming'}" href="#/calendar/AvailabilityTiming">Maintain Working Hours</a>
+                                            <a ng-class="{active: activePath == '/calendar/available_time_list' || $state.current.name == 'calendar.update_available_time'}" href="#/calendar/available_time_list">Working Hours</a>
+                                            <a ng-class="{active: activePath == '/calendar/addcalendarEvent'}" href="#/calendar/addcalendarEvent">Add Unavailable Timeslots</a>
+                                            <a ng-class="{active: activePath == '/calendar/calendarEventList' || $state.current.name == 'calendar.updatecalendarEvent'}" href="#/calendar/calendarEventList">Unavailable Timeslots</a>
+                                        </div>
+                                        <div uib-accordion-group class="panel-default" ng-click="dropdown('MyTeams')" is-open="status.isTeamHeaderOpen" template-url="group-template.html" ng-hide="admin.bankStatus == false" ng-class="{active: activePath == '/teams' || activePath == '/myTeam' || activePath == '/teamMembers' || activePath == '/teamMember' || activePath == '/import' || activePath.indexOf('assignmentView') != '-1'}">
+                                            <uib-accordion-heading>
+                                                Team <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isTeamHeaderOpen, 'fa fa-angle-right': !status.isTeamHeaderOpen}"></i>
+                                            </uib-accordion-heading>
+                                            <a ng-class="{active: activePath == '/teams' || activePath == '/myTeam'}" href="#/teams">Teams</a>
+                                            <a ng-class="{active: activePath == '/teamMembers' || activePath == '/teamMember'}" href="#/teamMembers">Team Members</a>
+                                            <a ng-class="{active: activePath == '/import'}" href="#/import">Import</a>
+                                            <a ng-href="{{downloadTeamDataDocumentURL}}">Download</a>
+                                        </div>
+                                        <a ng-class="{active: $state.current.name == 'myPayments'}" ng-click="dropdown('MyPayments')" href="#/myPayments" ng-hide="admin.bankStatus == false">Payments</a>
+                                    </div>
+                                    <div class="Mystuff">Settings</div>
+                                    <div uib-accordion-group class="panel-default" ng-click="dropdown('Location')" is-open="status.isLocationHeaderOpen" template-url="group-template.html" ng-class="{active: activePath == '/vendorSettings/Location' || activePath == '/vendorSettings/addLocation' || activePath == '/vendorSettings/updateLocation/' || activePath == '/vendorSettings/updateLocation/' + $state.params.id}" ng-hide="admin.bankStatus == false">
+                                        <uib-accordion-heading>
+                                            Location <i class="pull-right glyphicon" ng-class="{'fa fa-angle-down': status.isLocationHeaderOpen, 'fa fa-angle-right': !status.isLocationHeaderOpen}"></i>
+                                        </uib-accordion-heading>
+                                        <a ng-class="{active: activePath == '/vendorSettings/Location' || activePath == '/vendorSettings/updateLocation/' + $state.params.id}" href="#/vendorSettings/Location">All</a>
+                                        <a ng-class="{active: activePath == '/vendorSettings/addLocation'}" href="#/vendorSettings/addLocation">Add New</a>
+                                    </div>
+                                    <a ng-class="{active: activePath == '/vendorSettings/My-Account/basicInfo'}" ng-click="dropdown('Account')" href="#/vendorSettings/My-Account/basicInfo" ng-click="tabaction('1')">Account</a>
+                                    <a ng-class="{active: activePath == '/vendorSettings/My-Account/businessInfo'}" ng-click="dropdown('BusinessInfo')" href="#/vendorSettings/My-Account/businessInfo" ng-click="tabaction('2')">Business Info</a>
+                                    <a ui-sref-active="active">Security</a>
+                                    <a ng-class="{active: activePath == '/vendorSettings/My-Account/bankInfotab'}" ng-click="dropdown('BankDetails')" href="#/vendorSettings/My-Account/bankInfotab" ng-click="tabaction('3')">Bank Details</a>
+                                    <a ng-class="{active: activePath == '/vendorSettings/My-Account/subscription'}" ng-click="dropdown('Subscription')" ui-sref="vendorSettings.subscription">Subscription</a>
+                                </uib-accordion>
                             </div>
                             <!--/.nav-collapse -->
                         </div>
                     </nav>
                 </div>
-                <div id="page-content" class="bodySection contentHolder col-sm-9 col-md-10 col-lg-10 col-xs-12 noPad">
+                <div id="page-content" class="bodySection contentHolder col-sm-12 col-md-10 col-lg-10 col-xs-12 noPad">
                     <div ui-view autoscroll="false"></div>
                 </div>
             </div>
         </div>
-
-
-
-
+        <script type="text/ng-template" id="group-template.html">
+            <div>
+            <div class="panel-heading">
+            <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+            <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+            {{heading}}
+            </span>
+            </a>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!isOpen">
+            <div class="panel-body" ng-transclude></div>
+            </div>
+            </div>
+        </script>
         <script type="text/javascript" src="js/markerwithlabel.js"></script>
         <script src="js/vendor/jquery-1.11.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
@@ -253,11 +229,10 @@
         <script type="text/javascript" src="js/daterangepicker.js"></script>
         <script src="js/flatpickr.min.js" type="text/javascript"></script>
         <script src="js/ng-flatpickr.js" type="text/javascript"></script>
-        <script src="js/dhtmlxScheduler/dhtmlxscheduler.js" type="text/javascript"></script>
-
-
+        <!--<script src="js/dhtmlxScheduler/dhtmlxscheduler.js" type="text/javascript"></script>-->
         <script src="js/ng-map.js"></script>
         <script src="js/plugins.js"></script>
+        <!--<script src="js/bmccalendar/bmccalendar.min.js" type="text/javascript"></script>-->
         <script src="js/app.js"></script>
         <script src="js/pages/uiProgress.js"></script>
         <script src="js/masonry.pkgd.js"></script>
@@ -268,7 +243,7 @@
         <script src="js/braintree-web/paypal.js" type="text/javascript"></script>
         <script src="js/braintree-web/data-collector.js" type="text/javascript"></script>
         <!-- <script src="js/ckeditor/ckeditor.js"></script>
-            <script src="js/ckeditor/adapters/jquery.js"></script> -->
+                    <script src="js/ckeditor/adapters/jquery.js"></script> -->
         <!-- END User Settings -->
         <script src="js/angular-file-upload.min.js"></script>
         <script src="config/route.js"></script>
@@ -276,10 +251,8 @@
         <script src="config/settings.js"></script>
         <script src="controllers/appCtrl.js"></script>
         <script src="controllers/commonService.js" type="text/javascript"></script>
-
         <script src="js/jquery.timepicker.min.js" type="text/javascript"></script>
-        <link href="css/jquery.timepicker.css" rel="stylesheet" type="text/css"/>
-
+        <link href="css/jquery.timepicker.css" rel="stylesheet" type="text/css" />
         <script type='text/javascript' src='js/textedit/textAngular-rangy.min.js'></script>
         <script type='text/javascript' src='js/textedit/textAngular-sanitize.min.js'></script>
         <script type='text/javascript' src='js/textedit/textAngular.min.js'></script>
@@ -296,8 +269,9 @@
         <script type="text/javascript" src="templates/myBookings/assign_controller.js"></script>
         <script src="templates/myPayments/myPaymentsCtrl.js" type="text/javascript"></script>
         <script type="text/javascript" src="templates/customRequests/customRequestsCtrl.js"></script>
-        <script type="text/javascript" src="templates/calendarBusinessTime/businessTimeCtrl.js"></script> 
+        <script type="text/javascript" src="templates/calendarBusinessTime/businessTimeCtrl.js"></script>
         <script type="text/javascript" src="templates/calendarBusinessTime/businessTimeCtrl2.js"></script>
+        <script src="templates/calendarEvent/dateRangeDirective.js" type="text/javascript"></script>
         <script type="text/javascript" src="templates/calendarEvent/calendarEventCtrl.js"></script>
         <script type="text/javascript" src="templates/location/Securitysettings.js"></script>
         <script type="text/javascript" src="templates/myMessages/myMessagesCtrl.js"></script>
@@ -315,7 +289,6 @@
         <script type="text/javascript" src="controllers/myTeam/teamMembers_controller.js"></script>
         <script type="text/javascript" src="controllers/myTeam/importTeam_controller.js"></script>
         <script type="text/javascript" src="controllers/myTeam/assignmentView_controller.js"></script>
-
         <script type="text/javascript">
                                         //                                                var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
                                         //                                                (function(){
@@ -328,4 +301,5 @@
                                         //                                                })();
         </script>
     </body>
+
 </html>

@@ -30,7 +30,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
     $scope.checkattrname = false;
     $scope.currentPath = $location.path();
     console.log("$scope.currentPath", $scope.currentPath)
-    $scope.is_service="N";
+    $scope.is_service = "N";
     $scope.incrementBlock1 = function () {
         //$scope.block1.push({ 'location_id': '','tax_class_id':'' })
         $scope.block1.push({})
@@ -126,7 +126,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         $scope.block31.push(block3);
         $scope.block3.splice(index, 1);
     }
-    
+
     request.service('vendorGetLocations', 'post', {
         'vendor_id': $scope.admin.vendorid
     }, function (response) {
@@ -161,6 +161,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
     $scope.numchanged = function (entryLimit) {
         ctrlComm.put('entryLimit', entryLimit);
     };
+
     request.service('productStatus', 'get', {}, function (response) {
 
         $scope.productStatusList = response;
@@ -181,6 +182,9 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
     })
     request.service('measuresList', 'get', {}, function (response) {
         $scope.measuresList = response;
+        angular.forEach($scope.measuresList, function (n, i) {
+            n.show = true;
+        });
         console.log("measuresList", response)
     })
     request.service('currencyList', 'get', {}, function (response) {
@@ -398,6 +402,13 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
     function getAttributes(category_id) {
 
         console.log("");
+        /*angular.forEach($scope.measuresList, function (n, i) {
+            if (category_id != "2" && n.measure_units == 'per tray') {
+            	n.show = false;
+            } else {
+                n.show = true;
+            }
+        });*/
         var params = {};
         params.category_id = category_id;
         console.log("params", params)
@@ -406,27 +417,37 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             console.log($scope.attributesList)
         })
         getTeams(category_id);
-    };
-    function getTeams(category_id){
-    request.service('getTeamsByCategory', 'post', {
-        'vendor_id': $scope.admin.vendorid,
-        'category_id':category_id
-    }, function (response) {
-        console.log(response)
-        $scope.teamsList = response.result;
-        $scope.is_service=response.is_service;
-        if(response.is_service=='N')
-        {
-        	$('#teamsdiv').hide();
-        	$('#teamsdiv1').hide();
-        }else{
-        	$('#teamsdiv').show();
-        	$('#teamsdiv1').show();
-        }
-        
-    })
     }
+    ;
+    $scope.deamDiv = false;
+    function getTeams(category_id) {
+        request.service('getTeamsByCategory', 'post', {
+            'vendor_id': $scope.admin.vendorid,
+            'category_id': category_id
+        }, function (response) {
+            console.log("getTeamsByCategory", response)
+            $scope.teamsList = response.result;
+            $scope.is_service = response.is_service;
+            angular.forEach($scope.measuresList, function (n, i) {
+                if (category_id != "2" && n.measure_units == 'per tray') {
+                	n.show = false;
+                }else if ($scope.is_service=="N" && n.measure_units == 'per hour') {
+                	n.show = false;
+                }
+                else {
+                    n.show = true;
+                }
+            });
+            if (response.is_service == 'N') {
+                $scope.deamDiv = false;
+            } else {
+                $scope.deamDiv = true;
+            }
+
+        })
     
+    }
+
     function getAttributeValue(selectt, attribute_id, category_id, i) {
         var params = {};
         params.attribute_id = attribute_id;
@@ -487,7 +508,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
 
                 $scope.cattribute_value = selectt.attributesValuesList[i].attribute_value;
                 //code for all
-                if (selectt.attributesValuesList[i].attribute_value == 'All') {
+                if (selectt.attributesValuesList[i].attribute_value == 'All' &&  selectt.id!=60) {
                     // $('select#myselect > option').prop('selected', 'selected');
                     for (i in selectt.attributesValuesList)
                     {
@@ -577,7 +598,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
                 console.log("value", selectt.attributesValuesList[i].attribute_value)
                 $scope.cattribute_value = selectt.attributesValuesList[i].attribute_value;
                 //code for all
-                if (selectt.attributesValuesList[i].attribute_value == 'All') {
+                if (selectt.attributesValuesList[i].attribute_value == 'All' &&  selectt.id!=60 ) {
                     // $('select#myselect > option').prop('selected', 'selected');
                     for (i in selectt.attributesValuesList)
                     {
@@ -612,8 +633,15 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
     }
 
     $scope.getAttributes = function (category_id) {
-
-        console.log("category_id", category_id)
+        console.log("category_id", category_id);
+        // if selected cattergory is "catering" then from units removing "per tray"
+        /*angular.forEach($scope.measuresList, function (n, i) {
+            if (category_id != "2" && n.measure_units == 'per tray') {
+                n.show = false;
+            } else {
+                n.show = true;
+            }
+        });*/
         $scope.ccategory_id = category_id;
         console.log("category_id", $scope.categoriesList)
         $scope.multiSelBlocks = [{}];
@@ -654,10 +682,10 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             var s = [];
             for (var i = 0; i < block1.length; i++) {
                 console.log("b", block1[i].location_id)
-                if($scope.is_service=='N')
+                if ($scope.is_service == 'N')
                 {
-                block1[i].team_id = undefined;
-      		    block1[i].noofpersons = undefined;
+                    block1[i].team_id = undefined;
+                    block1[i].noofpersons = undefined;
                 }
                 s.push(block1[i].location_id)
             }
@@ -855,6 +883,10 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
                     $state.go('product_service_catalog.Products');
                 });
             }
+            if (response.status == '1') {
+            $scope.notification(response.message);
+            }
+            
         })
     }
     $scope.deleteProductConfirm = function (product) {
@@ -1242,6 +1274,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         e = 0;
         f = 0;
         g = 0;
+        h = 0;
         delete $scope.err.f;
         delete $scope.err.g;
         for (var i = 0; i < $scope.block1.length; i++) {
@@ -1279,37 +1312,51 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             } else {
                 $scope.block1[i].costv = false;
             }
-            if($scope.is_service=='Y')
-      	  	{/*
-      	   if ($scope.block1[i].team_id == undefined) {
-                 f = f + 1;
-                 $scope.block1[i].team_idv = true;
-             } else {
-                 $scope.block1[i].team_idv = false;
-             }
-             if ($scope.block1[i].noofpersons == undefined) {
-                 g = g + 1;
-                 $scope.block1[i].percountv = true;
-             } else {
-                 $scope.block1[i].percountv = false;
-             }
-             
-             if (f > 0) {
-                 $scope.err.f = true;
-             } else {
-                 delete $scope.err.f;
-             }
-             if (g > 0) {
-                 $scope.err.g = true;
-             } else {
-                 delete $scope.err.g;
-             }
-      	  */}else{
-      		$scope.block1[i].team_id = undefined;
-      		$scope.block1[i].noofpersons = undefined;
-      	  }
-            
-            
+            if ($scope.is_service == 'Y')
+            {
+                if ($scope.block1[i].team_id == undefined) {
+                    f = f + 1;
+                    $scope.block1[i].team_idv = true;
+                } else {
+                    $scope.block1[i].team_idv = false;
+                }
+                if ($scope.block1[i].noofpersons == undefined) {
+                    g = g + 1;
+                    $scope.block1[i].percountv = true;
+                } else {
+                    $scope.block1[i].percountv = false;
+                }
+                
+                if ($scope.block1[i].noofpersons=='' || $scope.block1[i].noofpersons=='0')
+                {
+                	h = h + 1;
+	                $scope.block1[i].countcheck = true;
+	            } else {
+	                $scope.block1[i].countcheck = false;
+	            }
+
+                if (f > 0) {
+                    $scope.err.f = true;
+                } else {
+                    delete $scope.err.f;
+                }
+                if (g > 0) {
+                    $scope.err.g = true;
+                } else {
+                    delete $scope.err.g;
+                }
+                if (h > 0) {
+                    $scope.err.h = true;
+                } else {
+                    delete $scope.err.h;
+                }
+
+            } else {
+                $scope.block1[i].team_id = undefined;
+                $scope.block1[i].noofpersons = undefined;
+            }
+
+
             if (a > 0) {
                 $scope.err.a = true;
             } else {
@@ -1335,7 +1382,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             } else {
                 delete $scope.err.e;
             }
-           
+
 
 
         }
@@ -1343,6 +1390,7 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         var unchecattr = 0;
         var unchecattr1 = 0;
         var unchecattr2 = 0;
+        var eventexistCheck=false;
         for (var i = 0; i < $scope.multiSelBlocks.length; i++) {
             console.log('$scope.multiSelBlocks[i].id' + $scope.multiSelBlocks[i].id);
             console.log($scope.multiSelBlocks[i].id)
@@ -1370,7 +1418,10 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             }
 
 
-
+            if($scope.multiSelBlocks[i].id==undefined || $scope.multiSelBlocks[i].id==60)
+            {
+            	eventexistCheck=true;
+            }
 
         }
         if (unchecattr > 0) {
@@ -1393,6 +1444,14 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
         } else {
             delete $scope.err.long_description;
         }
+        if (eventexistCheck==false) {
+            $scope.err.eventexistCheck = true;
+            $scope.notification("Please select atleast one Event Type from Product Attributes");
+        } else {
+            delete $scope.err.eventexistCheck;
+        }
+        
+        
         console.log("lengthy::", Object.keys($scope.err).length);
         console.log("err", $scope.err);
         if (Object.keys($scope.err).length == 0) {
@@ -1431,6 +1490,54 @@ app.controller('productsCtrl', function ($scope, $rootScope, request, ctrlComm, 
             } else {
                 cost = val;
             }
+        }
+    }
+    $scope.setpersoncount = function (val, i) {
+    	if(val)
+    	{
+    		if($scope.block1[i].noofpersons==null || $scope.block1[i].noofpersons =='')
+    		{
+    		$scope.block1[i].noofpersons = 1;
+    		}
+    	}else{
+    		$scope.block1[i].noofpersons = '';
+    	}
+    }
+    var noofpersons = '';
+    $scope.checkTeamCount = function (val, i) {
+        if (val) {
+            if (!val.toString().match(/^[1-9]*$/)) {
+                if (val.toString().length != 1) {
+                    $scope.block1[i].noofpersons = noofpersons;
+                    $scope.getTeamCount($scope.block1[i]);
+                } else {
+                    $scope.block1[i].noofpersons = '';
+                    $scope.block1[i].countcheck = true;
+                }
+            } else {
+                noofpersons = val;
+                $scope.getTeamCount($scope.block1[i]);
+            }
+        } else
+        {
+            $scope.block1[i].countcheck = false;
+        }
+    }
+    $scope.getTeamCount = function (block1) {
+        if (block1.team_id)
+        {
+            var team_id = block1.team_id;
+            var noofper = block1.noofpersons;
+            block1.countcheck = false;
+            angular.forEach($scope.teamsList, function (obj) {
+                if (obj.team_id == team_id && noofper > obj.teamcount)
+                {
+                    block1.countcheck = true;
+                }
+            });
+        } else {
+            block1.team_idv = true;
+            block1.noofpersons = '';
         }
     }
     var product_upc_ean_code = '';

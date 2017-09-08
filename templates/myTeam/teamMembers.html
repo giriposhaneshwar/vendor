@@ -103,12 +103,12 @@
                                                                     
                                                             </div> -->
                     <div class="float-right float-right member-buttons">
-                        <div class="member-btn">
+<!--                        <div class="member-btn">
                             <a class="send-message" href="#/assignmentView/{{item.id}}" style="padding: 8px 10px;">VIEW ASSIGNMENTS</a>
-                        </div>
+                        </div>-->
                         <div class="member-options">
                             <div ng-click="editTeamMember(item)"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" title="Edit"></i></div>
-                            <div style="display: none;" ng-click="deleteTeamMember(item)"><i class="fa fa-trash-o" aria-hidden="true" data-toggle="tooltip" title="Delete"></i></div>
+                            <div ng-if="currUser.userId!=item.id" ng-click="deleteTeamMember(item)"><i class="fa fa-trash-o" aria-hidden="true" data-toggle="tooltip" title="Delete"></i></div>
                         </div>
                     </div>
                 </div>

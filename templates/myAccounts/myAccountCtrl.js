@@ -130,7 +130,7 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
     };
     $scope.cancelChangePwd = function () {
         $scope.changePass = {};
-        $scope.passwordError = {pass1: {status: false, message: ""}, pass2: {status: false, message: ""}, status: false};
+        $scope.passwordError = {pass1: {status: false, message: ""}, pass2: {status: false, message: ""}, pass3: {status: false, message: ""}, status: false};
         $('#vednorChangePwd').hide();
         $('#vendorPwd').show();
     };
@@ -141,11 +141,18 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
             $(this).css('color', 'transparent');
         }
     });
-    $scope.passwordError = {pass1: {status: false, message: ""}, pass2: {status: false, message: ""}, status: false};
+    $scope.passwordError = {pass1: {status: false, message: ""}, pass2: {status: false, message: ""}, pass3: {status: false, message: ""}, status: false};
     $scope.checkCharacterEntry = function (e, data, key) {
         console.log("password ", data, key);
-        var dta = {data1: data.newPassword, data2: data.retypePassword};
-        if (!(/^\S{1,}$/.test(dta["data" + key]))) {
+        var dta = {data1: data.newPassword, data2: data.retypePassword,data3:data.currentPassword};
+        if(dta["data" + key] == undefined)
+        {
+        	 $scope.passwordError["pass" + key].status = true;
+             $scope.passwordError["pass" + key].message = 'Password cannot contain whitespace!';
+             $scope.passwordError.status = false;
+             return false;
+        }
+        else if (!(/^\S{1,}$/.test(dta["data" + key]))) {
             $scope.passwordError["pass" + key].status = true;
             $scope.passwordError["pass" + key].message = 'Password cannot contain whitespace!';
             $scope.passwordError.status = false;
@@ -171,7 +178,8 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         if ($scope.passwordError.status) {
             request.service('vendorChangePassword', 'post', {
                 userid: $scope.admin.userId,
-                newpassword: data.newPassword
+                newpassword: data.newPassword,
+                currentPassword:data.currentPassword
             }, function (response) {
                 if (response != undefined && response.status == 0) {
                     $scope.notification(response.message, 'success');
@@ -181,6 +189,8 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                 }
             });
         } else if (data == undefined) {
+        	$scope.passwordError.pass3.status=true;
+        	$scope.passwordError.pass3.message='Please fill required field';;
             $scope.passwordError.pass1.status = true;
             $scope.passwordError.pass2.status = true;
             $scope.passwordError.pass1.message = 'Please fill required field';
@@ -190,6 +200,8 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         } else {
             $scope.passwordError.pass1.status = true;
             $scope.passwordError.pass2.status = true;
+            $scope.passwordError.pass3.status = true;
+            $scope.passwordError.pass3.message='Password should be of min. 5 characters and no spaces';
             $scope.passwordError.pass1.message = 'Password should be of min. 5 characters and no spaces';
             $scope.passwordError.pass2.message = 'Password should be of min. 5 characters and no spaces';
 
@@ -406,9 +418,9 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         }, function (response) {
 //            debugger;
             ctrlComm.put('userObj1', response);
-            if(response.logo1!=null && response.logo!='')
+            if (response.logo1 != null && response.logo != '')
             {
-            $scope.admin.vendor.logo=response.logo;
+                $scope.admin.vendor.logo = response.logo;
             }
             $scope.vendor = response;
             $scope.vendor.phone_number = $scope.vendor.phone_number;
@@ -1855,7 +1867,7 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
         delete $scope.err2.licenseNo;
         delete $scope.err2.issuerName;
         delete $scope.err2.expDate;
-        
+
         if (!$scope.vendor.online_vendor) {
             $scope.err2.online_vendor = true;
         } else {
@@ -2068,6 +2080,8 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                             $scope.notification('Business Details Updated Successfully');
                             $rootScope.customRequestFiles1 = $scope.customRequestFiles1 = undefined;
                             getVendorBusiness();
+                            ctrlComm.del('vendorCategories');
+                            ctrlComm.del('vendorLocations');
                             if (statuscheck == true) {
                                 $scope.admin.venodorStatus = true;
                                 $scope.admin.venodorVStatus = response.vendor_status;
@@ -2445,6 +2459,12 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
 
     });
     var bankzip = '';
+    $scope.$watch('$state.current.name', function (val) {
+        if (val == "vendorSettings.My-Account.tab3") {
+            // handeling the page scroll on load
+            document.body.scrollTop = 0;
+        }
+    });
     $scope.$watch('bank.zip', function (val) {
         if (val == 0) {
             $scope.bank.zip = '';
@@ -2507,11 +2527,6 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
             });
         }
     });
-    /* $scope.location = function (res) {
-     console.log("res", res);
-     }
-     */
-
 
     $scope.change1 = function (res, res1) {
         if (res != undefined) {
@@ -2522,7 +2537,6 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                 var nameList = res1.split(re);
                 console.log("nameList", nameList)
 
-
                 $scope.bank.address_line1 = '';
                 $scope.bank.address_line2 = '';
                 $scope.bank.city = '';
@@ -2530,10 +2544,6 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                 $scope.bank.country = '';
                 $scope.bank.zip = '';
                 for (i = 0; i < res.length; i++) {
-
-
-
-
                     if (res[i].types[0] == "sublocality_level_1") {
                         $scope.bank.address_line12 = res[i].long_name;
                     }
@@ -2553,18 +2563,14 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                     console.log("res ***", res);
                 }
 
-
-
                 var str1 = nameList[0].trim();
                 var str2 = $scope.bank.city.trim();
                 console.log(str1);
                 console.log(str2);
                 if (str1 != str2) {
-
                     var re1 = /\s* \s*/;
                     var nameList1 = str1.split(re1);
                     console.log("nameList", nameList1)
-
                     var str3 = nameList1[0];
                     var str4 = nameList1[1];
                     if (str3 == str4) {
@@ -2577,9 +2583,6 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                         ;
                         console.log("**2")
                     }
-
-
-
                     /*  $scope.bank.address_line1 = str1;
                      if(nameList.length>5 && nameList[1]!="") $scope.bank.address_line1 += ", "+nameList[1]
                      console.log("1")*/
@@ -2616,13 +2619,7 @@ app.controller('myAccountCtrl', function ($scope, $rootScope, $location, request
                             $scope.bank.zip = response;
                         })
                     }
-
-
-
                 }
-
-
-
             }, 0)
         }
 

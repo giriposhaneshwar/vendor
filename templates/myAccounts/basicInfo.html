@@ -57,6 +57,26 @@
                 <!--<br> {{passRes| json}}-->
             </label>
             <form name="changePwdForm" novalidate>
+            <div class="col-xs-12 noPad">
+            <div class="col-sm-6 noPad" style="padding-right: 10px;">
+                        <label class="labelName mar10-top">Current Password</label>
+                        <input type="password" 
+                               class="form-control" 
+                               name="password" 
+                               placeholder="5 characters min" 
+                               ng-model="changePass.currentPassword"
+                               ng-focus="passwordError.pass1.status = false;"
+                               ng-keyup="checkCharacterEntry($event, changePass, 3)" 
+                               required>
+                        <div class="col-xs-12 noPad">
+                            <span class="text-danger" 
+                                  ng-show="passwordError.pass3.status">
+                                {{passwordError.pass3.message}}
+                            </span>
+                            <!--  <span class="text-danger" ng-show="passerr" style="">5 characters min</span> -->
+                        </div>
+                    </div>
+            </div>
                 <div class="col-xs-12 noPad">
                     <div class="col-sm-6 noPad" style="padding-right: 10px;">
                         <label class="labelName mar10-top">New Password</label>

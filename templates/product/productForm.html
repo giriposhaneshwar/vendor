@@ -26,7 +26,11 @@
         <div class="col-sm-6 col-xs-12 pad10" ng-class="(err.category_id == true) ? 'has-error' : 'has-primary'">
             <label class="labelName" for="category">Vendor Type</label>
             <div>
-                <select ng-if="page.type == 'post'" class="form-control" ng-model="product.category_id" ng-focus="err.category_id = false;" ng-change="getAttributes(product.category_id)">
+                <select ng-if="page.type == 'post'" 
+                        class="form-control" 
+                        ng-model="product.category_id" 
+                        ng-focus="err.category_id = false;" 
+                        ng-change="getAttributes(product.category_id)">
                     <option value="" hidden>Select Vendor Type</option>
                     <option ng-repeat="category in categoriesList| orderBy : 'category_name'" value={{category.id}}>{{category.category_name}}</option>
                 </select>
@@ -34,7 +38,12 @@
                     <option value="" disabled="true">Please select category</option>
                     <option value="" ng-if="false"></option>
                     </select>-->
-                <select ng-if="page.type == 'put'" class="form-control" ng-disabled="true" ng-model="product.category_id" ng-options='category.id as category.category_name for category in categoriesList' ng-focus="err.category_id = false;">
+                <select ng-if="page.type == 'put'" 
+                        class="form-control" 
+                        ng-disabled="true" 
+                        ng-model="product.category_id" 
+                        ng-options='category.id as category.category_name for category in categoriesList' 
+                        ng-focus="err.category_id = false;">
                     <option value="" hidden>Select Vendor Type</option>
                 </select>
             </div>
@@ -127,7 +136,8 @@
         <!--<pre>{{block1}}</pre>--> 
         <div class="col-xs-12 noPad">
             <div class="col-xs-12 noPad" ng-repeat="tax in block1 track by $index">
-                <div class="col-xs-10 pad5">
+                <div class="pad5"
+                     ng-class="{'col-xs-10': block1.length > 1, 'col-xs-11': block1.length == 1}">
                     <div class="col-sm-3 pad5">
                         <div ng-class="(tax.location_idv == true) ? 'has-error' : 'has-primary'">
                             <label class="labelName"  for="location_id">Product Location</label>
@@ -196,9 +206,9 @@
                             <div>
                                 <select ng-if="page.type == 'post'" class="form-control" ng-model="tax.measure_id" ng-focus="tax.measure_idv = false;">
                                     <option value="" hidden>Select</option>
-                                    <option ng-repeat="measure in measuresList" value={{measure.id}}>{{measure.measure_name}}</option>
+                                    <option ng-if="measure.show" ng-repeat="measure in measuresList" value={{measure.id}}>{{measure.measure_name}}</option>
                                 </select>
-                                <select ng-if="page.type == 'put'" class="form-control" ng-model="tax.measure_id" ng-options='measure.id as measure.measure_name for measure in measuresList' ng-focus="tax.measure_idv = false;">
+                                <select ng-if="page.type == 'put'" class="form-control" ng-model="tax.measure_id" ng-options="measure.id as measure.measure_name for measure in measuresList| filter:measure.show='true'" ng-focus="tax.measure_idv = false;">
                                 </select>
                             </div>
                             <div>
@@ -206,36 +216,40 @@
                             </div>
                         </div>
                     </div>
-                 <div id="teamsdiv" style="display: none;" class="col-xs-6 pad5">
-                    <div class="" ng-class="(tax.team_idv == true) ? 'has-error' : 'has-primary'">
-                            <label class="labelName" for="name">Teams</label>
-                            <div>
-                            <select ng-if="page.type == 'post'" class="form-control" ng-model="tax.team_id" ng-focus="tax.team_idv = false;">
-                                    <option value="" hidden>Select</option>
-                                    <option ng-repeat="team in teamsList" value={{team.team_id}}>{{team.team_name}}</option>
-                                </select>
-                                <select ng-if="page.type == 'put'" class="form-control" ng-model="tax.team_id" ng-options='team.team_id as team.team_name for team in teamsList' ng-focus="tax.team_idv = false;">
-                                </select>
-                            </div>
-                            <div>
-                                <span class="text-danger" ng-show="tax.team_idv">Please select Teams</span>
+                    <div class="col-xs-12 noPad">
+                        <div id="teamsdiv" class="col-xs-6 pad5" ng-if="deamDiv">
+                            <div class="" ng-class="(tax.team_idv == true) ? 'has-error' : 'has-primary'">
+                                <label class="labelName" for="name">Teams</label>
+                                <div>
+                                    <select ng-if="page.type == 'post'" class="form-control" ng-model="tax.team_id" ng-focus="tax.team_idv = false;" ng-change="setpersoncount(tax.team_id, $index)">
+                                        <option value="" hidden>Select</option>
+                                        <option ng-repeat="team in teamsList" value={{team.team_id}}>{{team.team_name}}</option>
+                                    </select>
+                                    <select ng-if="page.type == 'put'" class="form-control" ng-model="tax.team_id" ng-options='team.team_id as team.team_name for team in teamsList' ng-focus="tax.team_idv = false;" ng-change="setpersoncount(tax.team_id, $index)">
+                                    </select>
+                                </div>
+                                <div>
+                                    <span class="text-danger" ng-show="tax.team_idv">Please select Teams</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                      <div  id="teamsdiv1"  style="display: none;" class="col-xs-6 pad5">
-                        <div class="" ng-class="(tax.percountv == true) ? 'has-error' : 'has-primary'">
-                            <label  class="labelName" for="noofpersons">persons count</label>
-                            <div>
-                                <input type="text" placeholder="persons count" ng-focus="tax.percountv = false;" class="form-control" name="noofpersons" ng-change="checkcost(tax.cost, $index)" ng-model="tax.noofpersons" currency-input size="30" required>
-                            </div>
-                            <div>
-                                <span class="text-danger" ng-show="tax.percountv">Please enter persons count</span>
+                        <div  id="teamsdiv1"  class="col-xs-6 pad5" ng-if="deamDiv">
+                            <div class="" ng-class="(tax.percountv == true) ? 'has-error' : 'has-primary'">
+                                <label  class="labelName" for="noofpersons">persons count</label>
+                                <div>
+                                    <input type="text" placeholder="persons count" ng-focus="tax.percountv = false;" class="form-control" name="noofpersons" ng-change="checkTeamCount(tax.noofpersons, $index)" ng-model="tax.noofpersons" currency-input size="30" required>
+                                </div>
+                                <div>
+                                    <span class="text-danger" ng-show="tax.percountv">Please enter persons count</span>
+                                    <span class="text-danger" ng-show="tax.countcheck">persons count should be lesser or equal to Team count</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-2 pad20-top">
-                    <button type="button" class="btn btn-default btn-circle roundButtonBg buttonBg" ng-click="incrementBlock1()" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-plus"></i></button>
+                <div class="pad20-top text-right"
+                     ng-class="{'col-xs-2': block1.length > 1, 'col-xs-1': block1.length == 1}">
+                    <button type="button" class="btn btn-default btn-circle roundButtonBg buttonBg" ng-click="incrementBlock1()" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-plus" style="left: 1px;"></i></button>
                     <button type="button" class="btn btn-default btn-circle deleteButton" ng-show="block1.length > 1" ng-click="decrementBlock1($index, tax)" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-trash"></i></button>
                 </div>
             </div>
@@ -246,79 +260,96 @@
             <h3 class="formSectionTitle" style="line-height: 1; padding-top: 15px;">Product Attributes</h3>
 
             <div class="col-xs-12 noPadd" ng-repeat="(key, select) in multiSelBlocks">
-                <div class="col-xs-5 noPad">
-                    <div class="" ng-class="(select.idval == true) ? 'has-error-no' : 'has-primary'">
-                        <label class="labelName pad20-top" for="id">Attribute Name</label>
-                        <div>
-                            <!--     {{select}} -->
-                            <select ng-if="page.type == 'post'" 
-                                    ng-model="select.id" 
-                                    class="form-control select_attr_{{key}}" 
-                                    name="attr" 
-                                    ng-change="getAttributeValue(select, select.id, product.category_id, key);" 
-                                    ng-focus="select.idval = false;">
-                                <option value="" hidden>Select</option>
-                                <option ng-repeat="adress in attributesList" value="{{adress.id}}" id="attr_{{adress.id}}">{{adress.attribute_name}}</option>
-                            </select>
-                            <input type="hidden" class="form-control" name="select[$index].attr_id" ng-model="select.attr_id">
-                            <select ng-if="page.type == 'put'" ng-change="getAttributeValueput(select, select.id, product.category_id, key);" class="form-control select_attr_{{key}}" ng-model="select.id" ng-options='attribute.id as attribute.attribute_name for attribute in attributesList' ng-focus="select.idval = false;">
-                                <option value="" hidden>Select</option>
-                            </select>
-                        </div>
-                        <div>
-                            <span class="text-danger" ng-show="select.idval">Please select attribute name</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-5">
-                    <div class="" ng-class="(select.err == true) ? 'has-error-no' : 'has-primary'">
-                        <label class="labelName pad20-top" for="value">Attribute Value</label>
-                        <div ng-if="page.type == 'post'" ng-init="select.attr_mode == 'single'">
-                            <select ng-hide="select.attr_mode == 'multiple'" id="myselect" ng-model="select.sinvalue" class="form-control " ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" ng-change="generateboxpost(select.sinvalue, select, key)" ng-focus="select.err = false;">
-                                <option value="" ng-hide="true" hidden>Select</option>
-                                <option value="" ng-if="false"></option>
-                            </select>
-                            <select ng-if="select.attr_mode == 'multiple'" ng-model="select.mulvalue"  id="myselect" name="myselect" class="form-control" ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" ng-change="generateboxpost(select.mulvalue, select, key)" ng-focus="select.err = false;" multiple>
-                                <option value="" ng-hide="true" hidden>Select</option>
-                                <option value="" ng-if="false"></option>
-                            </select>
-
-                            <div ng-class=" (select.other_text == true) ? 'has-error1' : 'has-primary'">
-                                <input ng-if="page.type == 'post'" type="text"  name="color1" ng-model="select.text" id="color" ng-show="select.hide == 1" 
-                                       ng-focus="select.other_text = false;" required/>
-                                <input type="text" name="color1" ng-model="select.attri_value" id="color" style='display:none' />
-                            </div>
-                            <div ng-if="page.type == 'post'">
-                                <span class="text-danger " ng-show="!select.err && select.hide == 1 && select.other_text">Please enter text</span> 
-                            </div>
-                        </div>
-                        <!-- <pre>{{attributesValuesList}}</pre>-->
-                        <!--    <select ng-if="page.type == 'post'" ng-model="tax.value" class="form-control" ng-options="value.id as value.attribute_value  for value in attributesValuesList[key+1]" ng-change="getAttributeValue(tax.id,product.category_id,key);" ng-focus="err.value=false;">
-                            <option value="" disabled="true">select value</option>
-                            <option value="" ng-if="false"></option>
-                            </select>-->
-                        <!--   <pre>{{select.sinvalue}}{{select}}{{key+1}}</pre> -->
-                        <div ng-if="page.type == 'put'">
-                            <select ng-hide="select.attr_mode == 'multiple'" ng-model="select.sinvalue" class="form-control" ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" ng-change="generatebox(select.sinvalue, select, key + 1)" ng-focus="select.err = false;">
-                                <option value="" ng-hide="true" hidden>Select</option>
-                                <option value="" ng-if="false"></option>
-                            </select>
-                            <select ng-if="select.attr_mode == 'multiple'" ng-model="select.mulvalue" class="form-control" id="vallll" ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" ng-change="generatebox(select.mulvalue, select, key + 1)" ng-focus="select.err = false;" multiple>
-                                <option value="" ng-hide="true" hidden>Select</option>
-                                <option value="" ng-if="false"></option>
-                            </select>
-                        </div>
-                        <div ng-class=" (select.other_text == true) ? 'has-error1' : 'has-primary'">
-                            <input type="text" ng-if="page.type == 'put'" name="color1" ng-model="select.text" id="color" ng-show="select.hide == 1"  ng-focus="select.other_text = false;" />
-                            <input type="text" name="color1" ng-model="select.attri_value" id="color" style='display:none' />
+                <div class="noPad" 
+                     ng-class="{'col-xs-10': multiSelBlocks.length > 1, 'col-xs-11': multiSelBlocks.length == 1}">
+                    <div class="col-xs-6 noPad">
+                        <div class="" ng-class="(select.idval == true) ? 'has-error-no' : 'has-primary'">
+                            <label class="labelName pad20-top" for="id">Attribute Name</label>
                             <div>
-                                <span class="text-danger ng-hide" ng-if="page.type == 'put'" ng-show="select.other_text">Please enter value</span> 
+                                <!--     {{select}} -->
+                                <select ng-if="page.type == 'post'" 
+                                        ng-model="select.id" 
+                                        class="form-control select_attr_{{key}}" 
+                                        name="attr" 
+                                        ng-change="getAttributeValue(select, select.id, product.category_id, key);" 
+                                        ng-focus="select.idval = false;">
+                                    <option value="" hidden>Select</option>
+                                    <option ng-repeat="adress in attributesList" value="{{adress.id}}" id="attr_{{adress.id}}">{{adress.attribute_name}}</option>
+                                </select>
+                                <input type="hidden" class="form-control" name="select[$index].attr_id" ng-model="select.attr_id">
+                                <select ng-if="page.type == 'put'" ng-change="getAttributeValueput(select, select.id, product.category_id, key);" class="form-control select_attr_{{key}}" ng-model="select.id" ng-options='attribute.id as attribute.attribute_name for attribute in attributesList' ng-focus="select.idval = false;">
+                                    <option value="" hidden>Select</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="text-danger" ng-show="select.idval">Please select attribute name</span>
                             </div>
                         </div>
-                        <span class="text-danger" ng-show="select.err">Please select value</span>
+                    </div>
+                    <div class="col-xs-6 noPad pad15-l attributeValueHolder">
+                        <div class="" ng-class="(select.err == true) ? 'has-error-no' : 'has-primary'">
+                            <label class="labelName pad20-top" for="value">Attribute Value</label>
+                            <div ng-if="page.type == 'post'" ng-init="select.attr_mode == 'single'">
+                                <select ng-hide="select.attr_mode == 'multiple'" id="myselect" ng-model="select.sinvalue" class="form-control " ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" ng-change="generateboxpost(select.sinvalue, select, key)" ng-focus="select.err = false;">
+                                    <option value="" ng-hide="true" hidden>Select</option>
+                                    <option value="" ng-if="false"></option>
+                                </select>
+                                <select ng-if="select.attr_mode == 'multiple'" ng-model="select.mulvalue"  id="myselect" name="myselect" class="form-control" ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" ng-change="generateboxpost(select.mulvalue, select, key)" ng-focus="select.err = false;" multiple>
+                                    <option value="" ng-hide="true" hidden>Select</option>
+                                    <option value="" ng-if="false"></option>
+                                </select>
+
+                                <div ng-class=" (select.other_text == true) ? 'has-error1' : 'has-primary'">
+                                    <input ng-if="page.type == 'post'" type="text"  name="color1" ng-model="select.text" id="color" ng-show="select.hide == 1" 
+                                           ng-focus="select.other_text = false;" required/>
+                                    <input type="text" name="color1" ng-model="select.attri_value" id="color" style='display:none' />
+                                </div>
+                                <div ng-if="page.type == 'post'">
+                                    <span class="text-danger " ng-show="!select.err && select.hide == 1 && select.other_text">Please enter text</span> 
+                                </div>
+                            </div>
+                            <!-- <pre>{{attributesValuesList}}</pre>-->
+                            <!--    <select ng-if="page.type == 'post'" ng-model="tax.value" class="form-control" ng-options="value.id as value.attribute_value  for value in attributesValuesList[key+1]" ng-change="getAttributeValue(tax.id,product.category_id,key);" ng-focus="err.value=false;">
+                                <option value="" disabled="true">select value</option>
+                                <option value="" ng-if="false"></option>
+                                </select>-->
+                            <!--   <pre>{{select.sinvalue}}{{select}}{{key+1}}</pre> -->
+                            <div ng-if="page.type == 'put'">
+                                <select ng-if="select.attr_mode != 'multiple'" 
+                                        ng-model="select.sinvalue" 
+                                        class="form-control"
+                                        ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" 
+                                        ng-change="generatebox(select.sinvalue, select, key + 1)" 
+                                        ng-focus="select.err = false;">
+                                    <option value="" ng-hide="true" hidden>Select</option>
+                                    <option value="" ng-if="false"></option>
+                                </select>
+                                <select ng-if="select.attr_mode == 'multiple'" 
+                                        ng-model="select.mulvalue" 
+                                        class="form-control" 
+                                        id="vallll" 
+                                        ng-options="value.id as value.attribute_value  for value in select.attributesValuesList" 
+                                        ng-change="generatebox(select.mulvalue, select, key + 1)" 
+                                        ng-focus="select.err = false;" 
+                                        multiple
+                                        style="height: 80px !important;">
+                                    <option value="" ng-hide="true" hidden>Select</option>
+                                    <option value="" ng-if="false"></option>
+                                </select>
+                            </div>
+                            <div ng-class=" (select.other_text == true) ? 'has-error1' : 'has-primary'">
+                                <input type="text" ng-if="page.type == 'put'" name="color1" ng-model="select.text" id="color" ng-show="select.hide == 1"  ng-focus="select.other_text = false;" />
+                                <input type="text" name="color1" ng-model="select.attri_value" id="color" style='display:none' />
+                                <div>
+                                    <span class="text-danger ng-hide" ng-if="page.type == 'put'" ng-show="select.other_text">Please enter value</span> 
+                                </div>
+                            </div>
+                            <span class="text-danger" ng-show="select.err">Please select value</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xs-2">
+                <div class=" text-right noPad"
+                     ng-class="{'col-xs-2': multiSelBlocks.length > 1, 'col-xs-1': multiSelBlocks.length == 1}">
                     <div class="pad5 pad20-top mar5-top">
                         <button type="button" class="btn btn-default btn-circle buttonBg" ng-click="incrementBlock2(select, key, select.sinvalue)" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-plus" style="font-size: 12px;left: 1px;"></i></button>
                         <button type="button" class="btn btn-default btn-circle deleteButton" ng-show="multiSelBlocks.length > 1" ng-click="decrementBlock2($index, select)" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-trash"></i></button>
@@ -357,8 +388,8 @@
                         <input type="hidden" class="form-control" name="img.id" ng-model="img.id">
                     </div>
                 </div>
-                <div class="col-sm-7 noPad">
-                    <div class="mar10-right">
+                <div class="col-sm-8 noPad">
+                    <div class="noPad">
                         <label class="labelName" for="value">
                             Vimeo/Youtube video
                             <!--<br> {{videoList | json}}-->
@@ -379,10 +410,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-xs-1 text-right noPad">
                     <div class="pad5 pad10-top">
                         <button type="button" class="btn btn-default btn-circle roundButtonBg buttonBg" ng-click="addVideo()" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-plus" style="font-size: 12px;left: 1px;"></i></button>
-                        <button type="button" class="btn btn-default btn-circle deleteButton" ng-show="multiSelBlocks.length > 1" ng-click="removeVideo($index, video)" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-trash"></i></button>
+                        <!--<button type="button" class="btn btn-default btn-circle deleteButton" ng-show="multiSelBlocks.length > 1" ng-click="removeVideo($index, video)" style="border-radius: 22px;position:relative;top: 23px;"><i class="glyphicon glyphicon-trash"></i></button>-->
                     </div>
                 </div>
                 <!--            <fieldset class="scheduler-border1">

@@ -1,0 +1,44 @@
+<div>
+    <div class="col-md-6 col-sm-6 col-xs-6 pad10">
+        <label class="labelName">
+            Booking Start Date &amp; Time
+        </label>
+        <span class="dateTimePickerHolder startFrom">
+            <input ng-flatpickr 
+                   fp-opts="dateOptsStart" 
+                   fp-on-setup="getEventStart(fpItem, $index, 'from')" 
+                   ng-model="calendarEvent.scheduledEvent[rowid].fromDate" 
+                   data-eleIndex ='{{rowid}}'
+                   data-eleType ='from'
+                   class="form-control form-margin datePickerEle ele{{rowid}} from">
+            <input type="text" 
+                   class="form-control form-margin datePickerEle ele{{rowid}} startFromTime"
+                   ng-model="calendarEvent.scheduledEvent[rowid].fromTime">
+        </span>
+        {{calendarEvent.scheduledEvent[rowid].startFromDate| json}}
+        <div class="text-danger" id="EventFromDateMsg" ng-hide="calendarEvent.scheduledEvent[rowid].fromDate" ng-if="calendarEvent.scheduledEvent[rowid].fromDateErrorMsg">
+            {{calendarEvent.scheduledEvent[rowid].fromDateErrorMsg}}
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 pad10" >
+        <label class="labelName">
+            Booking End Date &amp; Time
+        </label>
+        <span class="dateTimePickerHolder endTo">
+            {{calendarEvent.scheduledEvent[rowid].toDate| json}}
+            <input ng-flatpickr 
+                   fp-opts="dateOptsEnd" 
+                   fp-on-setup="getEventEnd(fpItem, $index, 'to')"  
+                   ng-model="calendarEvent.scheduledEvent[rowid].toDate" 
+                   data-eleIndex ='{{rowid}}'
+                   data-eleType ='to'
+                   class="form-control form-margin datePickerEle ele{{rowid}} to">
+            <input type="text" 
+                   class="form-control form-margin datePickerEle ele{{rowid}} endToTime"
+                   ng-model="calendarEvent.scheduledEvent[rowid].toTime">
+        </span>
+        <div class="text-danger" id="EventToDateMsg" ng-hide="calendarEvent.scheduledEvent[rowid].toDate" ng-if="calendarEvent.scheduledEvent[rowid].toDateErrorMsg">
+            {{calendarEvent.scheduledEvent[rowid].toDateErrorMsg}}
+        </div>
+    </div>
+</div>

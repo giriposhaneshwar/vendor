@@ -27,6 +27,43 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
         location.reload();
 //        console.log("localStorage.clear();", localStorage);
     }
+    $scope.oneAtATime = true;
+    $scope.status = {
+        "isCustomHeaderOpen": false,
+        "isHeadingOpen": false,
+        "isProductHeaderOpen": false,
+        "isRequestHeaderOpen": false,
+        "isMessageHeaderOpen": false,
+        "isTeamHeaderOpen": false,
+        "isLocationHeaderOpen": false
+    };
+    $scope.dropdown = function (type) {
+        if (type === 'Dashboard' || type === 'MyPayments' || type === 'MyCalendar' || type === 'MyPayments' || type === 'Account' || type === 'BusinessInfo' || type === 'BankDetails' || type === 'Subscription') {
+            $scope.status = {
+                "isCustomHeaderOpen": false,
+                "isHeadingOpen": false,
+                "isProductHeaderOpen": false,
+                "isRequestHeaderOpen": false,
+                "isMessageHeaderOpen": false,
+                "isTeamHeaderOpen": false,
+                "isLocationHeaderOpen": false
+            };
+        } else if (type == 'MyBookings') {
+            $window.location.href = "#/myBookings/all/";
+        } else if (type == 'MyAvailability') {
+            $window.location.href = "#/calendar/AvailabilityTiming";
+        } else if (type == 'MyProducts') {
+            $window.location.href = "#/product_service_catalog/Products";
+        } else if (type == 'MyCustomRequests') {
+            $state.go("customRequests.all");
+        } else if (type == 'MyMessages') {
+            $window.location.href = "#/myMessages";
+        } else if (type == 'MyTeams') {
+            $window.location.href = "#/teams";
+        } else if (type == 'Location') {
+            $window.location.href = "#/vendorSettings/Location";
+        }
+    };
 
     $scope.init = function () {
         $rootScope.state_change($location.path());
@@ -67,8 +104,34 @@ app.controller('mainCtrl', function ($scope, $rootScope, request, ctrlComm, $uib
     }
 
     console.log("AppController - $scope.admin", $scope.admin);
+    $scope.replaceLandingCategoryWithHyphen = function (text) {
+        var URL = request.setup.protocol + "://" + request.setup.host + request.setup.customer_portal;
+        text = text.replace(/\//g, "").toLowerCase().replace(/ /g, "-").replace(/\'/g, "-");
+        var text = URL + "/images/landing-icons/" + text + "_black.png";
+        console.log("myBookingsCtrl - replaceLandingCategoryWithHyphen - ", text);
+        return text;
+    }
+    $scope.replaceProductCategoryWithHyphen = function (product) {
 
-
+        var subCategoryName = "";
+        if (product.attributes) {
+            for (var i = 0; i < product.attributes.length; i++) {
+                if (product.attributes[i].attribute_name == "Sub Category")
+                {
+                    subCategoryName = product.attributes[i].attribute_value;
+                    break;
+                }
+            }
+        }
+        var returnText = product.category_name;
+        if (subCategoryName != "")
+            returnText = subCategoryName;
+        console.log("returnText", returnText);
+        var URL = request.setup.protocol + "://" + request.setup.host + request.setup.customer_portal;
+        returnText = returnText.replace(/\//g, "").toLowerCase().replace(/ /g, "-").replace(/\'/g, "-");
+        returnText = URL + "/images/category-icons/" + returnText + ".png";
+        return returnText;
+    };
     $scope.verifyMail = function (request1) {
         console.log("rrrr", request1)
         console.log("in verifyMail");
@@ -598,39 +661,39 @@ app.controller('saveConfirmCtrl', function ($scope, $uibModalInstance, data) {
 
 
 app.directive('teamPhone', [function () {
-    return {
-        restrict: 'A',
-        link: function (scope, elm, attr, ctrl) {
-            var maxlength = -1;
-            attr.$observe('teamPhone', function (value) {
-                maxlength = value;
-            });
-            elm.bind('keypress', function (event) {
-                if (event.charCode) {
-                    if((elm[0].value.indexOf('+1')!=-1) && event.charCode ==43){
-                        event.preventDefault();
-                        event.stopPropagation();
+        return {
+            restrict: 'A',
+            link: function (scope, elm, attr, ctrl) {
+                var maxlength = -1;
+                attr.$observe('teamPhone', function (value) {
+                    maxlength = value;
+                });
+                elm.bind('keypress', function (event) {
+                    if (event.charCode) {
+                        if ((elm[0].value.indexOf('+1') != -1) && event.charCode == 43) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        if ((event.charCode < 48 || event.charCode > 57) && (event.charCode != 43)) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        if (elm[0].value.length > maxlength - 1) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
                     }
-                    if ((event.charCode < 48 || event.charCode > 57) && (event.charCode !=43)) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    if (elm[0].value.length > maxlength - 1) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                }
-            });
-            elm.bind("keyup",function(e) {
-                elm[0].value = (elm[0].value===''||elm[0].value==='+') ? '+1' : elm[0].value;
-            });
-            elm.bind("cut copy paste",function(e) {
-                e.preventDefault();
-            });
-            elm.bind('focus',function(event){
-                elm[0].value = elm[0].value ? elm[0].value : '+1'
-            });
-        }
-    };
-}]);
+                });
+                elm.bind("keyup", function (e) {
+                    elm[0].value = (elm[0].value === '' || elm[0].value === '+') ? '+1' : elm[0].value;
+                });
+                elm.bind("cut copy paste", function (e) {
+                    e.preventDefault();
+                });
+                elm.bind('focus', function (event) {
+                    elm[0].value = elm[0].value ? elm[0].value : '+1'
+                });
+            }
+        };
+    }]);
 
